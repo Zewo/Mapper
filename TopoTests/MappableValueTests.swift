@@ -1,6 +1,6 @@
 //
-//  TopoTests.swift
-//  TopoTests
+//  MappableValueTests.swift
+//  Topo
 //
 //  Created by Oleg Dreyman on 27.03.16.
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
@@ -9,8 +9,8 @@
 import XCTest
 @testable import Topo
 
-class TopoTests: XCTestCase {
-    
+class MappableValueTests: XCTestCase {
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -20,33 +20,36 @@ class TopoTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
-    func testArrays() {
+
+    func testNestedMappable() {
         struct Test: Mappable {
-            var ints: [Int]
+            let nest: Nested
             init(map: Mapper) throws {
-                try self.ints = map.fromArray("ints")
+                try self.nest = map.from("nest")
+            }
+        }
+        
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
             }
         }
         
         let interchangeData: InterchangeData = [
-            "ints": [1, 5, 7, 9, 11]
+            "nest": ["string": InterchangeData.from("hello")]
         ]
-        print(interchangeData)
         let test = try! Test(map: Mapper(interchangeData: interchangeData))
-        XCTAssertEqual(test.ints, [1, 5, 7, 9, 11])
+        XCTAssertTrue(test.nest.string == "hello")
     }
     
+    func testArrayOfMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+    }
+
 }

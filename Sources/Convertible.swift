@@ -6,10 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import Foundation
-#if os(Linux)
-    import InterchangeData
-#endif
+import InterchangeData
 
 public protocol Convertible {
     static func from(customInterchangeData value: InterchangeData) -> Self?

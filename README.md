@@ -1,3 +1,4 @@
+![Topo](Resources/Topo-logo.jpg)
 # Topo
 [![Zewo 0.4][zewo-badge]](http://zewo.io)
 [![Swift 3][swift-badge]](https://swift.org)

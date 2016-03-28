@@ -12,7 +12,8 @@ import Foundation
 #endif
 
 public protocol Convertible {
-    static func from(customInterchangeData value: InterchangeData) -> Self?
+    associatedtype ConvertedTo = Self
+    static func from(customInterchangeData value: InterchangeData) -> ConvertedTo?
 }
 
 public enum ConvertibleError: ErrorProtocol {

@@ -17,6 +17,7 @@ public final class Mapper {
     public enum Error: ErrorType {
         case CantInitFromRawValue
         case NoInterchangeData(key: String)
+        case RawIntNotSupported
     }
     
     public init(interchangeData: InterchangeData) {
@@ -44,6 +45,9 @@ extension Mapper {
     }
     
     public func from<T: RawRepresentable>(key: String) throws -> T {
+        guard T.self != Int.self else {
+            throw Error.RawIntNotSupported
+        }
         let rawValue: T.RawValue = try interchangeData.get(key)
         if let value = T(rawValue: rawValue) {
             return value
@@ -90,6 +94,9 @@ extension Mapper {
     }
     
     public func fromArray<T: RawRepresentable>(key: String) throws -> [T] {
+        guard T.self != Int.self else {
+            throw Error.RawIntNotSupported
+        }
         let inter: [InterchangeData] = try interchangeData.get(key)
         return inter.flatMap {
             do {
@@ -129,6 +136,9 @@ extension Mapper {
     }
     
     public func optionalFrom<T: RawRepresentable>(key: String) -> T? {
+        guard T.self != Int.self else {
+            return nil
+        }
         do {
             let rawValue: T.RawValue = try interchangeData.get(key)
             if let value = T(rawValue: rawValue) {
@@ -183,6 +193,9 @@ extension Mapper {
     }
     
     public func optionalFromArray<T: RawRepresentable>(key: String) -> [T]? {
+        guard T.self != Int.self else {
+            return nil
+        }
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap {

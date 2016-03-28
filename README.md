@@ -121,6 +121,18 @@ let package = Package(
 )
 ```
 
+**Topo** is also available for Zewo 0.3:
+
+```swift
+import PackageDescription
+
+let package = Package(
+    dependencies: [
+        .Package(url: "https://github.com/dreymonde/Topo.git", majorVersion: 0, minor: 3),
+    ]
+)
+```
+
 ## Destination
 Behind **Topo** stands the idea to use the same data structures both on Swift server-side and client-side. **Topo** depends only on Zewo's [InterchangeData][interchange-data-url], so once it will be ported on Apple systems, **Topo** will become available for iOS, OS X, watchOS and tvOS.
 

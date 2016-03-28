@@ -43,6 +43,15 @@ struct Album: Mappable {
 }
 ```
 
+```swift
+struct Album: Mappable {
+    let songs: [String]?
+    init(map: Mapper) throws {
+        songs = map.fromOptionalArray("songs")
+    }
+}
+```
+
 #### Mapping enums
 You can use **Topo** for mapping enums with raw values. Right now you can use only `String` and `Double` as raw value.
 

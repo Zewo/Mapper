@@ -110,6 +110,19 @@ extension Int: Convertible {
 }
 ```
 
+Now you can map `Int` using `from(_:)` just like anything else:
+
+```swift
+struct Generation: Mappable {
+    let number: Int
+    init(map: Mapper) throws {
+        try number = map.from("number")
+    }
+}
+```
+
+Conversion of `Int` is available in **Topo** out of the box.
+
 ## Installation
 - Add `Topo` to your `Package.swift`
 

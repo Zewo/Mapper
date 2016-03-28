@@ -62,3 +62,10 @@ struct Album: Mappable {
         try songs = map.fromArray("songs")
     }
 }
+
+struct Generation: Mappable {
+    let number: Int
+    init(map: Mapper) throws {
+        try number = map.from("number")
+    }
+}

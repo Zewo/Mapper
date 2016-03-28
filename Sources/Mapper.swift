@@ -10,14 +10,14 @@ import Foundation
 #if os(Linux)
     import InterchangeData
 #endif
-    
+
 // MARK: - Main
 public final class Mapper {
     
-    public enum Error: ErrorType {
-        case CantInitFromRawValue
-        case NoInterchangeData(key: String)
-        case RawIntNotSupported
+    public enum Error: ErrorProtocol {
+        case cantInitFromRawValue
+        case noInterchangeData(key: String)
+        case rawIntNotSupported
     }
     
     public init(interchangeData: InterchangeData) {
@@ -41,18 +41,18 @@ extension Mapper {
         if let nested = interchangeData[key] {
             return try unwrap(T.from(customInterchangeData: nested))
         }
-        throw Error.NoInterchangeData(key: key)
+        throw Error.noInterchangeData(key: key)
     }
     
     public func from<T: RawRepresentable>(key: String) throws -> T {
         guard T.self != Int.self else {
-            throw Error.RawIntNotSupported
+            throw Error.rawIntNotSupported
         }
         let rawValue: T.RawValue = try interchangeData.get(key)
         if let value = T(rawValue: rawValue) {
             return value
         }
-        throw Error.CantInitFromRawValue
+        throw Error.cantInitFromRawValue
     }
 //    
 //    public func from<T: RawRepresentable where T.RawValue: Convertible>(key: String) throws -> T {
@@ -67,7 +67,7 @@ extension Mapper {
         if let nestedInterchange = interchangeData[key] {
             return try T(map: Mapper(interchangeData: nestedInterchange))
         }
-        throw Error.NoInterchangeData(key: key)
+        throw Error.noInterchangeData(key: key)
     }
     
 }
@@ -95,7 +95,7 @@ extension Mapper {
     
     public func fromArray<T: RawRepresentable>(key: String) throws -> [T] {
         guard T.self != Int.self else {
-            throw Error.RawIntNotSupported
+            throw Error.rawIntNotSupported
         }
         let inter: [InterchangeData] = try interchangeData.get(key)
         return inter.flatMap {
@@ -224,8 +224,8 @@ extension Mapper {
 
 // MARK: - Unwrap
 
-public enum UnwrapError: ErrorType {
-    case TryingToUnwrapNil
+public enum UnwrapError: ErrorProtocol {
+    case tryingToUnwrapNil
 }
 
 extension Mapper {
@@ -234,7 +234,7 @@ extension Mapper {
         if let nonoptional = optional {
             return nonoptional
         }
-        throw UnwrapError.TryingToUnwrapNil
+        throw UnwrapError.tryingToUnwrapNil
     }
     
 }

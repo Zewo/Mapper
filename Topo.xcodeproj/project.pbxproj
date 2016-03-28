@@ -7,18 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BEDB88E41CA9234C00ACF3AC /* OptionalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB88E31CA9234C00ACF3AC /* OptionalValueTests.swift */; };
+		BEA128091CA92A46000F56F2 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA128081CA92A46000F56F2 /* Examples.swift */; };
+		BEDB11861CA9195700C6C955 /* Convertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11851CA9195700C6C955 /* Convertible.swift */; };
+		BEDB11971CA91A8F00C6C955 /* AsyncStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11891CA91A8F00C6C955 /* AsyncStream.swift */; };
+		BEDB11981CA91A8F00C6C955 /* AsyncStreamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB118A1CA91A8F00C6C955 /* AsyncStreamClient.swift */; };
+		BEDB11991CA91A8F00C6C955 /* AsyncStreamServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB118B1CA91A8F00C6C955 /* AsyncStreamServer.swift */; };
+		BEDB119A1CA91A8F00C6C955 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB118C1CA91A8F00C6C955 /* Byte.swift */; };
+		BEDB119B1CA91A8F00C6C955 /* CaseInsensitiveString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB118D1CA91A8F00C6C955 /* CaseInsensitiveString.swift */; };
+		BEDB119C1CA91A8F00C6C955 /* CustomDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB118E1CA91A8F00C6C955 /* CustomDataStore.swift */; };
+		BEDB119D1CA91A8F00C6C955 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB118F1CA91A8F00C6C955 /* Data.swift */; };
+		BEDB119E1CA91A8F00C6C955 /* Drain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11901CA91A8F00C6C955 /* Drain.swift */; };
+		BEDB119F1CA91A8F00C6C955 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11911CA91A8F00C6C955 /* Storage.swift */; };
+		BEDB11A01CA91A8F00C6C955 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11921CA91A8F00C6C955 /* Stream.swift */; };
+		BEDB11A11CA91A8F00C6C955 /* StreamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11931CA91A8F00C6C955 /* StreamClient.swift */; };
+		BEDB11A21CA91A8F00C6C955 /* StreamSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11941CA91A8F00C6C955 /* StreamSequence.swift */; };
+		BEDB11A31CA91A8F00C6C955 /* StreamServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11951CA91A8F00C6C955 /* StreamServer.swift */; };
+		BEDB11A41CA91A8F00C6C955 /* URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB11961CA91A8F00C6C955 /* URI.swift */; };
 		BEF2D8321CA80A7800172582 /* Topo.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF2D8311CA80A7800172582 /* Topo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEF2D8391CA80A7800172582 /* Topo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF2D82E1CA80A7800172582 /* Topo.framework */; };
 		BEF2D83E1CA80A7800172582 /* TopoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D83D1CA80A7800172582 /* TopoTests.swift */; };
-		BEF2D84A1CA80AD600172582 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D8491CA80AD600172582 /* Data.swift */; };
+		BEF2D84A1CA80AD600172582 /* ZData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D8491CA80AD600172582 /* ZData.swift */; };
 		BEF2D84C1CA80ADC00172582 /* InterchangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D84B1CA80ADC00172582 /* InterchangeData.swift */; };
 		BEF2D84E1CA80B6800172582 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D84D1CA80B6800172582 /* Mappable.swift */; };
 		BEF2D8501CA80BFC00172582 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D84F1CA80BFC00172582 /* Mapper.swift */; };
 		BEF2D8561CA8184900172582 /* MappableValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D8551CA8184900172582 /* MappableValueTests.swift */; };
 		BEF2D85C1CA8383C00172582 /* NormalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D85B1CA8383C00172582 /* NormalValueTests.swift */; };
 		BEF2D85E1CA8411100172582 /* RawRepresentableValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D85D1CA8411100172582 /* RawRepresentableValueTests.swift */; };
-		BEF2D8601CA917FC00172582 /* Convertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D85F1CA917FC00172582 /* Convertible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,21 +46,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BEDB88E31CA9234C00ACF3AC /* OptionalValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalValueTests.swift; sourceTree = "<group>"; };
+		BEA128081CA92A46000F56F2 /* Examples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
+		BEDB11851CA9195700C6C955 /* Convertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convertible.swift; sourceTree = "<group>"; };
+		BEDB11891CA91A8F00C6C955 /* AsyncStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncStream.swift; sourceTree = "<group>"; };
+		BEDB118A1CA91A8F00C6C955 /* AsyncStreamClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncStreamClient.swift; sourceTree = "<group>"; };
+		BEDB118B1CA91A8F00C6C955 /* AsyncStreamServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncStreamServer.swift; sourceTree = "<group>"; };
+		BEDB118C1CA91A8F00C6C955 /* Byte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
+		BEDB118D1CA91A8F00C6C955 /* CaseInsensitiveString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseInsensitiveString.swift; sourceTree = "<group>"; };
+		BEDB118E1CA91A8F00C6C955 /* CustomDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDataStore.swift; sourceTree = "<group>"; };
+		BEDB118F1CA91A8F00C6C955 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		BEDB11901CA91A8F00C6C955 /* Drain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drain.swift; sourceTree = "<group>"; };
+		BEDB11911CA91A8F00C6C955 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		BEDB11921CA91A8F00C6C955 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		BEDB11931CA91A8F00C6C955 /* StreamClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamClient.swift; sourceTree = "<group>"; };
+		BEDB11941CA91A8F00C6C955 /* StreamSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSequence.swift; sourceTree = "<group>"; };
+		BEDB11951CA91A8F00C6C955 /* StreamServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamServer.swift; sourceTree = "<group>"; };
+		BEDB11961CA91A8F00C6C955 /* URI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URI.swift; sourceTree = "<group>"; };
 		BEF2D82E1CA80A7800172582 /* Topo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Topo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF2D8311CA80A7800172582 /* Topo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Topo.h; sourceTree = "<group>"; };
 		BEF2D8331CA80A7800172582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEF2D8381CA80A7800172582 /* TopoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TopoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF2D83D1CA80A7800172582 /* TopoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopoTests.swift; sourceTree = "<group>"; };
 		BEF2D83F1CA80A7800172582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BEF2D8491CA80AD600172582 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		BEF2D8491CA80AD600172582 /* ZData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZData.swift; sourceTree = "<group>"; };
 		BEF2D84B1CA80ADC00172582 /* InterchangeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterchangeData.swift; sourceTree = "<group>"; };
 		BEF2D84D1CA80B6800172582 /* Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
 		BEF2D84F1CA80BFC00172582 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		BEF2D8551CA8184900172582 /* MappableValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableValueTests.swift; sourceTree = "<group>"; };
 		BEF2D85B1CA8383C00172582 /* NormalValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalValueTests.swift; sourceTree = "<group>"; };
 		BEF2D85D1CA8411100172582 /* RawRepresentableValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawRepresentableValueTests.swift; sourceTree = "<group>"; };
-		BEF2D85F1CA917FC00172582 /* Convertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convertible.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +96,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BEDB11881CA91A3C00C6C955 /* C7 */ = {
+			isa = PBXGroup;
+			children = (
+				BEDB11891CA91A8F00C6C955 /* AsyncStream.swift */,
+				BEDB118A1CA91A8F00C6C955 /* AsyncStreamClient.swift */,
+				BEDB118B1CA91A8F00C6C955 /* AsyncStreamServer.swift */,
+				BEDB118C1CA91A8F00C6C955 /* Byte.swift */,
+				BEDB118D1CA91A8F00C6C955 /* CaseInsensitiveString.swift */,
+				BEDB118E1CA91A8F00C6C955 /* CustomDataStore.swift */,
+				BEDB118F1CA91A8F00C6C955 /* Data.swift */,
+				BEDB11901CA91A8F00C6C955 /* Drain.swift */,
+				BEDB11911CA91A8F00C6C955 /* Storage.swift */,
+				BEDB11921CA91A8F00C6C955 /* Stream.swift */,
+				BEDB11931CA91A8F00C6C955 /* StreamClient.swift */,
+				BEDB11941CA91A8F00C6C955 /* StreamSequence.swift */,
+				BEDB11951CA91A8F00C6C955 /* StreamServer.swift */,
+				BEDB11961CA91A8F00C6C955 /* URI.swift */,
+			);
+			name = C7;
+			sourceTree = "<group>";
+		};
 		BEF2D8241CA80A7800172582 = {
 			isa = PBXGroup;
 			children = (
@@ -92,7 +141,7 @@
 			children = (
 				BEF2D84D1CA80B6800172582 /* Mappable.swift */,
 				BEF2D84F1CA80BFC00172582 /* Mapper.swift */,
-				BEF2D85F1CA917FC00172582 /* Convertible.swift */,
+				BEDB11851CA9195700C6C955 /* Convertible.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -105,7 +154,6 @@
 				BEF2D8551CA8184900172582 /* MappableValueTests.swift */,
 				BEF2D85B1CA8383C00172582 /* NormalValueTests.swift */,
 				BEF2D85D1CA8411100172582 /* RawRepresentableValueTests.swift */,
-				BEDB88E31CA9234C00ACF3AC /* OptionalValueTests.swift */,
 			);
 			path = TopoTests;
 			sourceTree = "<group>";
@@ -113,10 +161,12 @@
 		BEF2D8481CA80A8000172582 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BEF2D8491CA80AD600172582 /* Data.swift */,
+				BEDB11881CA91A3C00C6C955 /* C7 */,
+				BEF2D8491CA80AD600172582 /* ZData.swift */,
 				BEF2D84B1CA80ADC00172582 /* InterchangeData.swift */,
 				BEF2D8311CA80A7800172582 /* Topo.h */,
 				BEF2D8331CA80A7800172582 /* Info.plist */,
+				BEA128081CA92A46000F56F2 /* Examples.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -229,11 +279,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEDB119E1CA91A8F00C6C955 /* Drain.swift in Sources */,
+				BEDB119F1CA91A8F00C6C955 /* Storage.swift in Sources */,
+				BEDB119A1CA91A8F00C6C955 /* Byte.swift in Sources */,
 				BEF2D8501CA80BFC00172582 /* Mapper.swift in Sources */,
+				BEDB11A01CA91A8F00C6C955 /* Stream.swift in Sources */,
 				BEF2D84C1CA80ADC00172582 /* InterchangeData.swift in Sources */,
+				BEDB11A41CA91A8F00C6C955 /* URI.swift in Sources */,
+				BEDB11971CA91A8F00C6C955 /* AsyncStream.swift in Sources */,
+				BEA128091CA92A46000F56F2 /* Examples.swift in Sources */,
+				BEDB11991CA91A8F00C6C955 /* AsyncStreamServer.swift in Sources */,
+				BEDB11A31CA91A8F00C6C955 /* StreamServer.swift in Sources */,
+				BEDB11A11CA91A8F00C6C955 /* StreamClient.swift in Sources */,
+				BEDB119C1CA91A8F00C6C955 /* CustomDataStore.swift in Sources */,
+				BEDB11A21CA91A8F00C6C955 /* StreamSequence.swift in Sources */,
 				BEF2D84E1CA80B6800172582 /* Mappable.swift in Sources */,
-				BEF2D84A1CA80AD600172582 /* Data.swift in Sources */,
-				BEF2D8601CA917FC00172582 /* Convertible.swift in Sources */,
+				BEDB119D1CA91A8F00C6C955 /* Data.swift in Sources */,
+				BEDB119B1CA91A8F00C6C955 /* CaseInsensitiveString.swift in Sources */,
+				BEF2D84A1CA80AD600172582 /* ZData.swift in Sources */,
+				BEDB11861CA9195700C6C955 /* Convertible.swift in Sources */,
+				BEDB11981CA91A8F00C6C955 /* AsyncStreamClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +306,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEDB88E41CA9234C00ACF3AC /* OptionalValueTests.swift in Sources */,
 				BEF2D83E1CA80A7800172582 /* TopoTests.swift in Sources */,
 				BEF2D85C1CA8383C00172582 /* NormalValueTests.swift in Sources */,
 				BEF2D85E1CA8411100172582 /* RawRepresentableValueTests.swift in Sources */,

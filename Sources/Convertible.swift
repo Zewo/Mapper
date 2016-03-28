@@ -27,14 +27,3 @@ extension Int: Convertible {
         }
     }
 }
-
-// extension NSDate: Convertible {
-//     public static func from(customInterchangeData value: InterchangeData) -> NSDate? {
-//         switch value {
-//         case .numberValue(let number):
-//             return NSDate(timeIntervalSince1970: number)
-//         default:
-//             return nil
-//         }
-//     }
-// }

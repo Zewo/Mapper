@@ -60,7 +60,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = map.from("value")
             }
         }
-        let test = try? Test(map: Mapper(interchangeData: .NullValue))
+        let test = try? Test(map: Mapper(interchangeData: .nullValue))
         XCTAssertNil(test)
     }
     
@@ -74,7 +74,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.value = map.optionalFrom("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: .NullValue))
+        let test = try! Test(map: Mapper(interchangeData: .nullValue))
         XCTAssertNil(test.value)
     }
     
@@ -108,7 +108,7 @@ class RawRepresentableValueTests: XCTestCase {
     
     func testRawRepresentableArray() {
         enum Barney: String {
-            case Stinson, Awesome, Legendary
+            case stinson, awesome, legendary
         }
         struct Test: Mappable {
             let barneys: [Barney]
@@ -116,14 +116,14 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.barneys = map.fromArray("barneys")
             }
         }
-        let barneysContent: InterchangeData = ["barneys": ["Legendary", "Stinson", "Awesome"]]
+        let barneysContent: InterchangeData = ["barneys": ["legendary", "stinson", "awesome"]]
         let test = try! Test(map: Mapper(interchangeData: barneysContent))
-        XCTAssertEqual(test.barneys, [Barney.Legendary, Barney.Stinson, Barney.Awesome])
+        XCTAssertEqual(test.barneys, [Barney.legendary, Barney.stinson, Barney.awesome])
     }
     
     func testRawRepresentablePartialArray() {
         enum Barney: String {
-            case Stinson, Awesome, Legendary
+            case stinson, awesome, legendary
         }
         struct Test: Mappable {
             let barneys: [Barney]
@@ -131,14 +131,14 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.barneys = map.fromArray("barneys")
             }
         }
-        let barneysContent: InterchangeData = ["barneys": ["Legendary", "Stinson", "Captain"]]
+        let barneysContent: InterchangeData = ["barneys": ["legendary", "stinson", "captain"]]
         let test = try! Test(map: Mapper(interchangeData: barneysContent))
-        XCTAssertEqual(test.barneys, [Barney.Legendary, Barney.Stinson])
+        XCTAssertEqual(test.barneys, [Barney.legendary, Barney.stinson])
     }
     
     func testRawRepresentableOptionalArray() {
         enum Barney: String {
-            case Stinson, Awesome, Legendary
+            case stinson, awesome, legendary
         }
         struct Test: Mappable {
             let barneys: [Barney]?
@@ -146,13 +146,13 @@ class RawRepresentableValueTests: XCTestCase {
                 self.barneys = map.optionalFromArray("barneys")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: .NullValue))
+        let test = try! Test(map: Mapper(interchangeData: .nullValue))
         XCTAssertNil(test.barneys)
     }
     
     func testRawRepresentableExistingOptionalArray() {
         enum Barney: String {
-            case Stinson, Awesome, Legendary
+            case stinson, awesome, legendary
         }
         struct Test: Mappable {
             let barneys: [Barney]?
@@ -160,9 +160,9 @@ class RawRepresentableValueTests: XCTestCase {
                 self.barneys = map.optionalFromArray("barneys")
             }
         }
-        let barneysContent: InterchangeData = ["barneys": ["Legendary", "Stinson", "Awesome"]]
+        let barneysContent: InterchangeData = ["barneys": ["legendary", "stinson", "awesome"]]
         let test = try! Test(map: Mapper(interchangeData: barneysContent))
-        XCTAssertEqual(test.barneys!, [Barney.Legendary, Barney.Stinson, Barney.Awesome])
+        XCTAssertEqual(test.barneys!, [Barney.legendary, Barney.stinson, Barney.awesome])
     }
 
 }

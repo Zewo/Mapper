@@ -124,7 +124,7 @@ Although, it is possible to have another version of **Topo** which is fully comp
 
 
 ### See also
-[Resource][resource-url] by @paulofaria, which provides RESTful resources for Zewo's Router.
+[Resource][resource-url], which provides RESTful resources for Zewo's Router.
 
 ## Contributing
 **Topo** is in very early stage. If you want to contribute or to propose a change - you are very welcome. Almost anything can be questioned. Open an issue or submit a pull request if you have an idea.

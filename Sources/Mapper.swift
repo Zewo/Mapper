@@ -86,6 +86,9 @@ extension Mapper {
     }
     
     public func fromArray<T: RawRepresentable>(key: String) throws -> [T] {
+        guard T.self != Int.self else {
+            throw Error.rawIntNotSupported
+        }
         let inter: [InterchangeData] = try interchangeData.get(key)
         return inter.flatMap {
             do {
@@ -124,8 +127,15 @@ extension Mapper {
     }
     
     public func optionalFrom<T: RawRepresentable>(key: String) -> T? {
+        guard T.self != Int.self else {
+            return nil
+        }
         do {
-            return try from(key)
+            let rawValue: T.RawValue = try interchangeData.get(key)
+            if let value = T(rawValue: rawValue) {
+                return value
+            }
+            return nil
         } catch {
             return nil
         }
@@ -133,7 +143,10 @@ extension Mapper {
     
     public func optionalFrom<T: Mappable>(key: String) -> T? {
         do {
-            return try from(key)
+            if let nestedInterchange = interchangeData[key] {
+                return try T(map: Mapper(interchangeData: nestedInterchange))
+            }
+            return nil
         } catch {
             return nil
         }
@@ -171,6 +184,9 @@ extension Mapper {
     }
     
     public func optionalFromArray<T: RawRepresentable>(key: String) -> [T]? {
+        guard T.self != Int.self else {
+            return nil
+        }
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap {
@@ -205,7 +221,7 @@ public enum UnwrapError: ErrorProtocol {
 
 extension Mapper {
     
-    internal func unwrap<T>(optional: T?) throws -> T {
+    private func unwrap<T>(optional: T?) throws -> T {
         if let nonoptional = optional {
             return nonoptional
         }

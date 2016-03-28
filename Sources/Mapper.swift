@@ -7,8 +7,10 @@
 //
 
 import Foundation
-import InterchangeData
-
+#if os(Linux)
+    import InterchangeData
+#endif
+    
 // MARK: - Main
 public final class Mapper {
     

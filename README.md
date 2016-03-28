@@ -1,6 +1,8 @@
 # Topo
 [![Zewo 0.4][zewo-badge]](http://zewo.io)
 [![Swift 3][swift-badge]](https://swift.org)
+[![Platform Linux][platforms-badge]](https://swift.org)
+[![License MIT][mit-badge]](https://tldrlegal.com/license/mit-license)
 
 **Topo** is a tiny and simple library which allows you to convert Zewo's `InterchangeData` to strongly typed objects. Deeply inspired by Lyft's [Mapper][mapper-url].
 
@@ -165,3 +167,5 @@ Join us on [Slack](http://slack.zewo.io).
 [interchange-data-url]: https://github.com/Zewo/InterchangeData
 [resource-url]: https://github.com/paulofaria/Resource
 [cont-neg-mid-url]: https://github.com/Zewo/ContentNegotiationMiddleware
+[mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat
+[platforms-badge]: https://img.shields.io/badge/Platform-Linux-lightgray.svg?style=flat

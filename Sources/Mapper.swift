@@ -12,9 +12,9 @@ import InterchangeData
 // MARK: - Main
 public final class Mapper {
     
-    public enum Error: ErrorType {
-        case CantInitFromRawValue
-        case NoInterchangeData(key: String)
+    public enum Error: ErrorProtocol {
+        case cantInitFromRawValue
+        case noInterchangeData(key: String)
     }
     
     public init(interchangeData: InterchangeData) {
@@ -38,7 +38,7 @@ extension Mapper {
         if let nested = interchangeData[key] {
             return try unwrap(T.fromCustomInterchangeData(nested))
         }
-        throw Error.NoInterchangeData(key: key)
+        throw Error.noInterchangeData(key: key)
     }
     
     public func from<T: RawRepresentable>(key: String) throws -> T {
@@ -46,7 +46,7 @@ extension Mapper {
         if let value = T(rawValue: rawValue) {
             return value
         }
-        throw Error.CantInitFromRawValue
+        throw Error.cantInitFromRawValue
     }
     
     public func from<T: RawRepresentable where T.RawValue: Convertible>(key: String) throws -> T {
@@ -54,14 +54,14 @@ extension Mapper {
         if let value = T(rawValue: rawValue) {
             return value
         }
-        throw Error.CantInitFromRawValue
+        throw Error.cantInitFromRawValue
     }
     
     public func from<T: Mappable>(key: String) throws -> T {
         if let nestedInterchange = interchangeData[key] {
             return try T(map: Mapper(interchangeData: nestedInterchange))
         }
-        throw Error.NoInterchangeData(key: key)
+        throw Error.noInterchangeData(key: key)
     }
     
 }
@@ -201,8 +201,8 @@ extension Mapper {
 
 // MARK: - Unwrap
 
-public enum UnwrapError: ErrorType {
-    case TryingToUnwrapNil
+public enum UnwrapError: ErrorProtocol {
+    case tryingToUnwrapNil
 }
 
 extension Mapper {
@@ -211,7 +211,7 @@ extension Mapper {
         if let nonoptional = optional {
             return nonoptional
         }
-        throw UnwrapError.TryingToUnwrapNil
+        throw UnwrapError.tryingToUnwrapNil
     }
     
 }

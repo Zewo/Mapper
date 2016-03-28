@@ -15,14 +15,14 @@ public protocol Convertible {
     static func fromCustomInterchangeData(value: InterchangeData) -> Self?
 }
 
-public enum ConvertibleError: ErrorType {
-    case CantBindToNeededType
+public enum ConvertibleError: ErrorProtocol {
+    case cantBindToNeededType
 }
 
 extension Int: Convertible {
     public static func fromCustomInterchangeData(value: InterchangeData) -> Int? {
         switch value {
-        case .NumberValue(let number):
+        case .numberValue(let number):
             return Int(number)
         default:
             return nil

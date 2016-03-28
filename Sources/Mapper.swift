@@ -15,6 +15,7 @@ public final class Mapper {
     public enum Error: ErrorProtocol {
         case cantInitFromRawValue
         case noInterchangeData(key: String)
+        case rawIntNotSupported
     }
     
     public init(interchangeData: InterchangeData) {
@@ -42,6 +43,9 @@ extension Mapper {
     }
     
     public func from<T: RawRepresentable>(key: String) throws -> T {
+        guard T.self != Int.self else {
+            throw Error.rawIntNotSupported
+        }
         let rawValue: T.RawValue = try interchangeData.get(key)
         if let value = T(rawValue: rawValue) {
             return value
@@ -49,13 +53,13 @@ extension Mapper {
         throw Error.cantInitFromRawValue
     }
     
-    public func from<T: RawRepresentable where T.RawValue: Convertible>(key: String) throws -> T {
-        let rawValue: T.RawValue = try unwrap(interchangeData[key].flatMap(T.RawValue.fromCustomInterchangeData))
-        if let value = T(rawValue: rawValue) {
-            return value
-        }
-        throw Error.cantInitFromRawValue
-    }
+    // public func from<T: RawRepresentable where T.RawValue: Convertible>(key: String) throws -> T {
+    //     let rawValue: T.RawValue = try unwrap(interchangeData[key].flatMap(T.RawValue.fromCustomInterchangeData))
+    //     if let value = T(rawValue: rawValue) {
+    //         return value
+    //     }
+    //     throw Error.cantInitFromRawValue
+    // }
     
     public func from<T: Mappable>(key: String) throws -> T {
         if let nestedInterchange = interchangeData[key] {
@@ -214,4 +218,17 @@ extension Mapper {
         throw UnwrapError.tryingToUnwrapNil
     }
     
+}
+
+func testRawRepresentableNumber() {
+    enum Value: Int {
+        case first = 1
+    }
+    struct Test: Mappable {
+        let value: Value
+        init(map: Mapper) throws {
+            try self.value = map.from("value")
+        }
+    }
+    let _ = try! Test(map: Mapper(interchangeData: ["value": 1]))
 }

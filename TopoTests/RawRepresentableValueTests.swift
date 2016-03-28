@@ -37,8 +37,8 @@ class RawRepresentableValueTests: XCTestCase {
     }
     
     func testRawRepresentableNumber() {
-        enum Value: String {
-            case first
+        enum Value: Double {
+            case first = 1.0
         }
         struct Test: Mappable {
             let value: Value
@@ -46,7 +46,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = map.from("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["value": "first"]))
+        let test = try! Test(map: Mapper(interchangeData: ["value": 1.0]))
         XCTAssertEqual(test.value, Value.first)
     }
 

@@ -9,7 +9,8 @@
 import InterchangeData
 
 public protocol Convertible {
-    static func from(customInterchangeData value: InterchangeData) -> Self?
+    associatedtype ConvertedTo = Self
+    static func from(customInterchangeData value: InterchangeData) -> ConvertedTo?
 }
 
 public enum ConvertibleError: ErrorProtocol {
@@ -26,3 +27,14 @@ extension Int: Convertible {
         }
     }
 }
+
+// extension NSDate: Convertible {
+//     public static func from(customInterchangeData value: InterchangeData) -> NSDate? {
+//         switch value {
+//         case .numberValue(let number):
+//             return NSDate(timeIntervalSince1970: number)
+//         default:
+//             return nil
+//         }
+//     }
+// }

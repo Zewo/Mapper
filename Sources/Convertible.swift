@@ -7,12 +7,9 @@
 //
 
 import Foundation
-
-public protocol InterchangeDataCore {
-    
-}
-
-extension Double: InterchangeDataCore { }
+#if os(Linux)
+    import InterchangeData
+#endif
 
 public protocol Convertible {
     static func fromCustomInterchangeData(value: InterchangeData) -> Self?

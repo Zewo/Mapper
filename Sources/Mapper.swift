@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import InterchangeData
 
 // MARK: - Main
 public final class Mapper {

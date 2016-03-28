@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEDB88E41CA9234C00ACF3AC /* OptionalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB88E31CA9234C00ACF3AC /* OptionalValueTests.swift */; };
 		BEF2D8321CA80A7800172582 /* Topo.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF2D8311CA80A7800172582 /* Topo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEF2D8391CA80A7800172582 /* Topo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF2D82E1CA80A7800172582 /* Topo.framework */; };
 		BEF2D83E1CA80A7800172582 /* TopoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2D83D1CA80A7800172582 /* TopoTests.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BEDB88E31CA9234C00ACF3AC /* OptionalValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalValueTests.swift; sourceTree = "<group>"; };
 		BEF2D82E1CA80A7800172582 /* Topo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Topo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF2D8311CA80A7800172582 /* Topo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Topo.h; sourceTree = "<group>"; };
 		BEF2D8331CA80A7800172582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				BEF2D8551CA8184900172582 /* MappableValueTests.swift */,
 				BEF2D85B1CA8383C00172582 /* NormalValueTests.swift */,
 				BEF2D85D1CA8411100172582 /* RawRepresentableValueTests.swift */,
+				BEDB88E31CA9234C00ACF3AC /* OptionalValueTests.swift */,
 			);
 			path = TopoTests;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEDB88E41CA9234C00ACF3AC /* OptionalValueTests.swift in Sources */,
 				BEF2D83E1CA80A7800172582 /* TopoTests.swift in Sources */,
 				BEF2D85C1CA8383C00172582 /* NormalValueTests.swift in Sources */,
 				BEF2D85E1CA8411100172582 /* RawRepresentableValueTests.swift in Sources */,

@@ -50,6 +50,15 @@ class MappableValueTests: XCTestCase {
                 try self.string = map.from("string")
             }
         }
+        struct Test: Mappable {
+            let nested: [Nested]
+            init(map: Mapper) throws {
+                try self.nested = map.fromArray("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": "fire"], ["string": "sun"]]]))
+        XCTAssertEqual(test.nested.count, 2)
+        XCTAssertEqual(test.nested[1].string, "sun")
     }
 
 }

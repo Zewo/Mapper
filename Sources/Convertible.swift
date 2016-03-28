@@ -12,7 +12,7 @@ import Foundation
 #endif
 
 public protocol Convertible {
-    static func fromCustomInterchangeData(value: InterchangeData) -> Self?
+    static func from(customInterchangeData value: InterchangeData) -> Self?
 }
 
 public enum ConvertibleError: ErrorProtocol {
@@ -20,7 +20,7 @@ public enum ConvertibleError: ErrorProtocol {
 }
 
 extension Int: Convertible {
-    public static func fromCustomInterchangeData(value: InterchangeData) -> Int? {
+    public static func from(customInterchangeData value: InterchangeData) -> Int? {
         switch value {
         case .numberValue(let number):
             return Int(number)

@@ -7,7 +7,9 @@
 //
 
 import Foundation
-import InterchangeData
+#if os(Linux)
+    import InterchangeData
+#endif
 
 // MARK: - Main
 public final class Mapper {
@@ -37,7 +39,7 @@ extension Mapper {
     
     public func from<T: Convertible>(key: String) throws -> T {
         if let nested = interchangeData[key] {
-            return try unwrap(T.fromCustomInterchangeData(nested))
+            return try unwrap(T.from(customInterchangeData: nested))
         }
         throw Error.noInterchangeData(key: key)
     }
@@ -52,14 +54,6 @@ extension Mapper {
         }
         throw Error.cantInitFromRawValue
     }
-    
-    // public func from<T: RawRepresentable where T.RawValue: Convertible>(key: String) throws -> T {
-    //     let rawValue: T.RawValue = try unwrap(interchangeData[key].flatMap(T.RawValue.fromCustomInterchangeData))
-    //     if let value = T(rawValue: rawValue) {
-    //         return value
-    //     }
-    //     throw Error.cantInitFromRawValue
-    // }
     
     public func from<T: Mappable>(key: String) throws -> T {
         if let nestedInterchange = interchangeData[key] {
@@ -88,7 +82,7 @@ extension Mapper {
     
     public func fromArray<T: Convertible>(key: String) throws -> [T] {
         let inter: [InterchangeData] = try interchangeData.get(key)
-        return inter.flatMap({ T.fromCustomInterchangeData($0) })
+        return inter.flatMap({ T.from(customInterchangeData: $0) })
     }
     
     public func fromArray<T: RawRepresentable>(key: String) throws -> [T] {
@@ -124,7 +118,7 @@ extension Mapper {
     
     public func optionalFrom<T: Convertible>(key: String) -> T? {
         if let nested = interchangeData[key] {
-            return T.fromCustomInterchangeData(nested)
+            return T.from(customInterchangeData: nested)
         }
         return nil
     }
@@ -170,7 +164,7 @@ extension Mapper {
     public func optionalFromArray<T: Convertible>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ T.fromCustomInterchangeData($0) })
+            return inter.flatMap({ T.from(customInterchangeData: $0) })
         } catch {
             return nil
         }
@@ -218,17 +212,4 @@ extension Mapper {
         throw UnwrapError.tryingToUnwrapNil
     }
     
-}
-
-func testRawRepresentableNumber() {
-    enum Value: Int {
-        case first = 1
-    }
-    struct Test: Mappable {
-        let value: Value
-        init(map: Mapper) throws {
-            try self.value = map.from("value")
-        }
-    }
-    let _ = try! Test(map: Mapper(interchangeData: ["value": 1]))
 }

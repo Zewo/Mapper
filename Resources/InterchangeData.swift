@@ -37,86 +37,98 @@ public protocol InterchangeDataSerializer {
 }
 
 public enum InterchangeData {
-    case NullValue
-    case BooleanValue(Bool)
-    case NumberValue(Double)
-    case StringValue(String)
-    case ArrayValue([InterchangeData])
-    case ObjectValue([String: InterchangeData])
+    case nullValue
+    case boolValue(Bool)
+    case numberValue(Double)
+    case stringValue(String)
+    case binaryValue(Data)
+    case arrayValue([InterchangeData])
+    case dictionaryValue([String: InterchangeData])
 
-    public enum Error: ErrorType {
-        case IncompatibleType
+    public enum Error: ErrorProtocol {
+        case incompatibleType
     }
 
     public static func from(value: Bool) -> InterchangeData {
-        return .BooleanValue(value)
+        return .boolValue(value)
     }
 
     public static func from(value: Double) -> InterchangeData {
-        return .NumberValue(value)
+        return .numberValue(value)
     }
 
     public static func from(value: Int) -> InterchangeData {
-        return .NumberValue(Double(value))
+        return .numberValue(Double(value))
     }
 
     public static func from(value: String) -> InterchangeData {
-        return .StringValue(value)
+        return .stringValue(value)
+    }
+
+    public static func from(value: Data) -> InterchangeData {
+        return .binaryValue(value)
     }
 
     public static func from(value: [InterchangeData]) -> InterchangeData {
-        return .ArrayValue(value)
+        return .arrayValue(value)
     }
 
     public static func from(value: [String: InterchangeData]) -> InterchangeData {
-        return .ObjectValue(value)
+        return .dictionaryValue(value)
     }
 
-    public var isBoolean: Bool {
+    public var isBool: Bool {
         switch self {
-        case .BooleanValue: return true
+        case .boolValue: return true
         default: return false
         }
     }
 
     public var isNumber: Bool {
         switch self {
-        case .NumberValue: return true
+        case .numberValue: return true
         default: return false
         }
     }
 
     public var isString: Bool {
         switch self {
-        case .StringValue: return true
+        case .stringValue: return true
+        default: return false
+        }
+    }
+
+    public var isBinary: Bool {
+        switch self {
+        case .binaryValue: return true
         default: return false
         }
     }
 
     public var isArray: Bool {
         switch self {
-        case .ArrayValue: return true
+        case .arrayValue: return true
         default: return false
         }
     }
 
-    public var isObject: Bool {
+    public var isDictionary: Bool {
         switch self {
-        case .ObjectValue: return true
+        case .dictionaryValue: return true
         default: return false
         }
     }
 
     public var bool: Bool? {
         switch self {
-        case .BooleanValue(let b): return b
+        case .boolValue(let b): return b
         default: return nil
         }
     }
 
     public var double: Double? {
         switch self {
-        case .NumberValue(let n): return n
+        case .numberValue(let n): return n
         default: return nil
         }
     }
@@ -137,39 +149,48 @@ public enum InterchangeData {
 
     public var string: String? {
         switch self {
-        case .StringValue(let s): return s
+        case .stringValue(let s): return s
+        default: return nil
+        }
+    }
+
+    public var binary: Data? {
+        switch self {
+        case .binaryValue(let d): return d
         default: return nil
         }
     }
 
     public var array: [InterchangeData]? {
         switch self {
-        case .ArrayValue(let array): return array
+        case .arrayValue(let array): return array
         default: return nil
         }
     }
 
     public var dictionary: [String: InterchangeData]? {
         switch self {
-        case .ObjectValue(let dictionary): return dictionary
+        case .dictionaryValue(let dictionary): return dictionary
         default: return nil
         }
     }
 
     public func get<T>() -> T? {
         switch self {
-        case NullValue:
+        case nullValue:
             return nil
-        case BooleanValue(let bool):
+        case boolValue(let bool):
             return bool as? T
-        case NumberValue(let number):
+        case numberValue(let number):
             return number as? T
-        case StringValue(let string):
+        case stringValue(let string):
             return string as? T
-        case ArrayValue(let array):
+        case binaryValue(let binary):
+            return binary as? T
+        case arrayValue(let array):
             return array as? T
-        case ObjectValue(let object):
-            return object as? T
+        case dictionaryValue(let dictionary):
+            return dictionary as? T
         }
     }
 
@@ -178,142 +199,140 @@ public enum InterchangeData {
             return try value.get()
         }
 
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public func get<T>() throws -> T {
-        print(T)
         switch self {
-        case BooleanValue(let bool):
-            if let value = bool as? T {
+        case boolValue(let boolean):
+            if let value = boolean as? T {
                 return value
             }
 
-        case NumberValue(let number):
+        case numberValue(let number):
             if let value = number as? T {
                 return value
             }
-//            if T.self == Int.self {
-//                if let int = Int(number) as? T {
-//                    return int
-//                }
-//            }
-//            if T.self == UInt.self {
-//                if let uint = UInt(number) as? T {
-//                    return uint
-//                }
-//            }
 
-        case StringValue(let string):
+        case stringValue(let string):
             if let value = string as? T {
                 return value
             }
 
-        case ArrayValue(let array):
+        case .binaryValue(let binary):
+            if let value = binary as? T {
+                return value
+            }
+
+        case arrayValue(let array):
             if let value = array as? T {
                 return value
             }
 
-        case ObjectValue(let object):
-            if let value = object as? T {
+        case dictionaryValue(let dictionary):
+            if let value = dictionary as? T {
                 return value
             }
 
         default: break
         }
 
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
-    
+
     public func asBool() throws -> Bool {
-        if let v = bool {
-            return v
+        if let bool = bool {
+            return bool
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public func asDouble() throws -> Double {
-        if let v = double {
-            return v
+        if let double = double {
+            return double
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public func asInt() throws -> Int {
-        if let v = int {
-            return v
+        if let int = int {
+            return int
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public func asUInt() throws -> UInt {
-        if let v = uint {
-            return UInt(v)
+        if let uint = uint {
+            return UInt(uint)
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public func asString() throws -> String {
-        if let v = string {
-            return v
+        if let string = string {
+            return string
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
+    }
+
+    public func asBinary() throws -> Data {
+        if let binary = binary {
+            return binary
+        }
+        throw Error.incompatibleType
     }
 
     public func asArray() throws -> [InterchangeData] {
-        if let v = array {
-            return v
+        if let array = array {
+            return array
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public func asDictionary() throws -> [String: InterchangeData] {
-        if let v = dictionary {
-            return v
+        if let dictionary = dictionary {
+            return dictionary
         }
-        throw Error.IncompatibleType
+        throw Error.incompatibleType
     }
 
     public subscript(index: Int) -> InterchangeData? {
-        set {
+        get {
+            if let array = array where index > 0  && index < array.count {
+                return array[index]
+            }
+            return nil
+        }
+
+        set(interchangeData) {
             switch self {
-            case .ArrayValue(let array):
+            case .arrayValue(let array):
                 var array = array
-                if index < array.count {
-                    if let json = newValue {
-                        array[index] = json
+                if index > 0 && index < array.count {
+                    if let interchangeData = interchangeData {
+                        array[index] = interchangeData
                     } else {
-                        array[index] = .NullValue
+                        array[index] = .nullValue
                     }
-                    self = .ArrayValue(array)
+                    self = .arrayValue(array)
                 }
             default: break
-            }
-        }
-        get {
-            switch self {
-            case .ArrayValue(let array):
-                return index < array.count ? array[index] : nil
-            default: return nil
             }
         }
     }
 
     public subscript(key: String) -> InterchangeData? {
-        set {
-            switch self {
-            case .ObjectValue(let object):
-                var object = object
-                object[key] = newValue
-                self = .ObjectValue(object)
-            default: break
-            }
-        }
         get {
+            return dictionary?[key]
+        }
+
+        set(interchangeData) {
             switch self {
-            case .ObjectValue(let object):
-                return object[key]
-            default: return nil
+            case .dictionaryValue(let dictionary):
+                var dictionary = dictionary
+                dictionary[key] = interchangeData
+                self = .dictionaryValue(dictionary)
+            default: break
             }
         }
     }
@@ -323,34 +342,39 @@ extension InterchangeData: Equatable {}
 
 public func ==(lhs: InterchangeData, rhs: InterchangeData) -> Bool {
     switch lhs {
-    case .NullValue:
+    case .nullValue:
         switch rhs {
-        case .NullValue: return true
+        case .nullValue: return true
         default: return false
         }
-    case .BooleanValue(let lhsValue):
+    case .boolValue(let lhsValue):
         switch rhs {
-        case .BooleanValue(let rhsValue): return lhsValue == rhsValue
+        case .boolValue(let rhsValue): return lhsValue == rhsValue
         default: return false
         }
-    case .StringValue(let lhsValue):
+    case .stringValue(let lhsValue):
         switch rhs {
-        case .StringValue(let rhsValue): return lhsValue == rhsValue
+        case .stringValue(let rhsValue): return lhsValue == rhsValue
         default: return false
         }
-    case .NumberValue(let lhsValue):
+    case .binaryValue(let lhsValue):
         switch rhs {
-        case .NumberValue(let rhsValue): return lhsValue == rhsValue
+        case .binaryValue(let rhsValue): return lhsValue == rhsValue
         default: return false
         }
-    case .ArrayValue(let lhsValue):
+    case .numberValue(let lhsValue):
         switch rhs {
-        case .ArrayValue(let rhsValue): return lhsValue == rhsValue
+        case .numberValue(let rhsValue): return lhsValue == rhsValue
         default: return false
         }
-    case .ObjectValue(let lhsValue):
+    case .arrayValue(let lhsValue):
         switch rhs {
-        case .ObjectValue(let rhsValue): return lhsValue == rhsValue
+        case .arrayValue(let rhsValue): return lhsValue == rhsValue
+        default: return false
+        }
+    case .dictionaryValue(let lhsValue):
+        switch rhs {
+        case .dictionaryValue(let rhsValue): return lhsValue == rhsValue
         default: return false
         }
     }
@@ -358,39 +382,39 @@ public func ==(lhs: InterchangeData, rhs: InterchangeData) -> Bool {
 
 extension InterchangeData: NilLiteralConvertible {
     public init(nilLiteral value: Void) {
-        self = .NullValue
+        self = .nullValue
     }
 }
 
 extension InterchangeData: BooleanLiteralConvertible {
     public init(booleanLiteral value: BooleanLiteralType) {
-        self = .BooleanValue(value)
+        self = .boolValue(value)
     }
 }
 
 extension InterchangeData: IntegerLiteralConvertible {
     public init(integerLiteral value: IntegerLiteralType) {
-        self = .NumberValue(Double(value))
+        self = .numberValue(Double(value))
     }
 }
 
 extension InterchangeData: FloatLiteralConvertible {
     public init(floatLiteral value: FloatLiteralType) {
-        self = .NumberValue(Double(value))
+        self = .numberValue(Double(value))
     }
 }
 
 extension InterchangeData: StringLiteralConvertible {
     public init(unicodeScalarLiteral value: String) {
-        self = .StringValue(value)
+        self = .stringValue(value)
     }
 
     public init(extendedGraphemeClusterLiteral value: String) {
-        self = .StringValue(value)
+        self = .stringValue(value)
     }
 
     public init(stringLiteral value: StringLiteralType) {
-        self = .StringValue(value)
+        self = .stringValue(value)
     }
 }
 
@@ -402,17 +426,17 @@ extension InterchangeData: StringInterpolationConvertible {
             string += s.string!
         }
 
-        self = .StringValue(String(string))
+        self = .stringValue(String(string))
     }
 
     public init<T>(stringInterpolationSegment expr: T) {
-        self = .StringValue(String(expr))
+        self = .stringValue(String(expr))
     }
 }
 
 extension InterchangeData: ArrayLiteralConvertible {
     public init(arrayLiteral elements: InterchangeData...) {
-        self = .ArrayValue(elements)
+        self = .arrayValue(elements)
     }
 }
 
@@ -424,7 +448,7 @@ extension InterchangeData: DictionaryLiteralConvertible {
             dictionary[pair.0] = pair.1
         }
 
-        self = .ObjectValue(dictionary)
+        self = .dictionaryValue(dictionary)
     }
 }
 
@@ -434,12 +458,13 @@ extension InterchangeData: CustomStringConvertible {
 
         func serialize(data: InterchangeData) -> String {
             switch data {
-            case .NullValue: return "null"
-            case .BooleanValue(let b): return b ? "true" : "false"
-            case .NumberValue(let n): return serializeNumber(n)
-            case .StringValue(let s): return escape(s)
-            case .ArrayValue(let a): return serializeArray(a)
-            case .ObjectValue(let o): return serializeObject(o)
+            case .nullValue: return "null"
+            case .boolValue(let b): return b ? "true" : "false"
+            case .numberValue(let n): return serializeNumber(n)
+            case .stringValue(let s): return escape(s)
+            case .binaryValue(let d): return escape(d.hexDescription)
+            case .arrayValue(let a): return serializeArray(a)
+            case .dictionaryValue(let o): return serializeObject(o)
             }
         }
 
@@ -508,13 +533,13 @@ func escape(source: String) -> String {
 
     for c in source.characters {
         if let escapedSymbol = escapeMapping[c] {
-            s.appendContentsOf(escapedSymbol)
+            s.append(escapedSymbol)
         } else {
             s.append(c)
         }
     }
 
-    s.appendContentsOf("\"")
+    s.append("\"")
 
     return s
 }

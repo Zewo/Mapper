@@ -3,6 +3,7 @@
 [![Swift 3][swift-badge]](https://swift.org)
 [![Platform Linux][platforms-badge]](https://swift.org)
 [![License MIT][mit-badge]](https://tldrlegal.com/license/mit-license)
+[![Codebeat][codebeat-badge]](https://codebeat.co/projects/github-com-zewo-interchangedatamapper)
 
 **InterchangeDataMapper** is a tiny and simple library which allows you to convert Zewo's `InterchangeData` to strongly typed objects. Deeply inspired by Lyft's [Mapper][mapper-url].
 
@@ -176,3 +177,4 @@ Join us on [Slack](http://slack.zewo.io).
 [mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat
 [platforms-badge]: https://img.shields.io/badge/Platform-Linux-lightgray.svg?style=flat
 [topo-0.3]: https://github.com/Zewo/Topo/tree/zewo0.3
+[codebeat-badge]: https://codebeat.co/badges/67df5828-b0d3-4d73-a587-3b994d6aaf1f

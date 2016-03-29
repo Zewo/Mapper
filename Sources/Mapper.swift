@@ -52,13 +52,6 @@ extension Mapper {
         throw Error.cantInitFromRawValue
     }
     
-    public func from<T: Mappable>(key: String) throws -> T {
-        if let nestedInterchange = interchangeData[key] {
-            return try T(map: Mapper(interchangeData: nestedInterchange))
-        }
-        throw Error.noInterchangeData(key: key)
-    }
-    
 }
 
 // MARK: - Arrays
@@ -69,10 +62,8 @@ extension Mapper {
         return try interchangeData.flatMapThrough(key) {
             do {
                 let some: T = try $0.get()
-                print("returning")
                 return some
             } catch {
-                print("incorrect")
                 return nil
             }
         }
@@ -95,10 +86,6 @@ extension Mapper {
                 return nil
             }
         }
-    }
-    
-    public func arrayFrom<T: Mappable>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) { T.makeWith(interchangeData: $0) }
     }
     
 }
@@ -136,18 +123,7 @@ extension Mapper {
             return nil
         }
     }
-    
-    public func optionalFrom<T: Mappable>(key: String) -> T? {
-        do {
-            if let nestedInterchange = interchangeData[key] {
-                return try T(map: Mapper(interchangeData: nestedInterchange))
-            }
-            return nil
-        } catch {
-            return nil
-        }
-    }
-    
+
 }
 
 // MARK: - Optional arrays
@@ -193,15 +169,6 @@ extension Mapper {
                     return nil
                 }
             }
-        } catch {
-            return nil
-        }
-    }
-    
-    public func optionalArrayFrom<T: Mappable>(key: String) -> [T]? {
-        do {
-            let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ T.makeWith(interchangeData: $0) })
         } catch {
             return nil
         }

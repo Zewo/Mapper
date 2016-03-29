@@ -65,7 +65,7 @@ extension Mapper {
 
 extension Mapper {
     
-    public func fromArray<T>(key: String) throws -> [T] {
+    public func arrayFrom<T>(key: String) throws -> [T] {
         return try interchangeData.flatMapThrough(key) {
             do {
                 let some: T = try $0.get()
@@ -78,11 +78,11 @@ extension Mapper {
         }
     }
     
-    public func fromArray<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) { T.from(customInterchangeData: $0) }
+    public func arrayFrom<T: Convertible>(key: String) throws -> [T] {
+        return try interchangeData.flatMapThrough(key) { T.(interchangeData: $0) }
     }
     
-    public func fromArray<T: RawRepresentable>(key: String) throws -> [T] {
+    public func arrayFrom<T: RawRepresentable>(key: String) throws -> [T] {
         guard T.self != Int.self else {
             throw Error.rawIntNotSupported
         }
@@ -97,7 +97,7 @@ extension Mapper {
         }
     }
     
-    public func fromArray<T: Mappable>(key: String) throws -> [T] {
+    public func arrayFrom<T: Mappable>(key: String) throws -> [T] {
         return try interchangeData.flatMapThrough(key) { T.from(interchangeData: $0) }
     }
     
@@ -154,7 +154,7 @@ extension Mapper {
 
 extension Mapper {
     
-    public func optionalFromArray<T>(key: String) -> [T]? {
+    public func optionalArrayFrom<T>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap {
@@ -170,7 +170,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFromArray<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap({ T.from(customInterchangeData: $0) })
@@ -179,7 +179,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFromArray<T: RawRepresentable>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: RawRepresentable>(key: String) -> [T]? {
         guard T.self != Int.self else {
             return nil
         }
@@ -198,7 +198,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFromArray<T: Mappable>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: Mappable>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap({ T.from(interchangeData: $0) })

@@ -6,7 +6,8 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+//import InterchangeData
+import Foundation
 
 public protocol InterchangeDataConvertible {
     associatedtype ConvertingTo = Self
@@ -27,5 +28,23 @@ extension Int: InterchangeDataConvertible {
             return nil
         }
     }
+}
+
+public protocol Convertible {
+    init?(interchangeData value: InterchangeData)
+}
+
+extension Int: Convertible {
+    public init?(interchangeData value: InterchangeData) {
+        switch value {
+        case .numberValue(let number):
+            self.init(number)
+        default:
+            return nil
+        }
+    }
+}
+
+extension Convertible where Self: NSDate {
     
 }

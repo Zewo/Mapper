@@ -6,15 +6,15 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+//import InterchangeData
 
-public protocol InterchangeDataMappable {
+public protocol Mappable {
     
     init(map: Mapper) throws
     
 }
 
-extension InterchangeDataMappable {
+extension Mappable {
     
     public static func from(interchangeData interchangeData: InterchangeData) -> Self? {
         do {

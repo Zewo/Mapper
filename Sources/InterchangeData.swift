@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-//import InterchangeData
+import InterchangeData
 
 extension InterchangeData {
     
@@ -24,12 +24,12 @@ extension InterchangeData {
         throw InterchangeData.Error.incompatibleType
     }
     
-    internal func mapThrough<T>(index: Int, @noescape transform: (InterchangeData throws -> T)) throws -> [T] {
-        if let value = self[index] {
-            return try value.mapThrough(transform)
-        }
-        throw InterchangeData.Error.incompatibleType
-    }
+//    internal func mapThrough<T>(index: Int, @noescape transform: (InterchangeData throws -> T)) throws -> [T] {
+//        if let value = self[index] {
+//            return try value.mapThrough(transform)
+//        }
+//        throw InterchangeData.Error.incompatibleType
+//    }
     
     internal func flatMapThrough<T>(@noescape transform: (InterchangeData throws -> T?)) throws -> [T] {
         if let array = self.array {
@@ -45,11 +45,11 @@ extension InterchangeData {
         throw InterchangeData.Error.incompatibleType
     }
     
-    internal func flatMapThrough<T>(index: Int, @noescape transform: (InterchangeData throws -> T?)) throws -> [T] {
-        if let value = self[index] {
-            return try value.flatMapThrough(transform)
-        }
-        throw InterchangeData.Error.incompatibleType
-    }
+//    internal func flatMapThrough<T>(index: Int, @noescape transform: (InterchangeData throws -> T?)) throws -> [T] {
+//        if let value = self[index] {
+//            return try value.flatMapThrough(transform)
+//        }
+//        throw InterchangeData.Error.incompatibleType
+//    }
     
 }

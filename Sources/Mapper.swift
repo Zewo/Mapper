@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-//import InterchangeData
+import InterchangeData
 
 // MARK: - Main
 public final class Mapper {

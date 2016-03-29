@@ -94,11 +94,11 @@ struct Club: InterchangeDataMappable {
 }
 ```
 
-#### Using `Convertible`
-`InterchangeDataMappable` is great for complex entities, but for the simplest one you can use `Convertible` protocol. `Convertible` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `Convertible` to allow seamless `Int` conversion:
+#### Using `InterchangeDataConvertible`
+`InterchangeDataMappable` is great for complex entities, but for the simplest one you can use `InterchangeDataConvertible` protocol. `InterchangeDataConvertible` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `InterchangeDataConvertible` to allow seamless `Int` conversion:
 
 ```swift
-extension Int: Convertible {
+extension Int: InterchangeDataConvertible {
     public static func from(customInterchangeData value: InterchangeData) -> Int? {
         switch value {
         case .numberValue(let number):
@@ -121,7 +121,7 @@ struct Generation: InterchangeDataMappable {
 }
 ```
 
-Conversion of `Int` is available in **InterchangeDataMapper** out of the box, and you can extend any other type to conform to `Convertible` yourself.
+Conversion of `Int` is available in **InterchangeDataMapper** out of the box, and you can extend any other type to conform to `InterchangeDataConvertible` yourself.
 
 ## Installation
 - Add `InterchangeDataMapper` to your `Package.swift`

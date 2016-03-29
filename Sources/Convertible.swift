@@ -6,8 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-//import InterchangeData
-import Foundation
+import InterchangeData
 
 public protocol InterchangeDataConvertible {
     associatedtype ConvertingTo = Self

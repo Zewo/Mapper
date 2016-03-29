@@ -136,17 +136,7 @@ let package = Package(
 )
 ```
 
-**InterchangeDataMapper** is also available for Zewo 0.3:
-
-```swift
-import PackageDescription
-
-let package = Package(
-    dependencies: [
-        .Package(url: "https://github.com/Zewo/InterchangeDataMapper.git", majorVersion: 0, minor: 3),
-    ]
-)
-```
+**InterchangeDataMapper** (as *Topo*) is also available for [Zewo 0.3][topo-0.3].
 
 ## See also
 [Resource][resource-url], which provides RESTful resources for Zewo's Router.
@@ -168,3 +158,4 @@ Join us on [Slack](http://slack.zewo.io).
 [cont-neg-mid-url]: https://github.com/Zewo/ContentNegotiationMiddleware
 [mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat
 [platforms-badge]: https://img.shields.io/badge/Platform-Linux-lightgray.svg?style=flat
+[topo-0.3]: https://github.com/Zewo/Topo/tree/zewo0.3

@@ -51,14 +51,6 @@ extension Mapper {
         }
         throw Error.cantInitFromRawValue
     }
-//    
-//    public func from<T: RawRepresentable where T.RawValue: Convertible>(key: String) throws -> T {
-//        let rawValue: T.RawValue = try unwrap(interchangeData[key].flatMap(T.RawValue.from))
-//        if let value = T(rawValue: rawValue) {
-//            return value
-//        }
-//        throw Error.CantInitFromRawValue
-//    }
     
     public func from<T: Mappable>(key: String) throws -> T {
         if let nestedInterchange = interchangeData[key] {

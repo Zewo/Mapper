@@ -50,6 +50,20 @@ class RawRepresentableValueTests: XCTestCase {
         XCTAssertEqual(test.value, Value.first)
     }
     
+    func testRawRepresentableInt() {
+        enum Value: Int {
+            case first = 1
+        }
+        struct Test: Mappable {
+            let value: Value
+            init(map: Mapper) throws {
+                try self.value = map.from("value")
+            }
+        }
+        let test = try? Test(map: Mapper(interchangeData: ["value": 1]))
+        XCTAssertNil(test)
+    }
+    
     func testMissingRawRepresentableNumber() {
         enum Value: Double {
             case First = 1.0

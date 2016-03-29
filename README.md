@@ -59,8 +59,8 @@ You can use **Topo** for mapping enums with raw values. Right now you can use on
 
 ```swift
 enum GuitarType: String {
-    case acoustic
-    case electric
+    case Acoustic
+    case Electric
 }
 
 struct Guitar: Mappable {

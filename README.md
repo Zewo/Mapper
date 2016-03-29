@@ -12,12 +12,12 @@
 ``` swift
 import InterchangeDataMapper
 
-struct User: InterchangeDataMappable {
+struct User: Mappable {
     let id: Int
     let username: String
     let city: String?
     
-    // InterchangeDataMappable requirement
+    // Mappable requirement
     init(map: Mapper) throws {
         try id = map.from("id")
         try username = map.from("username")
@@ -30,14 +30,14 @@ let content: InterchangeData = [
     "username": "fireringer",
     "city": "Houston"
 ]
-let user = User.from(content) // User?
+let user = User.makeWith(interchangeData: content) // User?
 ```
 
 #### Mapping arrays
 **Be careful!** If you use `from` instead of `fromArray`, mapping will fail.
 
 ```swift
-struct Album: InterchangeDataMappable {
+struct Album: Mappable {
     let songs: [String]
     init(map: Mapper) throws {
         try songs = map.fromArray("songs")
@@ -46,7 +46,7 @@ struct Album: InterchangeDataMappable {
 ```
 
 ```swift
-struct Album: InterchangeDataMappable {
+struct Album: Mappable {
     let songs: [String]?
     init(map: Mapper) throws {
         songs = map.fromOptionalArray("songs")
@@ -63,7 +63,7 @@ enum GuitarType: String {
     case electric
 }
 
-struct Guitar: InterchangeDataMappable {
+struct Guitar: Mappable {
     let vendor: String
     let type: GuitarType
     
@@ -74,17 +74,17 @@ struct Guitar: InterchangeDataMappable {
 }
 ```
 
-#### Nested `InterchangeDataMappable` objects
+#### Nested `Mappable` objects
 
 ```swift
-struct League: InterchangeDataMappable {
+struct League: Mappable {
     let name: String
     init(map: Mapper) throws {
         try name = map.from("name")
     }
 }
 
-struct Club: InterchangeDataMappable {
+struct Club: Mappable {
     let name: String
     let league: League
     init(map: Mapper) throws {
@@ -94,17 +94,17 @@ struct Club: InterchangeDataMappable {
 }
 ```
 
-#### Using `InterchangeDataConvertible`
-`InterchangeDataMappable` is great for complex entities, but for the simplest one you can use `InterchangeDataConvertible` protocol. `InterchangeDataConvertible` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `InterchangeDataConvertible` to allow seamless `Int` conversion:
+#### Using `Convertible`
+`Mappable` is great for complex entities, but for the simplest one you can use `Convertible` protocol. `Convertible` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `Convertible` to allow seamless `Int` conversion:
 
 ```swift
 extension Int: InterchangeDataConvertible {
-    public static func from(customInterchangeData value: InterchangeData) -> Int? {
+    public init(interchangeData value: InterchangeData) throws {
         switch value {
         case .numberValue(let number):
-            return Int(number)
+            self.init(number)
         default:
-            return nil
+            throw ConvertibleError.cantBindToNeededType
         }
     }
 }
@@ -113,7 +113,7 @@ extension Int: InterchangeDataConvertible {
 Now you can map `Int` using `from(_:)` just like anything else:
 
 ```swift
-struct Generation: InterchangeDataMappable {
+struct Generation: Mappable {
     let number: Int
     init(map: Mapper) throws {
         try number = map.from("number")
@@ -121,7 +121,24 @@ struct Generation: InterchangeDataMappable {
 }
 ```
 
-Conversion of `Int` is available in **InterchangeDataMapper** out of the box, and you can extend any other type to conform to `InterchangeDataConvertible` yourself.
+Conversion of `Int` is available in **InterchangeDataMapper** out of the box, and you can extend any other type to conform to `Convertible` yourself, for example, `NSDate`:
+
+```swift
+import Foundation
+import InterchangeDataMapper
+
+extension Convertible where Self: NSDate {
+    public init(interchangeData value: InterchangeData) throws {
+        switch value {
+        case .numberValue(let number):
+            self.init(timeIntervalSince1970: number)
+        default:
+            throw ConvertibleError.cantBindToNeededType
+        }
+    }
+}
+extension NSDate: Convertible { }
+```
 
 ## Installation
 - Add `InterchangeDataMapper` to your `Package.swift`

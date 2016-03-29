@@ -12,13 +12,13 @@ public enum ConvertibleError: ErrorProtocol {
     case cantBindToNeededType
 }
 
-public typealias Convertible = InterchangeDataConvertible
+public typealias InterchangeDataConvertible = Convertible
 
-public protocol InterchangeDataConvertible {
+public protocol Convertible {
     init(interchangeData value: InterchangeData) throws
 }
 
-extension Int: InterchangeDataConvertible {
+extension Int: Convertible {
     public init(interchangeData value: InterchangeData) throws {
         switch value {
         case .numberValue(let number):

@@ -1,4 +1,4 @@
-# Topo
+# Topo (Zewo 0.3)
 [![Zewo 0.4][zewo-badge]](http://zewo.io)
 [![Swift 3][swift-badge]](https://swift.org)
 [![Platform Linux][platforms-badge]](https://swift.org)
@@ -164,7 +164,7 @@ Join us on [Slack](http://slack.zewo.io).
 ## License
 **Topo** is released under the MIT license. See LICENSE for details.
 
-[zewo-badge]: https://img.shields.io/badge/Zewo-0.4-FF7565.svg?style=flat
+[zewo-badge]: https://img.shields.io/badge/Zewo-0.3-FF7565.svg?style=flat
 [swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat
 [mapper-url]: https://github.com/lyft/mapper
 [interchange-data-url]: https://github.com/Zewo/InterchangeData

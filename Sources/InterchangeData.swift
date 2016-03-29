@@ -10,6 +10,14 @@ import InterchangeData
 
 extension InterchangeData {
     
+    internal var mapper: Mapper {
+        return Mapper(interchangeData: self)
+    }
+    
+}
+
+extension InterchangeData {
+    
     internal func mapThrough<T>(@noescape transform: (InterchangeData throws -> T)) throws -> [T] {
         if let array = self.array {
             return try array.map(transform)

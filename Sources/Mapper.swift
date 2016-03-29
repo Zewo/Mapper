@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-//import InterchangeData
+import InterchangeData
 
 // MARK: - Main
 public final class Mapper {
@@ -34,9 +34,9 @@ extension Mapper {
         return value
     }
     
-    public func from<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) throws -> T {
+    public func from<T: Convertible>(key: String) throws -> T {
         if let nested = interchangeData[key] {
-            return try unwrap(T.from(customInterchangeData: nested))
+            return try unwrap(T(interchangeData: nested))
         }
         throw Error.noInterchangeData(key: key)
     }

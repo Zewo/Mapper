@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-//import InterchangeData
+import InterchangeData
 
 public protocol Mappable {
     
@@ -16,7 +16,7 @@ public protocol Mappable {
 
 extension Mappable {
     
-    public static func from(interchangeData interchangeData: InterchangeData) -> Self? {
+    public static func makeWith(interchangeData interchangeData: InterchangeData) -> Self? {
         do {
             return try self.init(map: Mapper(interchangeData: interchangeData))
         } catch {

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+//import InterchangeData
 
 // MARK: - Main
 public final class Mapper {
@@ -79,7 +79,7 @@ extension Mapper {
     }
     
     public func arrayFrom<T: Convertible>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) { T.(interchangeData: $0) }
+        return try interchangeData.flatMapThrough(key) { try? T(interchangeData: $0) }
     }
     
     public func arrayFrom<T: RawRepresentable>(key: String) throws -> [T] {
@@ -98,7 +98,7 @@ extension Mapper {
     }
     
     public func arrayFrom<T: Mappable>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) { T.from(interchangeData: $0) }
+        return try interchangeData.flatMapThrough(key) { T.makeWith(interchangeData: $0) }
     }
     
 }
@@ -115,9 +115,9 @@ extension Mapper {
         }
     }
     
-    public func optionalFrom<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) -> T? {
+    public func optionalFrom<T: Convertible>(key: String) -> T? {
         if let nested = interchangeData[key] {
-            return T.from(customInterchangeData: nested)
+            return try? T(interchangeData: nested)
         }
         return nil
     }
@@ -201,7 +201,7 @@ extension Mapper {
     public func optionalArrayFrom<T: Mappable>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ T.from(interchangeData: $0) })
+            return inter.flatMap({ try? T.makeWith(interchangeData: $0) })
         } catch {
             return nil
         }

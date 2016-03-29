@@ -98,7 +98,7 @@ struct Club: Mappable {
 `Mappable` is great for complex entities, but for the simplest one you can use `Convertible` protocol. `Convertible` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `Convertible` to allow seamless `Int` conversion:
 
 ```swift
-extension Int: InterchangeDataConvertible {
+extension Int: Convertible {
     public init(interchangeData value: InterchangeData) throws {
         switch value {
         case .numberValue(let number):

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-//import InterchangeData
+import InterchangeData
 
 // MARK: - Main
 public final class Mapper {
@@ -170,10 +170,10 @@ extension Mapper {
         }
     }
     
-    public func optionalArrayFrom<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: Convertible>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ T.from(customInterchangeData: $0) })
+            return inter.flatMap({ try? T(interchangeData: $0) })
         } catch {
             return nil
         }
@@ -201,7 +201,7 @@ extension Mapper {
     public func optionalArrayFrom<T: Mappable>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ try? T.makeWith(interchangeData: $0) })
+            return inter.flatMap({ T.makeWith(interchangeData: $0) })
         } catch {
             return nil
         }

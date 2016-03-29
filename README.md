@@ -34,13 +34,13 @@ let user = User.makeWith(interchangeData: content) // User?
 ```
 
 #### Mapping arrays
-**Be careful!** If you use `from` instead of `fromArray`, mapping will fail.
+**Be careful!** If you use `from` instead of `arrayFrom`, mapping will fail.
 
 ```swift
 struct Album: Mappable {
     let songs: [String]
     init(map: Mapper) throws {
-        try songs = map.fromArray("songs")
+        try songs = map.arrayFrom("songs")
     }
 }
 ```
@@ -49,7 +49,7 @@ struct Album: Mappable {
 struct Album: Mappable {
     let songs: [String]?
     init(map: Mapper) throws {
-        songs = map.fromOptionalArray("songs")
+        songs = map.optionalArrayFrom("songs")
     }
 }
 ```

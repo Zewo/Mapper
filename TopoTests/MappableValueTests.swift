@@ -22,14 +22,14 @@ class MappableValueTests: XCTestCase {
     }
 
     func testNestedMappable() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let nest: Nested
             init(map: Mapper) throws {
                 try self.nest = map.from("nest")
             }
         }
         
-        struct Nested: Mappable {
+        struct Nested: InterchangeDataMappable {
             let string: String
             init(map: Mapper) throws {
                 try self.string = map.from("string")
@@ -44,13 +44,13 @@ class MappableValueTests: XCTestCase {
     }
     
     func testArrayOfMappables() {
-        struct Nested: Mappable {
+        struct Nested: InterchangeDataMappable {
             let string: String
             init(map: Mapper) throws {
                 try self.string = map.from("string")
             }
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let nested: [Nested]
             init(map: Mapper) throws {
                 try self.nested = map.fromArray("nested")

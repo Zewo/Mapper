@@ -6,18 +6,20 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+//import InterchangeData
+import Foundation
 
-public protocol Convertible {
-    associatedtype ConvertedTo = Self
-    static func from(customInterchangeData value: InterchangeData) -> ConvertedTo?
+public protocol InterchangeDataConvertible {
+    associatedtype ConvertingTo = Self
+    static func from(customInterchangeData value: InterchangeData) -> ConvertingTo?
+//    init(fromInterchangeData interchangeData: InterchangeData)
 }
 
 public enum ConvertibleError: ErrorProtocol {
     case cantBindToNeededType
 }
 
-extension Int: Convertible {
+extension Int: InterchangeDataConvertible {
     public static func from(customInterchangeData value: InterchangeData) -> Int? {
         switch value {
         case .numberValue(let number):
@@ -26,4 +28,5 @@ extension Int: Convertible {
             return nil
         }
     }
+    
 }

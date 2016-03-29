@@ -26,7 +26,7 @@ class RawRepresentableValueTests: XCTestCase {
             case Hearts = "hearts"
             case Barney = "barney"
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let suit: Suits
             init(map: Mapper) throws {
                 try self.suit = map.from("suit")
@@ -40,7 +40,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Value: Double {
             case first = 1.0
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let value: Value
             init(map: Mapper) throws {
                 try self.value = map.from("value")
@@ -54,7 +54,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Value: Int {
             case first = 1
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let value: Value
             init(map: Mapper) throws {
                 try self.value = map.from("value")
@@ -68,7 +68,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Value: Double {
             case First = 1.0
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let value: Value
             init(map: Mapper) throws {
                 try self.value = map.from("value")
@@ -82,7 +82,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Value: Double {
             case First = 1.0
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let value: Value?
             init(map: Mapper) throws {
                 self.value = map.optionalFrom("value")
@@ -96,7 +96,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Value: Double {
             case First = 1.0
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let value: Value?
             init(map: Mapper) throws {
                 self.value = map.optionalFrom("value")
@@ -110,7 +110,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Value: Double {
             case First = 1.0
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let value: Value?
             init(map: Mapper) throws {
                 self.value = map.optionalFrom("value")
@@ -124,7 +124,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Barney: String {
             case stinson, awesome, legendary
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let barneys: [Barney]
             init(map: Mapper) throws {
                 try self.barneys = map.fromArray("barneys")
@@ -139,7 +139,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Barney: String {
             case stinson, awesome, legendary
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let barneys: [Barney]
             init(map: Mapper) throws {
                 try self.barneys = map.fromArray("barneys")
@@ -154,7 +154,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Barney: String {
             case stinson, awesome, legendary
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let barneys: [Barney]?
             init(map: Mapper) throws {
                 self.barneys = map.optionalFromArray("barneys")
@@ -168,7 +168,7 @@ class RawRepresentableValueTests: XCTestCase {
         enum Barney: String {
             case stinson, awesome, legendary
         }
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let barneys: [Barney]?
             init(map: Mapper) throws {
                 self.barneys = map.optionalFromArray("barneys")

@@ -22,7 +22,7 @@ class NormalValueTests: XCTestCase {
     }
 
     func testMappingString() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let string: String
             init(map: Mapper) throws {
                 try self.string = map.from("string")
@@ -34,7 +34,7 @@ class NormalValueTests: XCTestCase {
     }
     
     func testMappingMissingKey() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let string: String
             init(map: Mapper) throws {
                 try self.string = map.from("foo")
@@ -46,7 +46,7 @@ class NormalValueTests: XCTestCase {
     }
     
     func testFallbackMissingKey() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let string: String
             init(map: Mapper) throws {
                 self.string = map.optionalFrom("foo") ?? "Hello"
@@ -58,7 +58,7 @@ class NormalValueTests: XCTestCase {
     }
     
     func testArrayOfStrings() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let strings: [String]
             init(map: Mapper) throws {
                 try self.strings = map.fromArray("strings")
@@ -69,14 +69,14 @@ class NormalValueTests: XCTestCase {
     }
     
     func testPartiallyInvalidArrayOfValues() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             let strings: [String]
             init(map: Mapper) throws {
-                try self.strings = map.from("strings")
+                try self.strings = map.fromArray("strings")
             }
         }
-        let test = try? Test(map: Mapper(interchangeData: ["strings": ["hi": 1]]))
-        XCTAssertNil(test)
+        let test = try! Test(map: Mapper(interchangeData: ["strings": ["first", "second", 3]]))
+        XCTAssertEqual(test.strings.count, 2)
     }
     
 }

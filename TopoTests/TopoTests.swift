@@ -27,7 +27,7 @@ class TopoTests: XCTestCase {
     }
         
     func testArrays() {
-        struct Test: Mappable {
+        struct Test: InterchangeDataMappable {
             var ints: [Int]
             init(map: Mapper) throws {
                 try self.ints = map.fromArray("ints")

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+//import InterchangeData
 
 // MARK: - Main
 public final class Mapper {
@@ -34,7 +34,7 @@ extension Mapper {
         return value
     }
     
-    public func from<T: Convertible where T == T.ConvertedTo>(key: String) throws -> T {
+    public func from<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) throws -> T {
         if let nested = interchangeData[key] {
             return try unwrap(T.from(customInterchangeData: nested))
         }
@@ -52,7 +52,7 @@ extension Mapper {
         throw Error.cantInitFromRawValue
     }
     
-    public func from<T: Mappable>(key: String) throws -> T {
+    public func from<T: InterchangeDataMappable>(key: String) throws -> T {
         if let nestedInterchange = interchangeData[key] {
             return try T(map: Mapper(interchangeData: nestedInterchange))
         }
@@ -66,28 +66,27 @@ extension Mapper {
 extension Mapper {
     
     public func fromArray<T>(key: String) throws -> [T] {
-        let interDataArray: [InterchangeData] = try interchangeData.get(key)
-        return interDataArray.flatMap {
+        return try interchangeData.flatMapThrough(key) {
             do {
                 let some: T = try $0.get()
+                print("returning")
                 return some
             } catch {
+                print("incorrect")
                 return nil
             }
         }
     }
     
-    public func fromArray<T: Convertible where T == T.ConvertedTo>(key: String) throws -> [T] {
-        let inter: [InterchangeData] = try interchangeData.get(key)
-        return inter.flatMap({ T.from(customInterchangeData: $0) })
+    public func fromArray<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) throws -> [T] {
+        return try interchangeData.flatMapThrough(key) { T.from(customInterchangeData: $0) }
     }
     
     public func fromArray<T: RawRepresentable>(key: String) throws -> [T] {
         guard T.self != Int.self else {
             throw Error.rawIntNotSupported
         }
-        let inter: [InterchangeData] = try interchangeData.get(key)
-        return inter.flatMap {
+        return try interchangeData.flatMapThrough(key) {
             do {
                 let rawValue: T.RawValue = try $0.get()
                 print(rawValue)
@@ -98,9 +97,8 @@ extension Mapper {
         }
     }
     
-    public func fromArray<T: Mappable>(key: String) throws -> [T] {
-        let inter: [InterchangeData] = try interchangeData.get(key)
-        return inter.flatMap({ T.from($0) })
+    public func fromArray<T: InterchangeDataMappable>(key: String) throws -> [T] {
+        return try interchangeData.flatMapThrough(key) { T.from(interchangeData: $0) }
     }
     
 }
@@ -117,7 +115,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFrom<T: Convertible where T == T.ConvertedTo>(key: String) -> T? {
+    public func optionalFrom<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) -> T? {
         if let nested = interchangeData[key] {
             return T.from(customInterchangeData: nested)
         }
@@ -139,7 +137,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFrom<T: Mappable>(key: String) -> T? {
+    public func optionalFrom<T: InterchangeDataMappable>(key: String) -> T? {
         do {
             if let nestedInterchange = interchangeData[key] {
                 return try T(map: Mapper(interchangeData: nestedInterchange))
@@ -172,7 +170,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFromArray<T: Convertible where T == T.ConvertedTo>(key: String) -> [T]? {
+    public func optionalFromArray<T: InterchangeDataConvertible where T == T.ConvertingTo>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap({ T.from(customInterchangeData: $0) })
@@ -200,10 +198,10 @@ extension Mapper {
         }
     }
     
-    public func optionalFromArray<T: Mappable>(key: String) -> [T]? {
+    public func optionalFromArray<T: InterchangeDataMappable>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ T.from($0) })
+            return inter.flatMap({ T.from(interchangeData: $0) })
         } catch {
             return nil
         }

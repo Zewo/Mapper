@@ -56,7 +56,7 @@ struct Album: Mappable {
 ```
 
 #### Mapping enums
-You can use **InterchangeDataMapper** for mapping enums with raw values. Right now you can use only `String` and `Double` as raw value.
+You can use **InterchangeDataMapper** for mapping enums with raw values. Right now you can use only `String`, `Int` and `Double` as raw value.
 
 ```swift
 enum GuitarType: String {

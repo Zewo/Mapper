@@ -12,14 +12,20 @@ import InterchangeData
 
 class RawRepresentableValueTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    static var allTests: [(String, RawRepresentableValueTests -> () throws -> Void)] {
+        return [
+            ("testRawRepresentable", testRawRepresentable),
+            ("testRawRepresentableNumber", testRawRepresentableNumber),
+            ("testRawRepresentableInt", testRawRepresentableInt),
+            ("testMissingRawRepresentableNumber", testMissingRawRepresentableNumber),
+            ("testOptionalRawRepresentable", testOptionalRawRepresentable),
+            ("testExistingOptionalRawRepresentable", testExistingOptionalRawRepresentable),
+            ("testRawRepresentableTypeMismatch", testRawRepresentableTypeMismatch),
+            ("testRawRepresentableArray", testRawRepresentableArray),
+            ("testRawRepresentablePartialArray", testRawRepresentablePartialArray),
+            ("testRawRepresentableOptionalArray", testRawRepresentableOptionalArray),
+            ("testRawRepresentableExistingOptionalArray", testRawRepresentableExistingOptionalArray)
+        ]
     }
 
     func testRawRepresentable() {

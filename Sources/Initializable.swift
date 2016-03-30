@@ -26,7 +26,6 @@ extension Int: InterchangeDataInitializable {
 
 extension String: InterchangeDataInitializable {
     public init(interchangeData: InterchangeData) throws {
-        print(interchangeData)
         try self.init(interchangeData.get() as String)
     }
 }

@@ -61,8 +61,8 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = map.from("value")
             }
         }
-        let test = try? Test(map: Mapper(interchangeData: ["value": 1]))
-        XCTAssertNil(test)
+        let test = try! Test(map: Mapper(interchangeData: ["value": 1]))
+        XCTAssertEqual(test.value, Value.first)
     }
     
     func testMissingRawRepresentableNumber() {

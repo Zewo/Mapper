@@ -14,7 +14,6 @@ public final class Mapper {
     public enum Error: ErrorProtocol {
         case cantInitFromRawValue
         case noInterchangeData(key: String)
-        case rawIntNotSupported
     }
     
     public init(interchangeData: InterchangeData) {
@@ -41,11 +40,11 @@ extension Mapper {
         throw Error.noInterchangeData(key: key)
     }
     
-    public func from<T: RawRepresentable>(key: String) throws -> T {
-        guard T.self != Int.self else {
-            throw Error.rawIntNotSupported
+    public func from<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) throws -> T {
+        guard let rawValue = try interchangeData[key].flatMap(T.RawValue.init) else {
+            throw Error.cantInitFromRawValue
         }
-        let rawValue: T.RawValue = try interchangeData.get(key)
+        print(rawValue)
         if let value = T(rawValue: rawValue) {
             return value
         }
@@ -73,13 +72,10 @@ extension Mapper {
         return try interchangeData.flatMapThrough(key) { try? T(interchangeData: $0) }
     }
     
-    public func arrayFrom<T: RawRepresentable>(key: String) throws -> [T] {
-        guard T.self != Int.self else {
-            throw Error.rawIntNotSupported
-        }
+    public func arrayFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) throws -> [T] {
         return try interchangeData.flatMapThrough(key) {
             do {
-                let rawValue: T.RawValue = try $0.get()
+                let rawValue = try T.RawValue(interchangeData: $0)
                 return T(rawValue: rawValue)
             } catch {
                 return nil
@@ -108,13 +104,10 @@ extension Mapper {
         return nil
     }
     
-    public func optionalFrom<T: RawRepresentable>(key: String) -> T? {
-        guard T.self != Int.self else {
-            return nil
-        }
+    public func optionalFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) -> T? {
         do {
-            let rawValue: T.RawValue = try interchangeData.get(key)
-            if let value = T(rawValue: rawValue) {
+            if let rawValue = try interchangeData[key].flatMap(T.RawValue.init),
+                value = T(rawValue: rawValue) {
                 return value
             }
             return nil
@@ -154,15 +147,12 @@ extension Mapper {
         }
     }
     
-    public func optionalArrayFrom<T: RawRepresentable>(key: String) -> [T]? {
-        guard T.self != Int.self else {
-            return nil
-        }
+    public func optionalArrayFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap {
                 do {
-                    let rawValue: T.RawValue = try $0.get()
+                    let rawValue = try T.RawValue(interchangeData: $0)
                     return T(rawValue: rawValue)
                 } catch {
                     return nil

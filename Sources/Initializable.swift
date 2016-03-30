@@ -26,12 +26,13 @@ extension Int: InterchangeDataInitializable {
 
 extension String: InterchangeDataInitializable {
     public init(interchangeData: InterchangeData) throws {
-        try self = interchangeData.get()
+        print(interchangeData)
+        try self.init(interchangeData.get() as String)
     }
 }
 
 extension Double: InterchangeDataInitializable {
     public init(interchangeData: InterchangeData) throws {
-        try self = interchangeData.get()
+        try self.init(interchangeData.get() as Double)
     }
 }

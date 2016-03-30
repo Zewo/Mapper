@@ -13,19 +13,25 @@ public enum InitializableError: ErrorProtocol {
     case failedToInitFromGivenValue
 }
 
-//public typealias InterchangeDataConvertible = InterchangeDataInitializable
-
-public protocol InterchangeDataInitializable {
-    init(interchangeData value: InterchangeData) throws
-}
-
 extension Int: InterchangeDataInitializable {
-    public init(interchangeData value: InterchangeData) throws {
-        switch value {
+    public init(interchangeData: InterchangeData) throws {
+        switch interchangeData {
         case .numberValue(let number):
             self.init(number)
         default:
             throw InitializableError.cantBindToNeededType
         }
+    }
+}
+
+extension String: InterchangeDataInitializable {
+    public init(interchangeData: InterchangeData) throws {
+        try self = interchangeData.get()
+    }
+}
+
+extension Double: InterchangeDataInitializable {
+    public init(interchangeData: InterchangeData) throws {
+        try self = interchangeData.get()
     }
 }

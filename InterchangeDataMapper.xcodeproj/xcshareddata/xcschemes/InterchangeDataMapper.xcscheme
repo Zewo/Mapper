@@ -88,6 +88,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "______Target_C7TestSuite"
+               BuildableName = "C7.testsuite.xctest"
+               BlueprintName = "C7.testsuite"
+               ReferencedContainer = "container:InterchangeDataMapper.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "______Target_InterchangeDataMapperTestSuite"
                BuildableName = "InterchangeDataMapper.testsuite.xctest"
                BlueprintName = "InterchangeDataMapper.testsuite"

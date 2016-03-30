@@ -9,6 +9,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>______Target_C7TestSuite</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>______Target_Data</key>
 		<dict>
 			<key>primary</key>

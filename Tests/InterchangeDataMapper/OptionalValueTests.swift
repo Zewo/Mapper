@@ -11,6 +11,16 @@ import XCTest
 
 final class OptionalValueTests: XCTestCase {
 
+    static var allTests: [(String, OptionalValueTests -> () throws -> Void)] {
+        return [
+            ("testMappingToClass", testMappingToClass),
+            ("testMappingOptionalValue", testMappingOptionalValue),
+            ("testMappingOptionalExisitngValue", testMappingOptionalExisitngValue),
+            ("testMappingOptionalArray", testMappingOptionalArray),
+            ("testMappingOptionalExistingArray", testMappingOptionalExistingArray),
+        ]
+    }
+
     func testMappingToClass() {
         final class Test: Mappable {
             let string: String
@@ -31,6 +41,17 @@ final class OptionalValueTests: XCTestCase {
         }
         let test = try! Test(map: Mapper(interchangeData: .nullValue))
         XCTAssertNil(test.string)
+    }
+
+    func testMappingOptionalExisitngValue() {
+        struct Test: Mappable {
+            let string: String?
+            init(map: Mapper) throws {
+                string = map.optionalFrom("whiskey")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["whiskey": "flows"]))
+        XCTAssertEqual(test.string, "flows")
     }
     
     func testMappingOptionalArray() {

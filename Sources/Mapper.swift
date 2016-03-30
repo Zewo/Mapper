@@ -34,7 +34,7 @@ extension Mapper {
         return value
     }
     
-    public func from<T: Convertible>(key: String) throws -> T {
+    public func from<T: InterchangeDataInitializable>(key: String) throws -> T {
         if let nested = interchangeData[key] {
             return try unwrap(T(interchangeData: nested))
         }
@@ -69,7 +69,7 @@ extension Mapper {
         }
     }
     
-    public func arrayFrom<T: Convertible>(key: String) throws -> [T] {
+    public func arrayFrom<T: InterchangeDataInitializable>(key: String) throws -> [T] {
         return try interchangeData.flatMapThrough(key) { try? T(interchangeData: $0) }
     }
     
@@ -102,7 +102,7 @@ extension Mapper {
         }
     }
     
-    public func optionalFrom<T: Convertible>(key: String) -> T? {
+    public func optionalFrom<T: InterchangeDataInitializable>(key: String) -> T? {
         if let nested = interchangeData[key] {
             return try? T(interchangeData: nested)
         }
@@ -146,7 +146,7 @@ extension Mapper {
         }
     }
     
-    public func optionalArrayFrom<T: Convertible>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: InterchangeDataInitializable>(key: String) -> [T]? {
         do {
             let inter: [InterchangeData] = try interchangeData.get(key)
             return inter.flatMap({ try? T(interchangeData: $0) })

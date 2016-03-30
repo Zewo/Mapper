@@ -9,7 +9,7 @@
 import InterchangeData
 import Foundation
 
-public protocol Mappable: Convertible {
+public protocol Mappable: InterchangeDataInitializable {
     
     init(map: Mapper) throws
     

@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE286DB21CAB0CBD00B8828F /* libC7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_C7" /* libC7.dylib */; };
-		BE286DB31CAB0CBD00B8828F /* libOperatingSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_OperatingSystem" /* libOperatingSystem.dylib */; };
-		BE286DB41CAB0CBD00B8828F /* libC7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_C7" /* libC7.dylib */; };
-		BE286DB51CAB0CBD00B8828F /* libOperatingSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_OperatingSystem" /* libOperatingSystem.dylib */; };
-		BE286DB61CAB0CBD00B8828F /* libData.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_Data" /* libData.dylib */; };
+		BE4E0D301CABF8DB00E2F0BB /* libC7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_C7" /* libC7.dylib */; };
+		BE4E0D311CABF8DB00E2F0BB /* libOperatingSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_OperatingSystem" /* libOperatingSystem.dylib */; };
+		BE4E0D321CABF8DB00E2F0BB /* libC7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_C7" /* libC7.dylib */; };
+		BE4E0D331CABF8DB00E2F0BB /* libOperatingSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_OperatingSystem" /* libOperatingSystem.dylib */; };
+		BE4E0D341CABF8DB00E2F0BB /* libData.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_Data" /* libData.dylib */; };
+		BE4E0D351CABF8DB00E2F0BB /* libC7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_C7" /* libC7.dylib */; };
+		BE4E0D361CABF8DB00E2F0BB /* libOperatingSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_OperatingSystem" /* libOperatingSystem.dylib */; };
+		BE4E0D371CABF8DB00E2F0BB /* libData.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_Data" /* libData.dylib */; };
+		BE4E0D381CABF8DB00E2F0BB /* libInterchangeData.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_InterchangeData" /* libInterchangeData.dylib */; };
+		BE4E0D3F1CABFA8900E2F0BB /* Convertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E0D3E1CABFA8900E2F0BB /* Convertible.swift */; };
 		_LinkFileRef_C7 /* libC7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_C7" /* libC7.dylib */; };
 		_LinkFileRef_Data /* libData.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_Data" /* libData.dylib */; };
 		_LinkFileRef_InterchangeData /* libInterchangeData.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_InterchangeData" /* libInterchangeData.dylib */; };
+		_LinkFileRef_InterchangeDataMapper /* libInterchangeDataMapper.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_InterchangeDataMapper" /* libInterchangeDataMapper.dylib */; };
 		_LinkFileRef_OperatingSystem /* libOperatingSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_OperatingSystem" /* libOperatingSystem.dylib */; };
 		"__src_cc_ref_Packages/C7-0.1.11/Sources/AsyncStream.swift" /* AsyncStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = "__PBXFileRef_Packages/C7-0.1.11/Sources/AsyncStream.swift" /* AsyncStream.swift */; };
 		"__src_cc_ref_Packages/C7-0.1.11/Sources/AsyncStreamClient.swift" /* AsyncStreamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = "__PBXFileRef_Packages/C7-0.1.11/Sources/AsyncStreamClient.swift" /* AsyncStreamClient.swift */; };
@@ -33,44 +39,56 @@
 		"__src_cc_ref_Packages/Data-0.4.8/Source/Data.swift" /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = "__PBXFileRef_Packages/Data-0.4.8/Source/Data.swift" /* Data.swift */; };
 		"__src_cc_ref_Packages/InterchangeData-0.4.2/Source/InterchangeData.swift" /* InterchangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = "__PBXFileRef_Packages/InterchangeData-0.4.2/Source/InterchangeData.swift" /* InterchangeData.swift */; };
 		"__src_cc_ref_Packages/OperatingSystem-0.4.2/Sources/OperatingSystem.swift" /* OperatingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = "__PBXFileRef_Packages/OperatingSystem-0.4.2/Sources/OperatingSystem.swift" /* OperatingSystem.swift */; };
-		__src_cc_ref_Sources/Convertible.swift /* Convertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Convertible.swift /* Convertible.swift */; };
+		__src_cc_ref_Sources/Convertible.swift /* Initializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Convertible.swift /* Initializable.swift */; };
 		__src_cc_ref_Sources/InterchangeData.swift /* InterchangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/InterchangeData.swift /* InterchangeData.swift */; };
 		__src_cc_ref_Sources/Mappable.swift /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Mappable.swift /* Mappable.swift */; };
 		__src_cc_ref_Sources/Mapper.swift /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Mapper.swift /* Mapper.swift */; };
+		__src_cc_ref_Tests/InterchangeDataMapper/MappableValueTests.swift /* MappableValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Tests/InterchangeDataMapper/MappableValueTests.swift /* MappableValueTests.swift */; };
+		__src_cc_ref_Tests/InterchangeDataMapper/NormalValueTests.swift /* NormalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Tests/InterchangeDataMapper/NormalValueTests.swift /* NormalValueTests.swift */; };
+		__src_cc_ref_Tests/InterchangeDataMapper/OptionalValueTests.swift /* OptionalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Tests/InterchangeDataMapper/OptionalValueTests.swift /* OptionalValueTests.swift */; };
+		__src_cc_ref_Tests/InterchangeDataMapper/RawRepresentableValueTests.swift /* RawRepresentableValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Tests/InterchangeDataMapper/RawRepresentableValueTests.swift /* RawRepresentableValueTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BE286DB71CAB0CC100B8828F /* PBXContainerItemProxy */ = {
+		BE4E0D391CABF8DB00E2F0BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = __RootObject_ /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "______Target_C7";
 			remoteInfo = C7;
 		};
-		BE286DB81CAB0CC100B8828F /* PBXContainerItemProxy */ = {
+		BE4E0D3A1CABF8DB00E2F0BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = __RootObject_ /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "______Target_OperatingSystem";
 			remoteInfo = OperatingSystem;
 		};
-		BE286DB91CAB0CC100B8828F /* PBXContainerItemProxy */ = {
+		BE4E0D3B1CABF8DB00E2F0BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = __RootObject_ /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "______Target_Data";
 			remoteInfo = Data;
 		};
-		BE286DBA1CAB0CC100B8828F /* PBXContainerItemProxy */ = {
+		BE4E0D3C1CABF8DB00E2F0BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = __RootObject_ /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "______Target_InterchangeData";
 			remoteInfo = InterchangeData;
 		};
+		BE4E0D3D1CABF8DB00E2F0BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = __RootObject_ /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "______Target_InterchangeDataMapper";
+			remoteInfo = InterchangeDataMapper;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE4E0D3E1CABFA8900E2F0BB /* Convertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convertible.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Package.swift /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = /Users/oleg/Development/OpenSource/InterchangeDataMapper/Package.swift; sourceTree = "<group>"; };
 		"__PBXFileRef_Packages/C7-0.1.11/Sources/AsyncStream.swift" /* AsyncStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStream.swift; sourceTree = "<group>"; };
 		"__PBXFileRef_Packages/C7-0.1.11/Sources/AsyncStreamClient.swift" /* AsyncStreamClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStreamClient.swift; sourceTree = "<group>"; };
@@ -89,14 +107,19 @@
 		"__PBXFileRef_Packages/Data-0.4.8/Source/Data.swift" /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		"__PBXFileRef_Packages/InterchangeData-0.4.2/Source/InterchangeData.swift" /* InterchangeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterchangeData.swift; sourceTree = "<group>"; };
 		"__PBXFileRef_Packages/OperatingSystem-0.4.2/Sources/OperatingSystem.swift" /* OperatingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatingSystem.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/Convertible.swift /* Convertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convertible.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/Convertible.swift /* Initializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializable.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/InterchangeData.swift /* InterchangeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterchangeData.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Mappable.swift /* Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Mapper.swift /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Tests/InterchangeDataMapper/MappableValueTests.swift /* MappableValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappableValueTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Tests/InterchangeDataMapper/NormalValueTests.swift /* NormalValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalValueTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Tests/InterchangeDataMapper/OptionalValueTests.swift /* OptionalValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValueTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Tests/InterchangeDataMapper/RawRepresentableValueTests.swift /* RawRepresentableValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentableValueTests.swift; sourceTree = "<group>"; };
 		"_____Product_C7" /* libC7.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libC7.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_Data" /* libData.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libData.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_InterchangeData" /* libInterchangeData.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libInterchangeData.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_InterchangeDataMapper" /* libInterchangeDataMapper.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libInterchangeDataMapper.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		"_____Product_InterchangeDataMapperTestSuite" /* InterchangeDataMapperTestSuite.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; name = InterchangeDataMapperTestSuite.xctest; path = InterchangeDataMapper.testsuite.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_OperatingSystem" /* libOperatingSystem.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libOperatingSystem.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -121,8 +144,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				BE286DB21CAB0CBD00B8828F /* libC7.dylib in Frameworks */,
-				BE286DB31CAB0CBD00B8828F /* libOperatingSystem.dylib in Frameworks */,
+				BE4E0D301CABF8DB00E2F0BB /* libC7.dylib in Frameworks */,
+				BE4E0D311CABF8DB00E2F0BB /* libOperatingSystem.dylib in Frameworks */,
 				_LinkFileRef_Data /* libData.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,10 +154,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				BE286DB41CAB0CBD00B8828F /* libC7.dylib in Frameworks */,
-				BE286DB51CAB0CBD00B8828F /* libOperatingSystem.dylib in Frameworks */,
-				BE286DB61CAB0CBD00B8828F /* libData.dylib in Frameworks */,
+				BE4E0D321CABF8DB00E2F0BB /* libC7.dylib in Frameworks */,
+				BE4E0D331CABF8DB00E2F0BB /* libOperatingSystem.dylib in Frameworks */,
+				BE4E0D341CABF8DB00E2F0BB /* libData.dylib in Frameworks */,
 				_LinkFileRef_InterchangeData /* libInterchangeData.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		"___LinkPhase_InterchangeDataMapperTestSuite" /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				BE4E0D351CABF8DB00E2F0BB /* libC7.dylib in Frameworks */,
+				BE4E0D361CABF8DB00E2F0BB /* libOperatingSystem.dylib in Frameworks */,
+				BE4E0D371CABF8DB00E2F0BB /* libData.dylib in Frameworks */,
+				BE4E0D381CABF8DB00E2F0BB /* libInterchangeData.dylib in Frameworks */,
+				_LinkFileRef_InterchangeDataMapper /* libInterchangeDataMapper.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +183,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		TestProducts_ /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				"_____Product_InterchangeDataMapperTestSuite" /* InterchangeDataMapperTestSuite.xctest */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		"___RootGroup_" = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +204,7 @@
 		"____Products_" /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				TestProducts_ /* Tests */,
 				"_____Product_OperatingSystem" /* libOperatingSystem.dylib */,
 				"_____Product_C7" /* libC7.dylib */,
 				"_____Product_Data" /* libData.dylib */,
@@ -225,13 +269,26 @@
 		"_______Group_InterchangeDataMapper" /* InterchangeDataMapper */ = {
 			isa = PBXGroup;
 			children = (
-				__PBXFileRef_Sources/Convertible.swift /* Convertible.swift */,
-				__PBXFileRef_Sources/Mappable.swift /* Mappable.swift */,
+				__PBXFileRef_Sources/Convertible.swift /* Initializable.swift */,
 				__PBXFileRef_Sources/InterchangeData.swift /* InterchangeData.swift */,
+				__PBXFileRef_Sources/Mappable.swift /* Mappable.swift */,
 				__PBXFileRef_Sources/Mapper.swift /* Mapper.swift */,
+				BE4E0D3E1CABFA8900E2F0BB /* Convertible.swift */,
 			);
 			name = InterchangeDataMapper;
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		"_______Group_InterchangeDataMapperTestSuite" /* InterchangeDataMapper.testsuite */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Tests/InterchangeDataMapper/MappableValueTests.swift /* MappableValueTests.swift */,
+				__PBXFileRef_Tests/InterchangeDataMapper/NormalValueTests.swift /* NormalValueTests.swift */,
+				__PBXFileRef_Tests/InterchangeDataMapper/OptionalValueTests.swift /* OptionalValueTests.swift */,
+				__PBXFileRef_Tests/InterchangeDataMapper/RawRepresentableValueTests.swift /* RawRepresentableValueTests.swift */,
+			);
+			name = InterchangeDataMapper.testsuite;
+			path = Tests/InterchangeDataMapper;
 			sourceTree = "<group>";
 		};
 		"_______Group_OperatingSystem" /* OperatingSystem */ = {
@@ -246,6 +303,7 @@
 		"_______Tests_" /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				"_______Group_InterchangeDataMapperTestSuite" /* InterchangeDataMapper.testsuite */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -326,6 +384,27 @@
 			productReference = "_____Product_InterchangeDataMapper" /* libInterchangeDataMapper.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
+		"______Target_InterchangeDataMapperTestSuite" /* InterchangeDataMapper.testsuite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = "_______Confs_InterchangeDataMapperTestSuite" /* Build configuration list for PBXNativeTarget "InterchangeDataMapper.testsuite" */;
+			buildPhases = (
+				CompilePhase_InterchangeDataMapperTestSuite /* Sources */,
+				"___LinkPhase_InterchangeDataMapperTestSuite" /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				__Dependency_C7 /* PBXTargetDependency */,
+				__Dependency_OperatingSystem /* PBXTargetDependency */,
+				__Dependency_Data /* PBXTargetDependency */,
+				__Dependency_InterchangeData /* PBXTargetDependency */,
+				__Dependency_InterchangeDataMapper /* PBXTargetDependency */,
+			);
+			name = InterchangeDataMapper.testsuite;
+			productName = InterchangeDataMapperTestSuite;
+			productReference = "_____Product_InterchangeDataMapperTestSuite" /* InterchangeDataMapperTestSuite.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		"______Target_OperatingSystem" /* OperatingSystem */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = "_______Confs_OperatingSystem" /* Build configuration list for PBXNativeTarget "OperatingSystem" */;
@@ -367,6 +446,7 @@
 				"______Target_Data" /* Data */,
 				"______Target_InterchangeData" /* InterchangeData */,
 				"______Target_InterchangeDataMapper" /* InterchangeDataMapper */,
+				"______Target_InterchangeDataMapperTestSuite" /* InterchangeDataMapper.testsuite */,
 			);
 		};
 /* End PBXProject section */
@@ -413,10 +493,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				__src_cc_ref_Sources/Convertible.swift /* Convertible.swift in Sources */,
+				__src_cc_ref_Sources/Convertible.swift /* Initializable.swift in Sources */,
 				__src_cc_ref_Sources/InterchangeData.swift /* InterchangeData.swift in Sources */,
 				__src_cc_ref_Sources/Mappable.swift /* Mappable.swift in Sources */,
+				BE4E0D3F1CABFA8900E2F0BB /* Convertible.swift in Sources */,
 				__src_cc_ref_Sources/Mapper.swift /* Mapper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CompilePhase_InterchangeDataMapperTestSuite /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				__src_cc_ref_Tests/InterchangeDataMapper/MappableValueTests.swift /* MappableValueTests.swift in Sources */,
+				__src_cc_ref_Tests/InterchangeDataMapper/NormalValueTests.swift /* NormalValueTests.swift in Sources */,
+				__src_cc_ref_Tests/InterchangeDataMapper/OptionalValueTests.swift /* OptionalValueTests.swift in Sources */,
+				__src_cc_ref_Tests/InterchangeDataMapper/RawRepresentableValueTests.swift /* RawRepresentableValueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,22 +526,27 @@
 		__Dependency_C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "______Target_C7" /* C7 */;
-			targetProxy = BE286DB71CAB0CC100B8828F /* PBXContainerItemProxy */;
+			targetProxy = BE4E0D391CABF8DB00E2F0BB /* PBXContainerItemProxy */;
 		};
 		__Dependency_Data /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "______Target_Data" /* Data */;
-			targetProxy = BE286DB91CAB0CC100B8828F /* PBXContainerItemProxy */;
+			targetProxy = BE4E0D3B1CABF8DB00E2F0BB /* PBXContainerItemProxy */;
 		};
 		__Dependency_InterchangeData /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "______Target_InterchangeData" /* InterchangeData */;
-			targetProxy = BE286DBA1CAB0CC100B8828F /* PBXContainerItemProxy */;
+			targetProxy = BE4E0D3C1CABF8DB00E2F0BB /* PBXContainerItemProxy */;
+		};
+		__Dependency_InterchangeDataMapper /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "______Target_InterchangeDataMapper" /* InterchangeDataMapper */;
+			targetProxy = BE4E0D3D1CABF8DB00E2F0BB /* PBXContainerItemProxy */;
 		};
 		__Dependency_OperatingSystem /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "______Target_OperatingSystem" /* OperatingSystem */;
-			targetProxy = BE286DB81CAB0CC100B8828F /* PBXContainerItemProxy */;
+			targetProxy = BE4E0D3A1CABF8DB00E2F0BB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -507,6 +604,19 @@
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_MODULE_NAME = InterchangeDataMapper;
 				PRODUCT_NAME = "lib$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		_ReleaseConf_InterchangeDataMapperTestSuite /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_MODULE_NAME = InterchangeDataMapperTestSuite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -584,6 +694,20 @@
 			};
 			name = Debug;
 		};
+		"___DebugConf_InterchangeDataMapperTestSuite" /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_MODULE_NAME = InterchangeDataMapperTestSuite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
 		"___DebugConf_OperatingSystem" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -655,6 +779,15 @@
 			buildConfigurations = (
 				"___DebugConf_InterchangeDataMapper" /* Debug */,
 				_ReleaseConf_InterchangeDataMapper /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		"_______Confs_InterchangeDataMapperTestSuite" /* Build configuration list for PBXNativeTarget "InterchangeDataMapper.testsuite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				"___DebugConf_InterchangeDataMapperTestSuite" /* Debug */,
+				_ReleaseConf_InterchangeDataMapperTestSuite /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

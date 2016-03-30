@@ -24,6 +24,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>______Target_InterchangeDataMapperTestSuite</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>______Target_OperatingSystem</key>
 		<dict>
 			<key>primary</key>

@@ -29,19 +29,71 @@ class MappableValueTests: XCTestCase {
                 try self.nest = map.from("nest")
             }
         }
-        
         struct Nested: Mappable {
             let string: String
             init(map: Mapper) throws {
                 try self.string = map.from("string")
             }
         }
-        
         let interchangeData: InterchangeData = [
             "nest": ["string": "hello"]
         ]
         let test = try! Test(map: Mapper(interchangeData: interchangeData))
-        XCTAssertTrue(test.nest.string == "hello")
+        XCTAssertEqual(test.nest.string, "hello")
+    }
+    
+    func testNestedInvalidMappable() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: Nested
+            init(map: Mapper) throws {
+                try self.nested = map.from("nest")
+            }
+        }
+        let interchangeData: InterchangeData = ["nest": ["strong": "er"]]
+        let test = try? Test(map: Mapper(interchangeData: interchangeData))
+        XCTAssertNil(test)
+    }
+    
+    func testNestedOptionalMappable() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: Nested?
+            init(map: Mapper) throws {
+                self.nested = map.optionalFrom("nest")
+            }
+        }
+        let interchangeData: InterchangeData = ["nest": ["string": "zewo"]]
+        let test = try! Test(map: Mapper(interchangeData: interchangeData))
+        XCTAssertEqual(test.nested!.string, "zewo")
+    }
+    
+    func testNestedOptionalInvalidMappable() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: Nested?
+            init(map: Mapper) throws {
+                self.nested = map.optionalFrom("nest")
+            }
+        }
+        let interchangeData: InterchangeData = ["nest": ["strong": "er"]]
+        let test = try! Test(map: Mapper(interchangeData: interchangeData))
+        XCTAssertNil(test.nested)
     }
     
     func testArrayOfMappables() {

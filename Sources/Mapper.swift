@@ -44,7 +44,6 @@ extension Mapper {
         guard let rawValue = try interchangeData[key].flatMap(T.RawValue.init) else {
             throw Error.cantInitFromRawValue
         }
-        print(rawValue)
         if let value = T(rawValue: rawValue) {
             return value
         }

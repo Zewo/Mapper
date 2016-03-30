@@ -95,11 +95,11 @@ struct Club: Mappable {
 }
 ```
 
-#### Using `Convertible`
-`Mappable` is great for complex entities, but for the simplest one you can use `Convertible` protocol. `Convertible` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `Convertible` to allow seamless `Int` conversion:
+#### Using `InterchangeDataInitializable`
+`Mappable` is great for complex entities, but for the simplest one you can use `InterchangeDataInitializable` protocol. `InterchangeDataInitializable` objects can be initializaed from `InterchangeData` itself, not from its `Mapper`. For example, **InterchangeDataMapper** uses `InterchangeDataInitializable` to allow seamless `Int` conversion:
 
 ```swift
-extension Int: Convertible {
+extension Int: InterchangeDataInitializable {
     public init(interchangeData value: InterchangeData) throws {
         switch value {
         case .numberValue(let number):
@@ -122,13 +122,13 @@ struct Generation: Mappable {
 }
 ```
 
-Conversion of `Int` is available in **InterchangeDataMapper** out of the box, and you can extend any other type to conform to `Convertible` yourself, for example, `NSDate`:
+Conversion of `Int` is available in **InterchangeDataMapper** out of the box, and you can extend any other type to conform to `InterchangeDataInitializable` yourself, for example, `NSDate`:
 
 ```swift
 import Foundation
 import InterchangeDataMapper
 
-extension Convertible where Self: NSDate {
+extension InterchangeDataInitializable where Self: NSDate {
     public init(interchangeData value: InterchangeData) throws {
         switch value {
         case .numberValue(let number):
@@ -138,7 +138,7 @@ extension Convertible where Self: NSDate {
         }
     }
 }
-extension NSDate: Convertible { }
+extension NSDate: InterchangeDataInitializable { }
 ```
 
 ## Installation

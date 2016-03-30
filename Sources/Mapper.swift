@@ -80,7 +80,6 @@ extension Mapper {
         return try interchangeData.flatMapThrough(key) {
             do {
                 let rawValue: T.RawValue = try $0.get()
-                print(rawValue)
                 return T(rawValue: rawValue)
             } catch {
                 return nil

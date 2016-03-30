@@ -8,8 +8,9 @@
 
 import InterchangeData
 
-public enum ConvertibleError: ErrorProtocol {
+public enum InitializableError: ErrorProtocol {
     case cantBindToNeededType
+    case failedToInitFromGivenValue
 }
 
 //public typealias InterchangeDataConvertible = InterchangeDataInitializable
@@ -24,7 +25,7 @@ extension Int: InterchangeDataInitializable {
         case .numberValue(let number):
             self.init(number)
         default:
-            throw ConvertibleError.cantBindToNeededType
+            throw InitializableError.cantBindToNeededType
         }
     }
 }

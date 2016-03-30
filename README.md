@@ -105,7 +105,7 @@ extension Int: InterchangeDataInitializable {
         case .numberValue(let number):
             self.init(number)
         default:
-            throw ConvertibleError.cantBindToNeededType
+            throw InitializableError.cantBindToNeededType
         }
     }
 }
@@ -134,7 +134,7 @@ extension InterchangeDataInitializable where Self: NSDate {
         case .numberValue(let number):
             self.init(timeIntervalSince1970: number)
         default:
-            throw ConvertibleError.cantBindToNeededType
+            throw InitializableError.cantBindToNeededType
         }
     }
 }

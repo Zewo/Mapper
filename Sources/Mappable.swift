@@ -16,8 +16,8 @@ public protocol Mappable: InterchangeDataInitializable {
 }
 
 extension Mappable {
-    public init(interchangeData value: InterchangeData) throws {
-        try self.init(map: Mapper(interchangeData: value))
+    public init(interchangeData: InterchangeData) throws {
+        try self.init(map: interchangeData.mapper)
     }
 }
 

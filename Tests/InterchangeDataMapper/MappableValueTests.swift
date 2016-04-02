@@ -113,5 +113,124 @@ class MappableValueTests: XCTestCase {
         XCTAssertEqual(test.nested.count, 2)
         XCTAssertEqual(test.nested[1].string, "sun")
     }
+    
+    func testArrayOfInvalidMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]
+            init(map: Mapper) throws {
+                try self.nested = map.arrayFrom("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": 1], ["string": 1]]]))
+        XCTAssertTrue(test.nested.isEmpty)
+    }
+    
+    func testInvalidArrayOfMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]
+            init(map: Mapper) throws {
+                try self.nested = map.arrayFrom("nested")
+            }
+        }
+        let test = try? Test(map: Mapper(interchangeData: ["hested": [["strong": "fire"], ["strong": "sun"]]]))
+        XCTAssertNil(test)
+    }
+    
+    func testArrayOfPartiallyInvalidMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]
+            init(map: Mapper) throws {
+                try self.nested = map.arrayFrom("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": 1], ["string": "fire"]]]))
+        XCTAssertEqual(test.nested.count, 1)
+    }
+    
+    func testExistingOptionalArrayOfMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]?
+            init(map: Mapper) throws {
+                self.nested = map.optionalArrayFrom("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": "ring"], ["string": "fire"]]]))
+        XCTAssertEqual(test.nested!.count, 2)
+    }
+    
+    func testOptionalArrayOfMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]?
+            init(map: Mapper) throws {
+                self.nested = map.optionalArrayFrom("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: []))
+        XCTAssertNil(test.nested)
+    }
+    
+    func testOptionalArrayOfInvalidMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]?
+            init(map: Mapper) throws {
+                self.nested = map.optionalArrayFrom("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["nested": [["strong": 3], ["strong": 5]]]))
+        XCTAssertTrue(test.nested!.isEmpty)
+    }
+    
+    func testOptionalArrayOfPartiallyInvalidMappables() {
+        struct Nested: Mappable {
+            let string: String
+            init(map: Mapper) throws {
+                try self.string = map.from("string")
+            }
+        }
+        struct Test: Mappable {
+            let nested: [Nested]?
+            init(map: Mapper) throws {
+                self.nested = map.optionalArrayFrom("nested")
+            }
+        }
+        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": 1], ["string": "fire"]]]))
+        XCTAssertEqual(test.nested!.count, 1)
+    }
 
 }

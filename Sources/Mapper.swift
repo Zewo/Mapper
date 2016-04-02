@@ -41,7 +41,7 @@ extension Mapper {
     }
     
     public func from<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) throws -> T {
-        guard let rawValue = try interchangeData[key].flatMap(T.RawValue.init) else {
+        guard let rawValue = try interchangeData[key].flatMap({ try T.RawValue(interchangeData: $0) }) else {
             throw Error.cantInitFromRawValue
         }
         if let value = T(rawValue: rawValue) {
@@ -105,7 +105,7 @@ extension Mapper {
     
     public func optionalFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) -> T? {
         do {
-            if let rawValue = try interchangeData[key].flatMap(T.RawValue.init),
+            if let rawValue = try interchangeData[key].flatMap({ try T.RawValue(interchangeData: $0) }),
                 value = T(rawValue: rawValue) {
                 return value
             }

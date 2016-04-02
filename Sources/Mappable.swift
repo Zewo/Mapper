@@ -25,7 +25,7 @@ extension Mappable {
     
     public static func makeWith(interchangeData interchangeData: InterchangeData) -> Self? {
         do {
-            return try self.init(map: Mapper(interchangeData: interchangeData))
+            return try self.init(map: interchangeData.mapper)
         } catch {
             return nil
         }

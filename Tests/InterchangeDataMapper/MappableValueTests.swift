@@ -12,14 +12,21 @@ import InterchangeData
 
 class MappableValueTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    static var allTests: [(String, MappableValueTests -> () throws -> Void)] {
+        return [
+            ("testNestedMappable", testNestedMappable),
+            ("testNestedInvalidMappable", testNestedInvalidMappable),
+            ("testNestedOptionalMappable", testNestedOptionalMappable),
+            ("testNestedOptionalInvalidMappable", testNestedOptionalInvalidMappable),
+            ("testArrayOfMappables", testArrayOfMappables),
+            ("testArrayOfInvalidMappables", testArrayOfInvalidMappables),
+            ("testInvalidArrayOfMappables", testInvalidArrayOfMappables),
+            ("testArrayOfPartiallyInvalidMappables", testArrayOfPartiallyInvalidMappables),
+            ("testExistingOptionalArrayOfMappables", testExistingOptionalArrayOfMappables),
+            ("testOptionalArrayOfMappables", testOptionalArrayOfMappables),
+            ("testOptionalArrayOfInvalidMappables", testOptionalArrayOfInvalidMappables),
+            ("testOptionalArrayOfPartiallyInvalidMappables", testOptionalArrayOfPartiallyInvalidMappables)
+        ]
     }
 
     func testNestedMappable() {

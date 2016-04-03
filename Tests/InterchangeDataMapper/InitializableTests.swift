@@ -11,6 +11,14 @@ import InterchangeData
 @testable import InterchangeDataMapper
 
 class InitializableTests: XCTestCase {
+    
+    static var allTests: [(String, InitializableTests -> () throws -> Void)] {
+        return [
+            ("testInt", testInt),
+            ("testString", testString),
+            ("testDouble", testDouble)
+        ]
+    }
 
     func testInt() {
         let interchangeData: InterchangeData = 5.0

@@ -6,26 +6,26 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+import StructuredData
 import Foundation
 
-public protocol Mappable: InterchangeDataInitializable {
+public protocol Mappable: StructuredDataInitializable {
     
     init(map: Mapper) throws
     
 }
 
 extension Mappable {
-    public init(interchangeData: InterchangeData) throws {
-        try self.init(map: interchangeData.mapper)
+    public init(structuredData: StructuredData) throws {
+        try self.init(map: structuredData.mapper)
     }
 }
 
 extension Mappable {
     
-    public static func makeWith(interchangeData interchangeData: InterchangeData) -> Self? {
+    public static func makeWith(structuredData structuredData: StructuredData) -> Self? {
         do {
-            return try self.init(map: interchangeData.mapper)
+            return try self.init(map: structuredData.mapper)
         } catch {
             return nil
         }

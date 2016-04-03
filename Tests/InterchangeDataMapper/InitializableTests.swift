@@ -1,14 +1,14 @@
 //
 //  InitializableTests.swift
-//  InterchangeDataMapper
+//  StructuredDataMapper
 //
 //  Created by Oleg Dreyman on 02.04.16.
 //
 //
 
 import XCTest
-import InterchangeData
-@testable import InterchangeDataMapper
+import StructuredData
+@testable import StructuredDataMapper
 
 class InitializableTests: XCTestCase {
     
@@ -21,20 +21,20 @@ class InitializableTests: XCTestCase {
     }
 
     func testInt() {
-        let interchangeData: InterchangeData = 5.0
-        let int = try! Int(interchangeData: interchangeData)
+        let structuredData: StructuredData = 5.0
+        let int = try! Int(structuredData: structuredData)
         XCTAssertEqual(int, 5)
     }
     
     func testString() {
-        let interchangeData: InterchangeData = "Some"
-        let string = try! String(interchangeData: interchangeData)
+        let structuredData: StructuredData = "Some"
+        let string = try! String(structuredData: structuredData)
         XCTAssertEqual(string, "Some")
     }
     
     func testDouble() {
-        let interchangeData: InterchangeData = 17.0
-        let double = try! Double(interchangeData: interchangeData)
+        let structuredData: StructuredData = 17.0
+        let double = try! Double(structuredData: structuredData)
         XCTAssertEqual(double, 17.0)
     }
     

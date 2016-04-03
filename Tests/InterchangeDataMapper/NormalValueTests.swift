@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import InterchangeDataMapper
+@testable import StructuredDataMapper
 
 class NormalValueTests: XCTestCase {
 
@@ -29,7 +29,7 @@ class NormalValueTests: XCTestCase {
             }
         }
         
-        let test = try! Test(map: Mapper(interchangeData: ["string": "Hello"]))
+        let test = try! Test(map: Mapper(structuredData: ["string": "Hello"]))
         XCTAssertTrue(test.string == "Hello")
     }
     
@@ -41,7 +41,7 @@ class NormalValueTests: XCTestCase {
             }
         }
         
-        let test = try? Test(map: Mapper(interchangeData: [:]))
+        let test = try? Test(map: Mapper(structuredData: [:]))
         XCTAssertNil(test)
     }
     
@@ -53,7 +53,7 @@ class NormalValueTests: XCTestCase {
             }
         }
         
-        let test = try! Test(map: Mapper(interchangeData: [:]))
+        let test = try! Test(map: Mapper(structuredData: [:]))
         XCTAssertTrue(test.string == "Hello")
     }
     
@@ -64,7 +64,7 @@ class NormalValueTests: XCTestCase {
                 try self.strings = map.arrayFrom("strings")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["strings": ["first", "second"]]))
+        let test = try! Test(map: Mapper(structuredData: ["strings": ["first", "second"]]))
         XCTAssertEqual(test.strings.count, 2)
     }
     
@@ -75,7 +75,7 @@ class NormalValueTests: XCTestCase {
                 try self.strings = map.arrayFrom("strings")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["strings": ["first", "second", 3]]))
+        let test = try! Test(map: Mapper(structuredData: ["strings": ["first", "second", 3]]))
         XCTAssertEqual(test.strings.count, 2)
     }
     

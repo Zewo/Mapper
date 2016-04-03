@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import InterchangeDataMapper
+@testable import StructuredDataMapper
 
 final class OptionalValueTests: XCTestCase {
 
@@ -28,7 +28,7 @@ final class OptionalValueTests: XCTestCase {
                 self.string = map.optionalFrom("string") ?? ""
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["string": "Hello"]))
+        let test = try! Test(map: Mapper(structuredData: ["string": "Hello"]))
         XCTAssertEqual(test.string, "Hello")
     }
     
@@ -39,7 +39,7 @@ final class OptionalValueTests: XCTestCase {
                 self.string = map.optionalFrom("whiskey")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: .nullValue))
+        let test = try! Test(map: Mapper(structuredData: .nullValue))
         XCTAssertNil(test.string)
     }
 
@@ -50,7 +50,7 @@ final class OptionalValueTests: XCTestCase {
                 string = map.optionalFrom("whiskey")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["whiskey": "flows"]))
+        let test = try! Test(map: Mapper(structuredData: ["whiskey": "flows"]))
         XCTAssertEqual(test.string, "flows")
     }
     
@@ -61,7 +61,7 @@ final class OptionalValueTests: XCTestCase {
                 self.strings = map.optionalArrayFrom("whiskey")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: .nullValue))
+        let test = try! Test(map: Mapper(structuredData: .nullValue))
         XCTAssertNil(test.strings)
     }
     
@@ -72,7 +72,7 @@ final class OptionalValueTests: XCTestCase {
                 self.strings = map.optionalArrayFrom("whiskey")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["whiskey": ["lera", "lynn"]]))
+        let test = try! Test(map: Mapper(structuredData: ["whiskey": ["lera", "lynn"]]))
         XCTAssertEqual(test.strings!, ["lera", "lynn"])
     }
     

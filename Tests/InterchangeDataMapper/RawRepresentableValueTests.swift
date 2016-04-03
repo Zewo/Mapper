@@ -7,8 +7,8 @@
 //
 
 import XCTest
-import InterchangeData
-@testable import InterchangeDataMapper
+import StructuredData
+@testable import StructuredDataMapper
 
 class RawRepresentableValueTests: XCTestCase {
 
@@ -39,7 +39,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.suit = map.from("suit")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["suit": "barney"]))
+        let test = try! Test(map: Mapper(structuredData: ["suit": "barney"]))
         XCTAssertEqual(test.suit, Suits.Barney)
     }
     
@@ -53,7 +53,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = map.from("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["value": 1.0]))
+        let test = try! Test(map: Mapper(structuredData: ["value": 1.0]))
         XCTAssertEqual(test.value, Value.first)
     }
     
@@ -67,7 +67,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = map.from("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["value": 1]))
+        let test = try! Test(map: Mapper(structuredData: ["value": 1]))
         XCTAssertEqual(test.value, Value.first)
     }
     
@@ -81,7 +81,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = map.from("value")
             }
         }
-        let test = try? Test(map: Mapper(interchangeData: .nullValue))
+        let test = try? Test(map: Mapper(structuredData: .nullValue))
         XCTAssertNil(test)
     }
     
@@ -95,7 +95,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.value = map.optionalFrom("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: .nullValue))
+        let test = try! Test(map: Mapper(structuredData: .nullValue))
         XCTAssertNil(test.value)
     }
     
@@ -109,7 +109,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.value = map.optionalFrom("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["value": 1.0]))
+        let test = try! Test(map: Mapper(structuredData: ["value": 1.0]))
         XCTAssertEqual(test.value, Value.First)
     }
     
@@ -123,7 +123,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.value = map.optionalFrom("value")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["value": "cike"]))
+        let test = try! Test(map: Mapper(structuredData: ["value": "cike"]))
         XCTAssertNil(test.value)
     }
     
@@ -137,8 +137,8 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.barneys = map.arrayFrom("barneys")
             }
         }
-        let barneysContent: InterchangeData = ["barneys": ["legendary", "stinson", "awesome"]]
-        let test = try! Test(map: Mapper(interchangeData: barneysContent))
+        let barneysContent: StructuredData = ["barneys": ["legendary", "stinson", "awesome"]]
+        let test = try! Test(map: Mapper(structuredData: barneysContent))
         XCTAssertEqual(test.barneys, [Barney.legendary, Barney.stinson, Barney.awesome])
     }
     
@@ -152,8 +152,8 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.barneys = map.arrayFrom("barneys")
             }
         }
-        let barneysContent: InterchangeData = ["barneys": ["legendary", "stinson", "captain"]]
-        let test = try! Test(map: Mapper(interchangeData: barneysContent))
+        let barneysContent: StructuredData = ["barneys": ["legendary", "stinson", "captain"]]
+        let test = try! Test(map: Mapper(structuredData: barneysContent))
         XCTAssertEqual(test.barneys, [Barney.legendary, Barney.stinson])
     }
     
@@ -167,7 +167,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.barneys = map.optionalArrayFrom("barneys")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: .nullValue))
+        let test = try! Test(map: Mapper(structuredData: .nullValue))
         XCTAssertNil(test.barneys)
     }
     
@@ -181,8 +181,8 @@ class RawRepresentableValueTests: XCTestCase {
                 self.barneys = map.optionalArrayFrom("barneys")
             }
         }
-        let barneysContent: InterchangeData = ["barneys": ["legendary", "stinson", "awesome"]]
-        let test = try! Test(map: Mapper(interchangeData: barneysContent))
+        let barneysContent: StructuredData = ["barneys": ["legendary", "stinson", "awesome"]]
+        let test = try! Test(map: Mapper(structuredData: barneysContent))
         XCTAssertEqual(test.barneys!, [Barney.legendary, Barney.stinson, Barney.awesome])
     }
 

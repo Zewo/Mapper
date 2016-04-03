@@ -7,8 +7,8 @@
 //
 
 import XCTest
-import InterchangeData
-@testable import InterchangeDataMapper
+import StructuredData
+@testable import StructuredDataMapper
 
 class MappableValueTests: XCTestCase {
 
@@ -42,10 +42,10 @@ class MappableValueTests: XCTestCase {
                 try self.string = map.from("string")
             }
         }
-        let interchangeData: InterchangeData = [
+        let structuredData: StructuredData = [
             "nest": ["string": "hello"]
         ]
-        let test = try! Test(map: Mapper(interchangeData: interchangeData))
+        let test = try! Test(map: Mapper(structuredData: structuredData))
         XCTAssertEqual(test.nest.string, "hello")
     }
     
@@ -62,8 +62,8 @@ class MappableValueTests: XCTestCase {
                 try self.nested = map.from("nest")
             }
         }
-        let interchangeData: InterchangeData = ["nest": ["strong": "er"]]
-        let test = try? Test(map: Mapper(interchangeData: interchangeData))
+        let structuredData: StructuredData = ["nest": ["strong": "er"]]
+        let test = try? Test(map: Mapper(structuredData: structuredData))
         XCTAssertNil(test)
     }
     
@@ -80,8 +80,8 @@ class MappableValueTests: XCTestCase {
                 self.nested = map.optionalFrom("nest")
             }
         }
-        let interchangeData: InterchangeData = ["nest": ["string": "zewo"]]
-        let test = try! Test(map: Mapper(interchangeData: interchangeData))
+        let structuredData: StructuredData = ["nest": ["string": "zewo"]]
+        let test = try! Test(map: Mapper(structuredData: structuredData))
         XCTAssertEqual(test.nested!.string, "zewo")
     }
     
@@ -98,8 +98,8 @@ class MappableValueTests: XCTestCase {
                 self.nested = map.optionalFrom("nest")
             }
         }
-        let interchangeData: InterchangeData = ["nest": ["strong": "er"]]
-        let test = try! Test(map: Mapper(interchangeData: interchangeData))
+        let structuredData: StructuredData = ["nest": ["strong": "er"]]
+        let test = try! Test(map: Mapper(structuredData: structuredData))
         XCTAssertNil(test.nested)
     }
     
@@ -116,7 +116,7 @@ class MappableValueTests: XCTestCase {
                 try self.nested = map.arrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": "fire"], ["string": "sun"]]]))
+        let test = try! Test(map: Mapper(structuredData: ["nested": [["string": "fire"], ["string": "sun"]]]))
         XCTAssertEqual(test.nested.count, 2)
         XCTAssertEqual(test.nested[1].string, "sun")
     }
@@ -134,7 +134,7 @@ class MappableValueTests: XCTestCase {
                 try self.nested = map.arrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": 1], ["string": 1]]]))
+        let test = try! Test(map: Mapper(structuredData: ["nested": [["string": 1], ["string": 1]]]))
         XCTAssertTrue(test.nested.isEmpty)
     }
     
@@ -151,7 +151,7 @@ class MappableValueTests: XCTestCase {
                 try self.nested = map.arrayFrom("nested")
             }
         }
-        let test = try? Test(map: Mapper(interchangeData: ["hested": [["strong": "fire"], ["strong": "sun"]]]))
+        let test = try? Test(map: Mapper(structuredData: ["hested": [["strong": "fire"], ["strong": "sun"]]]))
         XCTAssertNil(test)
     }
     
@@ -168,7 +168,7 @@ class MappableValueTests: XCTestCase {
                 try self.nested = map.arrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": 1], ["string": "fire"]]]))
+        let test = try! Test(map: Mapper(structuredData: ["nested": [["string": 1], ["string": "fire"]]]))
         XCTAssertEqual(test.nested.count, 1)
     }
     
@@ -185,7 +185,7 @@ class MappableValueTests: XCTestCase {
                 self.nested = map.optionalArrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": "ring"], ["string": "fire"]]]))
+        let test = try! Test(map: Mapper(structuredData: ["nested": [["string": "ring"], ["string": "fire"]]]))
         XCTAssertEqual(test.nested!.count, 2)
     }
     
@@ -202,7 +202,7 @@ class MappableValueTests: XCTestCase {
                 self.nested = map.optionalArrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: []))
+        let test = try! Test(map: Mapper(structuredData: []))
         XCTAssertNil(test.nested)
     }
     
@@ -219,7 +219,7 @@ class MappableValueTests: XCTestCase {
                 self.nested = map.optionalArrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["nested": [["strong": 3], ["strong": 5]]]))
+        let test = try! Test(map: Mapper(structuredData: ["nested": [["strong": 3], ["strong": 5]]]))
         XCTAssertTrue(test.nested!.isEmpty)
     }
     
@@ -236,7 +236,7 @@ class MappableValueTests: XCTestCase {
                 self.nested = map.optionalArrayFrom("nested")
             }
         }
-        let test = try! Test(map: Mapper(interchangeData: ["nested": [["string": 1], ["string": "fire"]]]))
+        let test = try! Test(map: Mapper(structuredData: ["nested": [["string": 1], ["string": "fire"]]]))
         XCTAssertEqual(test.nested!.count, 1)
     }
 

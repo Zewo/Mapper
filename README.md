@@ -20,9 +20,9 @@ struct User: Mappable {
     
     // Mappable requirement
     init(map: Mapper) throws {
-        try id = map.from("id")
-        try username = map.from("username")
-        city = map.optionalFrom("city")
+        self.id = try map.from("id")
+        self.username = try map.from("username")
+        self.city = map.optionalFrom("city")
     }
 }
 
@@ -41,7 +41,7 @@ let user = User.makeWith(interchangeData: content) // User?
 struct Album: Mappable {
     let songs: [String]
     init(map: Mapper) throws {
-        try songs = map.arrayFrom("songs")
+        self.songs = try map.arrayFrom("songs")
     }
 }
 ```
@@ -50,7 +50,7 @@ struct Album: Mappable {
 struct Album: Mappable {
     let songs: [String]?
     init(map: Mapper) throws {
-        songs = map.optionalArrayFrom("songs")
+        self.songs = map.optionalArrayFrom("songs")
     }
 }
 ```
@@ -69,8 +69,8 @@ struct Guitar: Mappable {
     let type: GuitarType
     
     init(map: Mapper) throws {
-        try vendor = map.from("vendor")
-        try type = map.from("type")
+        self.vendor = try map.from("vendor")
+        self.type = try map.from("type")
     }
 }
 ```
@@ -81,7 +81,7 @@ struct Guitar: Mappable {
 struct League: Mappable {
     let name: String
     init(map: Mapper) throws {
-        try name = map.from("name")
+        self.name = try map.from("name")
     }
 }
 
@@ -89,8 +89,8 @@ struct Club: Mappable {
     let name: String
     let league: League
     init(map: Mapper) throws {
-        try name = map.from("name")
-        try league = map.from("league")
+        self.name = try map.from("name")
+        self.league = try map.from("league")
     }
 }
 ```
@@ -117,7 +117,7 @@ Now you can map `Int` using `from(_:)` just like anything else:
 struct Generation: Mappable {
     let number: Int
     init(map: Mapper) throws {
-        try number = map.from("number")
+        self.number = try map.from("number")
     }
 }
 ```

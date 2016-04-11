@@ -35,11 +35,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let suit: Suits
-            init(map: Mapper) throws {
-                try self.suit = map.from("suit")
+            init(mapper: Mapper) throws {
+                try self.suit = mapper.map(from: "suit")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["suit": "barney"]))
+        let test = try! Test(mapper: Mapper(structuredData: ["suit": "barney"]))
         XCTAssertEqual(test.suit, Suits.Barney)
     }
     
@@ -49,11 +49,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let value: Value
-            init(map: Mapper) throws {
-                try self.value = map.from("value")
+            init(mapper: Mapper) throws {
+                try self.value = mapper.map(from: "value")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["value": 1.0]))
+        let test = try! Test(mapper: Mapper(structuredData: ["value": 1.0]))
         XCTAssertEqual(test.value, Value.first)
     }
     
@@ -63,11 +63,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let value: Value
-            init(map: Mapper) throws {
-                try self.value = map.from("value")
+            init(mapper: Mapper) throws {
+                try self.value = mapper.map(from: "value")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["value": 1]))
+        let test = try! Test(mapper: Mapper(structuredData: ["value": 1]))
         XCTAssertEqual(test.value, Value.first)
     }
     
@@ -77,11 +77,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let value: Value
-            init(map: Mapper) throws {
-                try self.value = map.from("value")
+            init(mapper: Mapper) throws {
+                try self.value = mapper.map(from: "value")
             }
         }
-        let test = try? Test(map: Mapper(structuredData: .nullValue))
+        let test = try? Test(mapper: Mapper(structuredData: .nullValue))
         XCTAssertNil(test)
     }
     
@@ -91,11 +91,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let value: Value?
-            init(map: Mapper) throws {
-                self.value = map.optionalFrom("value")
+            init(mapper: Mapper) throws {
+                self.value = mapper.map(optionalFrom: "value")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: .nullValue))
+        let test = try! Test(mapper: Mapper(structuredData: .nullValue))
         XCTAssertNil(test.value)
     }
     
@@ -105,11 +105,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let value: Value?
-            init(map: Mapper) throws {
-                self.value = map.optionalFrom("value")
+            init(mapper: Mapper) throws {
+                self.value = mapper.map(optionalFrom: "value")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["value": 1.0]))
+        let test = try! Test(mapper: Mapper(structuredData: ["value": 1.0]))
         XCTAssertEqual(test.value, Value.First)
     }
     
@@ -119,11 +119,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let value: Value?
-            init(map: Mapper) throws {
-                self.value = map.optionalFrom("value")
+            init(mapper: Mapper) throws {
+                self.value = mapper.map(optionalFrom: "value")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["value": "cike"]))
+        let test = try! Test(mapper: Mapper(structuredData: ["value": "cike"]))
         XCTAssertNil(test.value)
     }
     
@@ -133,12 +133,12 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let barneys: [Barney]
-            init(map: Mapper) throws {
-                try self.barneys = map.arrayFrom("barneys")
+            init(mapper: Mapper) throws {
+                try self.barneys = mapper.map(arrayFrom: "barneys")
             }
         }
         let barneysContent: StructuredData = ["barneys": ["legendary", "stinson", "awesome"]]
-        let test = try! Test(map: Mapper(structuredData: barneysContent))
+        let test = try! Test(mapper: Mapper(structuredData: barneysContent))
         XCTAssertEqual(test.barneys, [Barney.legendary, Barney.stinson, Barney.awesome])
     }
     
@@ -148,12 +148,12 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let barneys: [Barney]
-            init(map: Mapper) throws {
-                try self.barneys = map.arrayFrom("barneys")
+            init(mapper: Mapper) throws {
+                try self.barneys = mapper.map(arrayFrom: "barneys")
             }
         }
         let barneysContent: StructuredData = ["barneys": ["legendary", "stinson", "captain"]]
-        let test = try! Test(map: Mapper(structuredData: barneysContent))
+        let test = try! Test(mapper: Mapper(structuredData: barneysContent))
         XCTAssertEqual(test.barneys, [Barney.legendary, Barney.stinson])
     }
     
@@ -163,11 +163,11 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let barneys: [Barney]?
-            init(map: Mapper) throws {
-                self.barneys = map.optionalArrayFrom("barneys")
+            init(mapper: Mapper) throws {
+                self.barneys = mapper.map(optionalArrayFrom: "barneys")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: .nullValue))
+        let test = try! Test(mapper: Mapper(structuredData: .nullValue))
         XCTAssertNil(test.barneys)
     }
     
@@ -177,12 +177,12 @@ class RawRepresentableValueTests: XCTestCase {
         }
         struct Test: Mappable {
             let barneys: [Barney]?
-            init(map: Mapper) throws {
-                self.barneys = map.optionalArrayFrom("barneys")
+            init(mapper: Mapper) throws {
+                self.barneys = mapper.map(optionalArrayFrom: "barneys")
             }
         }
         let barneysContent: StructuredData = ["barneys": ["legendary", "stinson", "awesome"]]
-        let test = try! Test(map: Mapper(structuredData: barneysContent))
+        let test = try! Test(mapper: Mapper(structuredData: barneysContent))
         XCTAssertEqual(test.barneys!, [Barney.legendary, Barney.stinson, Barney.awesome])
     }
 

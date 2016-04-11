@@ -1,7 +1,7 @@
 #if os(Linux)
 
 import XCTest
-@testable import InterchangeDataMapperTestSuite
+@testable import StructuredDataMapperTestSuite
 
 XCTMain([
 	testCase(NormalValueTests.allTests),

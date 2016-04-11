@@ -6,7 +6,7 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+import StructuredData
 
 // MARK: - Main
 public final class Mapper {
@@ -16,11 +16,11 @@ public final class Mapper {
         case noInterchangeData(key: String)
     }
     
-    public init(interchangeData: InterchangeData) {
-        self.interchangeData = interchangeData
+    public init(structuredData: StructuredData) {
+        self.structuredData = structuredData
     }
     
-    private let interchangeData: InterchangeData
+    private let structuredData: StructuredData
     
 }
 
@@ -29,19 +29,19 @@ public final class Mapper {
 extension Mapper {
 
     public func from<T>(key: String) throws -> T {
-        let value: T = try interchangeData.get(key)
+        let value: T = try structuredData.get(key)
         return value
     }
     
-    public func from<T: InterchangeDataInitializable>(key: String) throws -> T {
-        if let nested = interchangeData[key] {
-            return try unwrap(T(interchangeData: nested))
+    public func from<T: StructuredDataInitializable>(key: String) throws -> T {
+        if let nested = structuredData[key] {
+            return try unwrap(T(structuredData: nested))
         }
         throw Error.noInterchangeData(key: key)
     }
     
-    public func from<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) throws -> T {
-        guard let rawValue = try interchangeData[key].flatMap({ try T.RawValue(interchangeData: $0) }) else {
+    public func from<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) throws -> T {
+        guard let rawValue = try structuredData[key].flatMap({ try T.RawValue(structuredData: $0) }) else {
             throw Error.cantInitFromRawValue
         }
         if let value = T(rawValue: rawValue) {
@@ -57,7 +57,7 @@ extension Mapper {
 extension Mapper {
     
     public func arrayFrom<T>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) {
+        return try structuredData.flatMapThrough(key) {
             do {
                 let some: T = try $0.get()
                 return some
@@ -67,14 +67,14 @@ extension Mapper {
         }
     }
     
-    public func arrayFrom<T: InterchangeDataInitializable>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) { try? T(interchangeData: $0) }
+    public func arrayFrom<T: StructuredDataInitializable>(key: String) throws -> [T] {
+        return try structuredData.flatMapThrough(key) { try? T(structuredData: $0) }
     }
     
-    public func arrayFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) throws -> [T] {
-        return try interchangeData.flatMapThrough(key) {
+    public func arrayFrom<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) throws -> [T] {
+        return try structuredData.flatMapThrough(key) {
             do {
-                let rawValue = try T.RawValue(interchangeData: $0)
+                let rawValue = try T.RawValue(structuredData: $0)
                 return T(rawValue: rawValue)
             } catch {
                 return nil
@@ -96,16 +96,16 @@ extension Mapper {
         }
     }
     
-    public func optionalFrom<T: InterchangeDataInitializable>(key: String) -> T? {
-        if let nested = interchangeData[key] {
-            return try? T(interchangeData: nested)
+    public func optionalFrom<T: StructuredDataInitializable>(key: String) -> T? {
+        if let nested = structuredData[key] {
+            return try? T(structuredData: nested)
         }
         return nil
     }
     
-    public func optionalFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) -> T? {
+    public func optionalFrom<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) -> T? {
         do {
-            if let rawValue = try interchangeData[key].flatMap({ try T.RawValue(interchangeData: $0) }),
+            if let rawValue = try structuredData[key].flatMap({ try T.RawValue(structuredData: $0) }),
                 value = T(rawValue: rawValue) {
                 return value
             }
@@ -123,7 +123,7 @@ extension Mapper {
     
     public func optionalArrayFrom<T>(key: String) -> [T]? {
         do {
-            let inter: [InterchangeData] = try interchangeData.get(key)
+            let inter: [StructuredData] = try structuredData.get(key)
             return inter.flatMap {
                 do {
                     let some: T = try $0.get()
@@ -137,21 +137,21 @@ extension Mapper {
         }
     }
     
-    public func optionalArrayFrom<T: InterchangeDataInitializable>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: StructuredDataInitializable>(key: String) -> [T]? {
         do {
-            let inter: [InterchangeData] = try interchangeData.get(key)
-            return inter.flatMap({ try? T(interchangeData: $0) })
+            let inter: [StructuredData] = try structuredData.get(key)
+            return inter.flatMap({ try? T(structuredData: $0) })
         } catch {
             return nil
         }
     }
     
-    public func optionalArrayFrom<T: RawRepresentable where T.RawValue: InterchangeDataInitializable>(key: String) -> [T]? {
+    public func optionalArrayFrom<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) -> [T]? {
         do {
-            let inter: [InterchangeData] = try interchangeData.get(key)
+            let inter: [StructuredData] = try structuredData.get(key)
             return inter.flatMap {
                 do {
-                    let rawValue = try T.RawValue(interchangeData: $0)
+                    let rawValue = try T.RawValue(structuredData: $0)
                     return T(rawValue: rawValue)
                 } catch {
                     return nil

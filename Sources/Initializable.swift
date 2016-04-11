@@ -6,16 +6,16 @@
 //  Copyright © 2016 Oleg Dreyman. All rights reserved.
 //
 
-import InterchangeData
+import StructuredData
 
 public enum InitializableError: ErrorProtocol {
     case cantBindToNeededType
     case failedToInitFromGivenValue
 }
 
-extension Int: InterchangeDataInitializable {
-    public init(interchangeData: InterchangeData) throws {
-        switch interchangeData {
+extension Int: StructuredDataInitializable {
+    public init(structuredData: StructuredData) throws {
+        switch structuredData {
         case .numberValue(let number):
             self.init(number)
         default:
@@ -24,14 +24,14 @@ extension Int: InterchangeDataInitializable {
     }
 }
 
-extension String: InterchangeDataInitializable {
-    public init(interchangeData: InterchangeData) throws {
-        try self.init(interchangeData.get() as String)
+extension String: StructuredDataInitializable {
+    public init(structuredData: StructuredData) throws {
+        try self.init(structuredData.get() as String)
     }
 }
 
-extension Double: InterchangeDataInitializable {
-    public init(interchangeData: InterchangeData) throws {
-        try self.init(interchangeData.get() as Double)
+extension Double: StructuredDataInitializable {
+    public init(structuredData: StructuredData) throws {
+        try self.init(structuredData.get() as Double)
     }
 }

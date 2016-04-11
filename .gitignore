@@ -3,4 +3,4 @@
 /Packages
 Xcode
 xcuserdata
-.xcodeproj
+*.xcodeproj

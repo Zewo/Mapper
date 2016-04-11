@@ -49,21 +49,19 @@ extension Mapper {
 
 extension Mapper {
     
-    public func map<S: Sequence>(from key: String) throws -> S {
-        return try unwrap((structuredData.flatMapThrough(key) { try? $0.get() as S.Iterator.Element }) as? S)
+    public func map<T>(arrayFrom key: String) throws -> [T] {
+        return try structuredData.flatMapThrough(key) { try $0.get() as T }
     }
     
-    public func map<S: Sequence where
-                    S.Iterator.Element: StructuredDataInitializable>(from key: String) throws -> S {
-        return try unwrap((structuredData.flatMapThrough(key) { try? S.Iterator.Element(structuredData: $0) }) as? S)
+    public func map<T where T: StructuredDataInitializable>(arrayFrom key: String) throws -> [T] {
+        return try structuredData.flatMapThrough(key) { try? T(structuredData: $0) }
     }
     
-    public func map<S: Sequence where
-                    S.Iterator.Element: RawRepresentable,
-                    S.Iterator.Element.RawValue: StructuredDataInitializable>(from key: String) throws -> S {
-        return try unwrap((structuredData.flatMapThrough(key) {
-            return (try? S.Iterator.Element.RawValue(structuredData: $0)).flatMap({ S.Iterator.Element(rawValue: $0) })
-        }) as? S)
+    public func map<T: RawRepresentable where
+                    T.RawValue: StructuredDataInitializable>(arrayFrom key: String) throws -> [T] {
+        return try structuredData.flatMapThrough(key) {
+            return (try? T.RawValue(structuredData: $0)).flatMap({ T(rawValue: $0) })
+        }
     }
     
 }
@@ -105,21 +103,19 @@ extension Mapper {
 
 extension Mapper {
     
-    public func map<S: Sequence>(optionalFrom key: String) -> S? {
-        return (try? structuredData.flatMapThrough(key) { try? $0.get() as S.Iterator.Element }) as? S
+    public func map<T>(optionalArrayFrom key: String) -> [T]? {
+        return try? structuredData.flatMapThrough(key) { try $0.get() as T }
     }
     
-    public func map<S: Sequence where
-                    S.Iterator.Element: StructuredDataInitializable>(from key: String) -> S? {
-        return (try? structuredData.flatMapThrough(key) { try? S.Iterator.Element(structuredData: $0) }) as? S
+    public func map<T where T: StructuredDataInitializable>(optionalArrayFrom key: String) -> [T]? {
+        return try?  structuredData.flatMapThrough(key) { try? T(structuredData: $0) }
     }
     
-    public func map<S: Sequence where
-                    S.Iterator.Element: RawRepresentable,
-                    S.Iterator.Element.RawValue: StructuredDataInitializable>(from key: String) -> S? {
-        return (try? structuredData.flatMapThrough(key) {
-            return (try? S.Iterator.Element.RawValue(structuredData: $0)).flatMap({ S.Iterator.Element(rawValue: $0) })
-            }) as? S
+    public func map<T: RawRepresentable where
+                    T.RawValue: StructuredDataInitializable>(optionalArrayFrom key: String) -> [T]? {
+        return try? structuredData.flatMapThrough(key) {
+            return (try? T.RawValue(structuredData: $0)).flatMap({ T(rawValue: $0) })
+        }
     }
     
 }

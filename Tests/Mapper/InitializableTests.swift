@@ -1,4 +1,4 @@
-// Initializable.swift
+// InitializableTests.swift
 //
 // The MIT License (MIT)
 //
@@ -22,32 +22,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@_exported import StructuredData
+import XCTest
+import Mapper
 
-public enum InitializableError: ErrorProtocol {
-    case cantBindToNeededType
-    case failedToInitFromGivenValue
-}
-
-extension Int: StructuredDataInitializable {
-    public init(structuredData: StructuredData) throws {
-        switch structuredData {
-        case .numberValue(let number):
-            self.init(number)
-        default:
-            throw InitializableError.cantBindToNeededType
-        }
+class InitializableTests: XCTestCase {
+    static var allTests: [(String, InitializableTests -> () throws -> Void)] {
+        return [
+            ("testInt", testInt),
+            ("testString", testString),
+            ("testDouble", testDouble)
+        ]
     }
-}
 
-extension String: StructuredDataInitializable {
-    public init(structuredData: StructuredData) throws {
-        try self.init(structuredData.get() as String)
+    func testInt() {
+        let structuredData: StructuredData = 5.0
+        let int = try! Int(structuredData: structuredData)
+        XCTAssertEqual(int, 5)
     }
-}
-
-extension Double: StructuredDataInitializable {
-    public init(structuredData: StructuredData) throws {
-        try self.init(structuredData.get() as Double)
+    
+    func testString() {
+        let structuredData: StructuredData = "Some"
+        let string = try! String(structuredData: structuredData)
+        XCTAssertEqual(string, "Some")
+    }
+    
+    func testDouble() {
+        let structuredData: StructuredData = 17.0
+        let double = try! Double(structuredData: structuredData)
+        XCTAssertEqual(double, 17.0)
     }
 }

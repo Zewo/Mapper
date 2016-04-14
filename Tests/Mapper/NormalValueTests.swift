@@ -48,6 +48,44 @@ class NormalValueTests: XCTestCase {
         XCTAssertTrue(test.string == "Hello")
     }
     
+    func testMappingBool() {
+        struct Test: Mappable {
+            let flag: Bool?
+            init(mapper: Mapper) throws {
+                self.flag = mapper.map(optionalFrom: "flag")
+            }
+        }
+        
+        let test = try! Test(mapper: Mapper(structuredData: ["flag": true]))
+        XCTAssertEqual(test.flag!, true)
+    }
+    
+    func testTodo() {
+        struct Todo: Mappable {
+            var id: Int?
+            var title: String?
+            var url: String?
+            var completed: Bool?
+            var order: Int?
+            
+            init(mapper: Mapper) throws {
+                self.id = mapper.map(optionalFrom: "id")
+                self.title = mapper.map(optionalFrom: "title")
+                self.url = mapper.map(optionalFrom: "url")
+                self.completed = mapper.map(optionalFrom: "completed")
+                self.order = mapper.map(optionalFrom: "order")
+            }
+        }
+        
+        let content: StructuredData = ["completed": true]
+        guard var todo = Todo.makeWith(structuredData: content) else {
+            print("faaaail")
+            return
+        }
+        todo.id = 15
+        print(todo)
+    }
+    
     func testMappingMissingKey() {
         struct Test: Mappable {
             let string: String

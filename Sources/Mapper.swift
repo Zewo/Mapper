@@ -29,6 +29,7 @@ public final class Mapper {
     public enum Error: ErrorProtocol {
         case cantInitFromRawValue
         case noInterchangeData(key: String)
+        case incompatibleSequence
     }
     
     public init(structuredData: StructuredData) {
@@ -41,19 +42,19 @@ public final class Mapper {
 // MARK: - General case
 
 extension Mapper {
-    public func from<T>(key: String) throws -> T {
+    public func map<T>(from key: String) throws -> T {
         let value: T = try structuredData.get(key)
         return value
     }
     
-    public func from<T: StructuredDataInitializable>(key: String) throws -> T {
+    public func map<T: StructuredDataInitializable>(from key: String) throws -> T {
         if let nested = structuredData[key] {
             return try unwrap(T(structuredData: nested))
         }
         throw Error.noInterchangeData(key: key)
     }
     
-    public func from<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) throws -> T {
+    public func map<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(from key: String) throws -> T {
         guard let rawValue = try structuredData[key].flatMap({ try T.RawValue(structuredData: $0) }) else {
             throw Error.cantInitFromRawValue
         }
@@ -67,29 +68,19 @@ extension Mapper {
 // MARK: - Arrays
 
 extension Mapper {
-    public func arrayFrom<T>(key: String) throws -> [T] {
-        return try structuredData.flatMapThrough(key) {
-            do {
-                let some: T = try $0.get()
-                return some
-            } catch {
-                return nil
-            }
-        }
+    
+    public func map<T>(arrayFrom key: String) throws -> [T] {
+        return try structuredData.flatMapThrough(key) { try $0.get() as T }
     }
     
-    public func arrayFrom<T: StructuredDataInitializable>(key: String) throws -> [T] {
+    public func map<T where T: StructuredDataInitializable>(arrayFrom key: String) throws -> [T] {
         return try structuredData.flatMapThrough(key) { try? T(structuredData: $0) }
     }
     
-    public func arrayFrom<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) throws -> [T] {
+    public func map<T: RawRepresentable where
+                    T.RawValue: StructuredDataInitializable>(arrayFrom key: String) throws -> [T] {
         return try structuredData.flatMapThrough(key) {
-            do {
-                let rawValue = try T.RawValue(structuredData: $0)
-                return T(rawValue: rawValue)
-            } catch {
-                return nil
-            }
+            return (try? T.RawValue(structuredData: $0)).flatMap({ T(rawValue: $0) })
         }
     }
 }
@@ -97,22 +88,23 @@ extension Mapper {
 // MARK: - Optionals
 
 extension Mapper {
-    public func optionalFrom<T>(key: String) -> T? {
+    
+    public func map<T>(optionalFrom key: String) -> T? {
         do {
-            return try from(key)
+            return try map(from: key)
         } catch {
             return nil
         }
     }
     
-    public func optionalFrom<T: StructuredDataInitializable>(key: String) -> T? {
+    public func map<T: StructuredDataInitializable>(optionalFrom key: String) -> T? {
         if let nested = structuredData[key] {
             return try? T(structuredData: nested)
         }
         return nil
     }
     
-    public func optionalFrom<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) -> T? {
+    public func map<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(optionalFrom key: String) -> T? {
         do {
             if let rawValue = try structuredData[key].flatMap({ try T.RawValue(structuredData: $0) }),
                 value = T(rawValue: rawValue) {
@@ -128,44 +120,19 @@ extension Mapper {
 // MARK: - Optional arrays
 
 extension Mapper {
-    public func optionalArrayFrom<T>(key: String) -> [T]? {
-        do {
-            let inter: [StructuredData] = try structuredData.get(key)
-            return inter.flatMap {
-                do {
-                    let some: T = try $0.get()
-                    return some
-                } catch {
-                    return nil
-                }
-            }
-        } catch {
-            return nil
-        }
+    
+    public func map<T>(optionalArrayFrom key: String) -> [T]? {
+        return try? structuredData.flatMapThrough(key) { try $0.get() as T }
     }
     
-    public func optionalArrayFrom<T: StructuredDataInitializable>(key: String) -> [T]? {
-        do {
-            let inter: [StructuredData] = try structuredData.get(key)
-            return inter.flatMap({ try? T(structuredData: $0) })
-        } catch {
-            return nil
-        }
+    public func map<T where T: StructuredDataInitializable>(optionalArrayFrom key: String) -> [T]? {
+        return try?  structuredData.flatMapThrough(key) { try? T(structuredData: $0) }
     }
     
-    public func optionalArrayFrom<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(key: String) -> [T]? {
-        do {
-            let inter: [StructuredData] = try structuredData.get(key)
-            return inter.flatMap {
-                do {
-                    let rawValue = try T.RawValue(structuredData: $0)
-                    return T(rawValue: rawValue)
-                } catch {
-                    return nil
-                }
-            }
-        } catch {
-            return nil
+    public func map<T: RawRepresentable where
+                    T.RawValue: StructuredDataInitializable>(optionalArrayFrom key: String) -> [T]? {
+        return try? structuredData.flatMapThrough(key) {
+            return (try? T.RawValue(structuredData: $0)).flatMap({ T(rawValue: $0) })
         }
     }
 }

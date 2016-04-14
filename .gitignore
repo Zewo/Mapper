@@ -30,3 +30,4 @@ xcuserdata
 *.xcuserstate
 *.xcscmblueprint
 XcodeDevelopment/
+*.DS_Store

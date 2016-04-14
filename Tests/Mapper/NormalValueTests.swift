@@ -39,58 +39,58 @@ class NormalValueTests: XCTestCase {
     func testMappingString() {
         struct Test: Mappable {
             let string: String
-            init(map: Mapper) throws {
-                try self.string = map.from("string")
+            init(mapper: Mapper) throws {
+                try self.string = mapper.map(from: "string")
             }
         }
         
-        let test = try! Test(map: Mapper(structuredData: ["string": "Hello"]))
+        let test = try! Test(mapper: Mapper(structuredData: ["string": "Hello"]))
         XCTAssertTrue(test.string == "Hello")
     }
     
     func testMappingMissingKey() {
         struct Test: Mappable {
             let string: String
-            init(map: Mapper) throws {
-                try self.string = map.from("foo")
+            init(mapper: Mapper) throws {
+                try self.string = mapper.map(from: "foo")
             }
         }
         
-        let test = try? Test(map: Mapper(structuredData: [:]))
+        let test = try? Test(mapper: Mapper(structuredData: [:]))
         XCTAssertNil(test)
     }
     
     func testFallbackMissingKey() {
         struct Test: Mappable {
             let string: String
-            init(map: Mapper) throws {
-                self.string = map.optionalFrom("foo") ?? "Hello"
+            init(mapper: Mapper) throws {
+                self.string = mapper.map(optionalFrom: "foo") ?? "Hello"
             }
         }
         
-        let test = try! Test(map: Mapper(structuredData: [:]))
+        let test = try! Test(mapper: Mapper(structuredData: [:]))
         XCTAssertTrue(test.string == "Hello")
     }
     
     func testArrayOfStrings() {
         struct Test: Mappable {
             let strings: [String]
-            init(map: Mapper) throws {
-                try self.strings = map.arrayFrom("strings")
+            init(mapper: Mapper) throws {
+                try self.strings = mapper.map(arrayFrom: "strings")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["strings": ["first", "second"]]))
+        let test = try! Test(mapper: Mapper(structuredData: ["strings": ["first", "second"]]))
         XCTAssertEqual(test.strings.count, 2)
     }
     
     func testPartiallyInvalidArrayOfValues() {
         struct Test: Mappable {
             let strings: [String]
-            init(map: Mapper) throws {
-                try self.strings = map.arrayFrom("strings")
+            init(mapper: Mapper) throws {
+                try self.strings = mapper.map(arrayFrom: "strings")
             }
         }
-        let test = try! Test(map: Mapper(structuredData: ["strings": ["first", "second", 3]]))
+        let test = try! Test(mapper: Mapper(structuredData: ["strings": ["first", "second", 3]]))
         XCTAssertEqual(test.strings.count, 2)
     }
 }

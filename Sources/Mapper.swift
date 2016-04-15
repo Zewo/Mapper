@@ -144,7 +144,7 @@ public enum UnwrapError: ErrorProtocol {
 }
 
 extension Mapper {
-    private func unwrap<T>(optional: T?) throws -> T {
+    private func unwrap<T>(_ optional: T?) throws -> T {
         if let nonoptional = optional {
             return nonoptional
         }

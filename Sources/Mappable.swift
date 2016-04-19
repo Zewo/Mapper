@@ -37,7 +37,7 @@ extension Mappable {
 }
 
 extension Mappable {
-    public static func makeWith(structuredData structuredData: StructuredData) -> Self? {
+    public static func makeWith(structuredData: StructuredData) -> Self? {
         do {
             return try self.init(mapper: structuredData.mapper)
         } catch {

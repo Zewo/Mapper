@@ -28,7 +28,7 @@
 public final class Mapper {
     public enum Error: ErrorProtocol {
         case cantInitFromRawValue
-        case noInterchangeData(key: String)
+        case noStrutcuredData(key: String)
         case incompatibleSequence
     }
     
@@ -51,7 +51,7 @@ extension Mapper {
         if let nested = structuredData[key] {
             return try unwrap(T(structuredData: nested))
         }
-        throw Error.noInterchangeData(key: key)
+        throw Error.noStrutcuredData(key: key)
     }
     
     public func map<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(from key: String) throws -> T {

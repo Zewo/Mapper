@@ -29,6 +29,7 @@ class NormalValueTests: XCTestCase {
     static var allTests: [(String, NormalValueTests -> () throws -> Void)] {
         return [
             ("testMappingString", testMappingString),
+            ("testMappingBool", testMappingBool),
             ("testMappingMissingKey", testMappingMissingKey),
             ("testFallbackMissingKey", testFallbackMissingKey),
             ("testArrayOfStrings", testArrayOfStrings),
@@ -60,31 +61,31 @@ class NormalValueTests: XCTestCase {
         XCTAssertEqual(test.flag!, true)
     }
     
-    func testTodo() {
-        struct Todo: Mappable {
-            var id: Int?
-            var title: String?
-            var url: String?
-            var completed: Bool?
-            var order: Int?
+    // func testTodo() {
+    //     struct Todo: Mappable {
+    //         var id: Int?
+    //         var title: String?
+    //         var url: String?
+    //         var completed: Bool?
+    //         var order: Int?
             
-            init(mapper: Mapper) throws {
-                self.id = mapper.map(optionalFrom: "id")
-                self.title = mapper.map(optionalFrom: "title")
-                self.url = mapper.map(optionalFrom: "url")
-                self.completed = mapper.map(optionalFrom: "completed")
-                self.order = mapper.map(optionalFrom: "order")
-            }
-        }
+    //         init(mapper: Mapper) throws {
+    //             self.id = mapper.map(optionalFrom: "id")
+    //             self.title = mapper.map(optionalFrom: "title")
+    //             self.url = mapper.map(optionalFrom: "url")
+    //             self.completed = mapper.map(optionalFrom: "completed")
+    //             self.order = mapper.map(optionalFrom: "order")
+    //         }
+    //     }
         
-        let content: StructuredData = ["completed": true]
-        guard var todo = Todo.makeWith(structuredData: content) else {
-            print("faaaail")
-            return
-        }
-        todo.id = 15
-        print(todo)
-    }
+    //     let content: StructuredData = ["completed": true]
+    //     guard var todo = Todo.makeWith(structuredData: content) else {
+    //         print("faaaail")
+    //         return
+    //     }
+    //     todo.id = 15
+    //     print(todo)
+    // }
     
     func testMappingMissingKey() {
         struct Test: Mappable {

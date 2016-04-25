@@ -1,13 +1,16 @@
 # Mapper
-[![Zewo 0.4][zewo-badge]](http://zewo.io)
-[![Swift 3][swift-badge]](https://swift.org)
-[![Platform Linux][platforms-badge]](https://swift.org)
-[![License MIT][mit-badge]](https://tldrlegal.com/license/mit-license)
-[![Codebeat][codebeat-badge]](https://codebeat.co/projects/github-com-zewo-interchangedatamapper)
 
-**Mapper** is a tiny and simple library which allows you to convert Zewo's `StructuredData` to strongly typed objects. Deeply inspired by Lyft's [Mapper][mapper-url].
+[![Swift][swift-badge]][swift-url]
+[![Zewo][zewo-badge]][zewo-url]
+[![Platform][platform-badge]][platform-url]
+[![License][mit-badge]][mit-url]
+[![Slack][slack-badge]][slack-url]
+[![Travis][travis-badge]][travis-url]
+
+**Mapper** is a tiny and simple library which allows you to convert Zewo's `StructuredData` to strongly typed objects. Deeply inspired by Lyft's Mapper.
 
 ## Usage
+
 #### Simplest example:
 
 ``` swift
@@ -35,6 +38,7 @@ let user = User.makeWith(structuredData: content) // User?
 ```
 
 #### Mapping arrays
+
 **Be careful!** If you use `map(from:)` instead of `map(arrayFrom:)`, mapping will fail.
 
 ```swift
@@ -44,9 +48,7 @@ struct Album: Mappable {
         songs = try mapper.map(arrayFrom: "songs")
     }
 }
-```
 
-```swift
 struct Album: Mappable {
     let songs: [String]?
     init(mapper: Mapper) throws {
@@ -138,10 +140,12 @@ extension StructuredDataInitializable where Self: NSDate {
         }
     }
 }
+
 extension NSDate: StructuredDataInitializable { }
 ```
 
 ## Installation
+
 - Add `Mapper` to your `Package.swift`
 
 ```swift
@@ -149,32 +153,35 @@ import PackageDescription
 
 let package = Package(
     dependencies: [
-        .Package(url: "https://github.com/Zewo/Mapper.git", majorVersion: 0, minor: 4),
+        .Package(url: "https://github.com/Zewo/Mapper.git", majorVersion: 0, minor: 5),
     ]
 )
 ```
 
-**Mapper** (as *Topo*) is also available for [Zewo 0.3][topo-0.3].
+## Support
 
-## See also
-[Resource][resource-url], which provides RESTful resources for Zewo's Router.
+If you need any help you can join our [Slack](http://slack.zewo.io) and go to the **#help** channel. Or you can create a Github [issue](https://github.com/Zewo/Zewo/issues/new) in our main repository. When stating your issue be sure to add enough details, specify what module is causing the problem and reproduction steps.
 
 ## Community
 
-[![Slack](http://s13.postimg.org/ybwy92ktf/Slack.png)](http://slack.zewo.io)
+[![Slack][slack-image]][slack-url]
 
-Join us on [Slack](http://slack.zewo.io).
+The entire Zewo code base is licensed under MIT. By contributing to Zewo you are contributing to an open and engaged community of brilliant Swift programmers. Join us on [Slack](http://slack.zewo.io) to get to know us!
 
 ## License
-**Mapper** is released under the MIT license. See LICENSE for details.
 
-[zewo-badge]: https://img.shields.io/badge/Zewo-0.4-FF7565.svg?style=flat
+This project is released under the MIT license. See [LICENSE](LICENSE) for details.
+
 [swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat
-[mapper-url]: https://github.com/lyft/mapper
-[interchange-data-url]: https://github.com/Zewo/StructuredData
-[resource-url]: https://github.com/paulofaria/Resource
-[cont-neg-mid-url]: https://github.com/Zewo/ContentNegotiationMiddleware
+[swift-url]: https://swift.org
+[zewo-badge]: https://img.shields.io/badge/Zewo-0.5-FF7565.svg?style=flat
+[zewo-url]: http://zewo.io
+[platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg?style=flat
+[platform-url]: https://swift.org
 [mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg?style=flat
-[platforms-badge]: https://img.shields.io/badge/Platform-Linux-lightgray.svg?style=flat
-[topo-0.3]: https://github.com/Zewo/Topo/tree/zewo0.3
-[codebeat-badge]: https://codebeat.co/badges/67df5828-b0d3-4d73-a587-3b994d6aaf1fStructuredData
+[mit-url]: https://tldrlegal.com/license/mit-license
+[slack-image]: http://s13.postimg.org/ybwy92ktf/Slack.png
+[slack-badge]: https://zewo-slackin.herokuapp.com/badge.svg
+[slack-url]: http://slack.zewo.io
+[travis-badge]: https://travis-ci.org/Zewo/Mapper.svg?branch=master
+[travis-url]: https://travis-ci.org/Zewo/Mapper

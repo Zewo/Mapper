@@ -6,6 +6,7 @@
 [![License][mit-badge]][mit-url]
 [![Slack][slack-badge]][slack-url]
 [![Travis][travis-badge]][travis-url]
+[![Codebeat][codebeat-badge]][codebeat-url]
 
 **Mapper** is a tiny and simple library which allows you to convert Zewo's `StructuredData` to strongly typed objects. Deeply inspired by Lyft's Mapper.
 
@@ -185,3 +186,5 @@ This project is released under the MIT license. See [LICENSE](LICENSE) for detai
 [slack-url]: http://slack.zewo.io
 [travis-badge]: https://travis-ci.org/Zewo/Mapper.svg?branch=master
 [travis-url]: https://travis-ci.org/Zewo/Mapper
+[codebeat-badge]: https://codebeat.co/badges/d08bad48-c72e-49e3-a184-68a23063d461
+[codebeat-url]: https://codebeat.co/projects/github-com-zewo-mapper

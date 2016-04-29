@@ -23,6 +23,7 @@
 // SOFTWARE.
 
 @_exported import StructuredData
+@_exported import Validator
 
 // MARK: - Main
 public final class Mapper {
@@ -42,23 +43,27 @@ public final class Mapper {
 // MARK: - General case
 
 extension Mapper {
-    public func map<T>(from key: String) throws -> T {
+    public func map<T>(from key: String, validators: [Validator] = []) throws -> T {
         let value: T = try structuredData.get(key)
+        try validators.validate(value)
         return value
     }
     
-    public func map<T: StructuredDataInitializable>(from key: String) throws -> T {
+    public func map<T: StructuredDataInitializable>(from key: String, validators: [Validator] = []) throws -> T {
         if let nested = structuredData[key] {
-            return try unwrap(T(structuredData: nested))
+            let value = try unwrap(T(structuredData: nested))
+            try validators.validate(value)
+            return value
         }
         throw Error.noStrutcuredData(key: key)
     }
     
-    public func map<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(from key: String) throws -> T {
+    public func map<T: RawRepresentable where T.RawValue: StructuredDataInitializable>(from key: String, validators: [Validator] = []) throws -> T {
         guard let rawValue = try structuredData[key].flatMap({ try T.RawValue(structuredData: $0) }) else {
             throw Error.cantInitFromRawValue
         }
         if let value = T(rawValue: rawValue) {
+            try validators.validate(value)
             return value
         }
         throw Error.cantInitFromRawValue
@@ -91,7 +96,9 @@ extension Mapper {
     
     public func map<T>(optionalFrom key: String) -> T? {
         do {
-            return try map(from: key)
+            let value: T = try structuredData.get(key)
+            // try validators.forEach { try $0.validate(value) }
+            return value
         } catch {
             return nil
         }

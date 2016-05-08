@@ -25,9 +25,7 @@
 @_exported import StructuredData
 
 public protocol Mappable: StructuredDataInitializable {
-    
     init(mapper: Mapper) throws
-    
 }
 
 extension Mappable {

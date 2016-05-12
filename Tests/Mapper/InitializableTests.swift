@@ -11,7 +11,7 @@ class InitializableTests: XCTestCase {
     }
 
     func testInt() {
-        let structuredData: StructuredData = 5.0
+        let structuredData: StructuredData = 5
         let int = try! Int(structuredData: structuredData)
         XCTAssertEqual(int, 5)
     }

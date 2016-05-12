@@ -31,14 +31,14 @@ extension StructuredData {
 }
 
 extension StructuredData {
-    internal func mapThrough<T>(@noescape _ transform: (StructuredData throws -> T)) throws -> [T] {
+    internal func mapThrough<T>( _ transform: @noescape (StructuredData) throws -> T) throws -> [T] {
         if let array = self.array {
             return try array.map(transform)
         }
         throw StructuredData.Error.incompatibleType
     }
     
-    internal func mapThrough<T>(_ key: String, @noescape transform: (StructuredData throws -> T)) throws -> [T] {
+    internal func mapThrough<T>(_ key: String, transform: @noescape (StructuredData) throws -> T) throws -> [T] {
         if let value = self[key] {
             return try value.mapThrough(transform)
         }
@@ -52,14 +52,14 @@ extension StructuredData {
 //        throw StructuredData.Error.incompatibleType
 //    }
     
-    internal func flatMapThrough<T>(@noescape _ transform: (StructuredData throws -> T?)) throws -> [T] {
+    internal func flatMapThrough<T>(_ transform: @noescape (StructuredData) throws -> T?) throws -> [T] {
         if let array = self.array {
             return try array.flatMap(transform)
         }
         throw StructuredData.Error.incompatibleType
     }
     
-    internal func flatMapThrough<T>(_ key: String, @noescape transform: (StructuredData throws -> T?)) throws -> [T] {
+    internal func flatMapThrough<T>(_ key: String, transform: @noescape (StructuredData) throws -> T?) throws -> [T] {
         if let value = self[key] {
             return try value.flatMapThrough(transform)
         }

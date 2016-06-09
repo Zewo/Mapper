@@ -2,7 +2,7 @@ import XCTest
 @testable import Mapper
 
 class RawRepresentableValueTests: XCTestCase {
-    static var allTests: [(String, RawRepresentableValueTests -> () throws -> Void)] {
+    static var allTests: [(String, (RawRepresentableValueTests) -> () throws -> Void)] {
         return [
             ("testRawRepresentable", testRawRepresentable),
             ("testRawRepresentableNumber", testRawRepresentableNumber),
@@ -71,7 +71,7 @@ class RawRepresentableValueTests: XCTestCase {
                 try self.value = mapper.map(from: "value")
             }
         }
-        let test = try? Test(mapper: Mapper(structuredData: .nullValue))
+        let test = try? Test(mapper: Mapper(structuredData: .null))
         XCTAssertNil(test)
     }
 
@@ -85,7 +85,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.value = mapper.map(optionalFrom: "value")
             }
         }
-        let test = try! Test(mapper: Mapper(structuredData: .nullValue))
+        let test = try! Test(mapper: Mapper(structuredData: .null))
         XCTAssertNil(test.value)
     }
 
@@ -157,7 +157,7 @@ class RawRepresentableValueTests: XCTestCase {
                 self.barneys = mapper.map(optionalArrayFrom: "barneys")
             }
         }
-        let test = try! Test(mapper: Mapper(structuredData: .nullValue))
+        let test = try! Test(mapper: Mapper(structuredData: .null))
         XCTAssertNil(test.barneys)
     }
 

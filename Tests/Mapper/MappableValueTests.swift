@@ -2,7 +2,7 @@ import XCTest
 @testable import Mapper
 
 class MappableValueTests: XCTestCase {
-    static var allTests: [(String, MappableValueTests -> () throws -> Void)] {
+    static var allTests: [(String, (MappableValueTests) -> () throws -> Void)] {
         return [
             ("testNestedMappable", testNestedMappable),
             ("testNestedInvalidMappable", testNestedInvalidMappable),

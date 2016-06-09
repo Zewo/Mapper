@@ -2,7 +2,7 @@ import XCTest
 @testable import Mapper
 
 final class OptionalValueTests: XCTestCase {
-    static var allTests: [(String, OptionalValueTests -> () throws -> Void)] {
+    static var allTests: [(String, (OptionalValueTests) -> () throws -> Void)] {
         return [
             ("testMappingToClass", testMappingToClass),
             ("testMappingOptionalValue", testMappingOptionalValue),
@@ -30,7 +30,7 @@ final class OptionalValueTests: XCTestCase {
                 self.string = mapper.map(optionalFrom: "whiskey")
             }
         }
-        let test = try! Test(mapper: Mapper(structuredData: .nullValue))
+        let test = try! Test(mapper: Mapper(structuredData: .null))
         XCTAssertNil(test.string)
     }
 
@@ -52,7 +52,7 @@ final class OptionalValueTests: XCTestCase {
                 self.strings = mapper.map(optionalArrayFrom: "whiskey")
             }
         }
-        let test = try! Test(mapper: Mapper(structuredData: .nullValue))
+        let test = try! Test(mapper: Mapper(structuredData: .null))
         XCTAssertNil(test.strings)
     }
 

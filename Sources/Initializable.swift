@@ -32,7 +32,7 @@ public enum InitializableError: ErrorProtocol {
 extension Int: StructuredDataInitializable {
     public init(structuredData: StructuredData) throws {
         switch structuredData {
-        case .integerValue(let number):
+        case .int(let number):
             self.init(number)
         default:
             throw InitializableError.cantBindToNeededType

@@ -2,7 +2,7 @@ import XCTest
 import Mapper
 
 class InitializableTests: XCTestCase {
-    static var allTests: [(String, InitializableTests -> () throws -> Void)] {
+    static var allTests: [(String, (InitializableTests) -> () throws -> Void)] {
         return [
             ("testInt", testInt),
             ("testString", testString),

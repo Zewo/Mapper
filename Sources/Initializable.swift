@@ -23,6 +23,11 @@
 // SOFTWARE.
 
 @_exported import StructuredData
+#if os(Linux)
+    import Glibc
+#else
+    import Darwin.C
+#endif
 
 public enum InitializableError: ErrorProtocol {
     case cantBindToNeededType
@@ -34,6 +39,8 @@ extension Int: StructuredDataInitializable {
         switch structuredData {
         case .int(let number):
             self.init(number)
+        case .double(let number) where number == floor(number):
+            self.init(Int(number))
         default:
             throw InitializableError.cantBindToNeededType
         }

@@ -36,7 +36,7 @@ public final class Mapper {
         self.structuredData = structuredData
     }
     
-    private let structuredData: StructuredData
+    public let structuredData: StructuredData
 }
 
 // MARK: - General case

@@ -74,7 +74,7 @@ extension OutMap {
         case 0:
             self = map
         case 1:
-            try set(self, at: indexPath[0])
+            try set(map, at: indexPath[0])
         default:
             throw OutMapError.deepSetIsNotImplementedYet
         }

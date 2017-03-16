@@ -835,11 +835,15 @@ extension Map: InMap {
 
 extension Map: OutMap {
     
-    mutating public func set(_ map: Map, at indexPath: IndexPathValue) throws {
+    public typealias Output = Map
+    
+    mutating public func set(_ map: Map?, at indexPath: IndexPathValue) throws {
+        guard let map = map else { return }
         try self.set(map, for: [indexPath])
     }
     
-    mutating public func set(_ map: Map, at indexPath: [IndexPathValue]) throws {
+    mutating public func set(_ map: Map?, at indexPath: [IndexPathValue]) throws {
+        guard let map = map else { return }
         try self.set(map, for: indexPath)
     }
     
@@ -856,6 +860,26 @@ extension Map: OutMap {
             return value.map
         }
         return nil
+    }
+    
+    public static func fromInt(_ int: Int) -> Map? {
+        return from(int)
+    }
+    
+    public static func fromDouble(_ double: Double) -> Map? {
+        return from(double)
+    }
+    
+    public static func fromBool(_ bool: Bool) -> Map? {
+        return from(bool)
+    }
+    
+    public static func fromString(_ string: String) -> Map? {
+        return from(string)
+    }
+    
+    public func finalize() throws -> Map {
+        return self
     }
     
 }

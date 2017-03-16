@@ -84,6 +84,30 @@ extension Test11: BasicOutMappable {
     }
 }
 
+struct NilTest1: BasicOutMappable {
+    
+    let int: Int?
+    let string: String?
+    
+    func outMap<Destination : OutMap>(mapper: inout BasicOutMapper<Destination>) throws {
+        try mapper.map(self.int, to: "int")
+        try mapper.map(self.string, to: "string")
+    }
+    
+}
+
+struct NilTest2: BasicOutMappable {
+    
+    let int: Int?
+    let nest: NilTest1?
+    
+    func outMap<Destination : OutMap>(mapper: inout BasicOutMapper<Destination>) throws {
+        try mapper.map(self.int, to: "int")
+        try mapper.map(self.nest, to: "nest")
+    }
+    
+}
+
 struct OutDictNest: BasicOutMappable {
     let int: Int
     func outMap<Map : OutMap>(mapper: inout BasicOutMapper<Map>) throws {
@@ -234,6 +258,27 @@ class OutMapperTests: XCTestCase {
         let date2001 = Date.init(timeIntervalSinceReferenceDate: 5.0)
         let date2001Map: Map = try date2001.map(withContext: .timeIntervalSinceReferenceDate)
         XCTAssertEqual(date2001Map.double!, 5.0)
+    }
+    
+    func testWithOptions() throws {
+        let nilTest = NilTest1(int: nil, string: nil)
+        let nilDict: MapperMapWithOptions = try nilTest.map(withOptions: [.nilAsEmptyString])
+        print(nilDict)
+        for val in ([nilDict.mapperMap.get(at: .key("int"))!, nilDict.mapperMap.get(at: .key("string"))!]) {
+            switch val {
+            case .string(let string):
+                XCTAssertEqual(string, "")
+            default:
+                XCTFail()
+            }
+        }
+    }
+    
+    func testWithOptionsNest() throws {
+        let nilNest = NilTest1(int: nil, string: nil)
+        let nilTest = NilTest2(int: nil, nest: nilNest)
+        let nilDict: MapperMapWithOptions = try nilTest.map(withOptions: [.nilAsEmptyString])
+        print(nilDict)
     }
     
 //    func testStringAnyExhaustive() throws {

@@ -223,11 +223,18 @@ enum MapperMapOutMapError : Error {
 
 extension MapperMap : OutMap {
     
+    public typealias Output = MapperMap
+    
+    public func finalize() throws -> MapperMap {
+        return self
+    }
+    
     public static var blank: MapperMap {
         return .dictionary([:])
     }
     
-    public mutating func set(_ map: MapperMap, at indexPath: IndexPathValue) throws {
+    public mutating func set(_ map: MapperMap?, at indexPath: IndexPathValue) throws {
+        guard let map = map else { return }
         switch (indexPath, self) {
         case (.key(let key), .dictionary(var dict)):
             dict[key] = map
@@ -266,19 +273,19 @@ extension MapperMap : OutMap {
         return nil
     }
     
-    public static func from(_ int: Int) -> MapperMap? {
+    public static func fromInt(_ int: Int) -> MapperMap? {
         return MapperMap.int(int)
     }
     
-    public static func from(_ double: Double) -> MapperMap? {
+    public static func fromDouble(_ double: Double) -> MapperMap? {
         return MapperMap.double(double)
     }
     
-    public static func from(_ bool: Bool) -> MapperMap? {
+    public static func fromBool(_ bool: Bool) -> MapperMap? {
         return MapperMap.bool(bool)
     }
     
-    public static func from(_ string: String) -> MapperMap? {
+    public static func fromString(_ string: String) -> MapperMap? {
         return MapperMap.string(string)
     }
     
@@ -328,6 +335,78 @@ extension MapperNeomap {
     
     public static func from(_ string: String) -> MapperNeomap? {
         return .string(string)
+    }
+    
+}
+
+public struct MapperMapWithOptions {
+    
+    public var mapperMap: MapperMap
+    public var options: Options = []
+    
+}
+
+extension MapperMapWithOptions : OutMapWithOptions {
+    
+    public typealias Output = MapperMapWithOptions
+    
+    public func finalize() throws -> MapperMapWithOptions {
+        return self
+    }
+    
+    public struct Options : OptionSet {
+        public let rawValue: Int
+        
+        public static let nilAsEmptyString = Options(rawValue: 1 << 0)
+        
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+    }
+        
+    public mutating func set(_ map: MapperMapWithOptions?, at indexPath: IndexPathValue) throws {
+        let nilAsEmptyString = options.contains(.nilAsEmptyString)
+        guard let realMap: MapperMapWithOptions = {
+            if let map = map {
+                return map
+            } else if nilAsEmptyString {
+                return MapperMapWithOptions(mapperMap: .string(""), options: [])
+            }
+            return nil
+        }() else { return }
+        try mapperMap.set(realMap.mapperMap, at: indexPath)
+    }
+    
+    public static var blank: MapperMapWithOptions {
+        return MapperMapWithOptions(mapperMap: .blank, options: [])
+    }
+    
+    public static func blank(with options: MapperMapWithOptions.Options) -> MapperMapWithOptions {
+        return MapperMapWithOptions(mapperMap: .blank, options: [])
+    }
+    
+    public static func from<T>(_ value: T) -> MapperMapWithOptions? {
+        return MapperMap.from(value).flatMap({ MapperMapWithOptions.init(mapperMap: $0, options: []) })
+    }
+    
+    public static func fromArray(_ array: [MapperMapWithOptions]) -> MapperMapWithOptions? {
+        return MapperMap.fromArray(array.map({ $0.mapperMap })).flatMap({ MapperMapWithOptions.init(mapperMap: $0, options: []) })
+    }
+    
+    public static func fromInt(_ int: Int) -> MapperMapWithOptions? {
+        return MapperMap.fromInt(int).flatMap({ MapperMapWithOptions.init(mapperMap: $0, options: []) })
+    }
+    
+    public static func fromDouble(_ double: Double) -> MapperMapWithOptions? {
+        return MapperMap.fromDouble(double).flatMap({ MapperMapWithOptions.init(mapperMap: $0, options: []) })
+    }
+    
+    public static func fromBool(_ bool: Bool) -> MapperMapWithOptions? {
+        return MapperMap.fromBool(bool).flatMap({ MapperMapWithOptions.init(mapperMap: $0, options: []) })
+    }
+    
+    public static func fromString(_ string: String) -> MapperMapWithOptions? {
+        return MapperMap.fromString(string).flatMap({ MapperMapWithOptions.init(mapperMap: $0, options: []) })
     }
     
 }

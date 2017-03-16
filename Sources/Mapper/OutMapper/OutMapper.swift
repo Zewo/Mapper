@@ -49,7 +49,7 @@ fileprivate extension OutMapperProtocol {
         }
     }
     
-    mutating func set(_ map: Destination, at indexPath: [IndexPath]) throws {
+    mutating func set(_ map: Destination?, at indexPath: [IndexPath]) throws {
         let indexPathValues = indexPath.map({ $0.indexPathValue })
         do {
             try destination.set(map, at: indexPathValues)
@@ -68,28 +68,48 @@ extension OutMapperProtocol {
     /// - parameter indexPath: path to set value to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func unsafe_map<T>(_ value: T, to indexPath: IndexPath...) throws {
+    public mutating func unsafe_map<T>(_ value: T?, to indexPath: IndexPath...) throws {
+        guard let value = value else {
+            try set(nil, at: indexPath)
+            return
+        }
         let map = try getMap(from: value)
         try set(map, at: indexPath)
     }
     
-    public mutating func map(_ int: Int, to indexPath: IndexPath...) throws {
-        let map = try unwrap(Destination.from(int))
+    public mutating func map(_ int: Int?, to indexPath: IndexPath...) throws {
+        guard let int = int else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let map = try unwrap(Destination.fromInt(int))
         try set(map, at: indexPath)
     }
     
-    public mutating func map(_ double: Double, to indexPath: IndexPath...) throws {
-        let map = try unwrap(Destination.from(double))
+    public mutating func map(_ double: Double?, to indexPath: IndexPath...) throws {
+        guard let double = double else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let map = try unwrap(Destination.fromDouble(double))
         try set(map, at: indexPath)
     }
     
-    public mutating func map(_ bool: Bool, to indexPath: IndexPath...) throws {
-        let map = try unwrap(Destination.from(bool))
+    public mutating func map(_ bool: Bool?, to indexPath: IndexPath...) throws {
+        guard let bool = bool else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let map = try unwrap(Destination.fromBool(bool))
         try set(map, at: indexPath)
     }
     
-    public mutating func map(_ string: String, to indexPath: IndexPath...) throws {
-        let map = try unwrap(Destination.from(string))
+    public mutating func map(_ string: String?, to indexPath: IndexPath...) throws {
+        guard let string = string else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let map = try unwrap(Destination.fromString(string))
         try set(map, at: indexPath)
     }
     
@@ -99,8 +119,12 @@ extension OutMapperProtocol {
     /// - parameter indexPath: path to set value to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func map<T : OutMappable>(_ value: T, to indexPath: IndexPath...) throws {
-        let new: Destination = try value.map()
+    public mutating func map<T : OutMappable>(_ value: T?, to indexPath: IndexPath...) throws {
+        guard let value = value else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let new: Destination = try value.map(parent: destination)
         try set(new, at: indexPath)
     }
     
@@ -110,8 +134,12 @@ extension OutMapperProtocol {
     /// - parameter indexPath: path to set value to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func map<T : BasicOutMappable>(_ value: T, to indexPath: IndexPath...) throws {
-        let new: Destination = try value.map()
+    public mutating func map<T : BasicOutMappable>(_ value: T?, to indexPath: IndexPath...) throws {
+        guard let value = value else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let new: Destination = try value.map(parent: destination)
         try set(new, at: indexPath)
     }
     
@@ -121,7 +149,11 @@ extension OutMapperProtocol {
     /// - parameter indexPath: path to set value to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func map<T : RawRepresentable>(_ value: T, to indexPath: IndexPath...) throws {
+    public mutating func map<T : RawRepresentable>(_ value: T?, to indexPath: IndexPath...) throws {
+        guard let value = value else {
+            try set(nil, at: indexPath)
+            return
+        }
         let map = try getMap(from: value.rawValue)
         try set(map, at: indexPath)
     }
@@ -133,8 +165,12 @@ extension OutMapperProtocol {
     /// - parameter context: value-specific context, used to describe the way of mapping.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func map<T : OutMappableWithContext>(_ value: T, to indexPath: IndexPath..., withContext context: T.MappingContext) throws {
-        let new = try value.map(withContext: context) as Destination
+    public mutating func map<T : OutMappableWithContext>(_ value: T?, to indexPath: IndexPath..., withContext context: T.MappingContext) throws {
+        guard let value = value else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let new = try value.map(withContext: context, parent: destination) as Destination
         try set(new, at: indexPath)
     }
     
@@ -151,25 +187,25 @@ extension OutMapperProtocol {
     }
     
     public mutating func map(_ array: [Int], to indexPath: IndexPath...) throws {
-        let maps = try array.map({ try unwrap(Destination.from($0)) })
+        let maps = try array.map({ try unwrap(Destination.fromInt($0)) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
     
     public mutating func map(_ array: [Double], to indexPath: IndexPath...) throws {
-        let maps = try array.map({ try unwrap(Destination.from($0)) })
+        let maps = try array.map({ try unwrap(Destination.fromDouble($0)) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
 
     public mutating func map(_ array: [Bool], to indexPath: IndexPath...) throws {
-        let maps = try array.map({ try unwrap(Destination.from($0)) })
+        let maps = try array.map({ try unwrap(Destination.fromBool($0)) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
 
     public mutating func map(_ array: [String], to indexPath: IndexPath...) throws {
-        let maps = try array.map({ try unwrap(Destination.from($0)) })
+        let maps = try array.map({ try unwrap(Destination.fromString($0)) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -181,7 +217,7 @@ extension OutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : OutMappable>(_ array: [T], to indexPath: IndexPath...) throws {
-        let maps: [Destination] = try array.map({ try $0.map() })
+        let maps: [Destination] = try array.map({ try $0.map(parent: destination) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -193,7 +229,7 @@ extension OutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : BasicOutMappable>(_ array: [T], to indexPath: IndexPath...) throws {
-        let maps: [Destination] = try array.map({ try $0.map() })
+        let maps: [Destination] = try array.map({ try $0.map(parent: destination) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -218,7 +254,7 @@ extension OutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : OutMappableWithContext>(_ array: [T], to indexPath: IndexPath..., withContext context: T.MappingContext) throws {
-        let maps: [Destination] = try array.map({ try $0.map(withContext: context) })
+        let maps: [Destination] = try array.map({ try $0.map(withContext: context, parent: destination) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -233,8 +269,12 @@ extension ContextualOutMapperProtocol {
     /// - parameter indexPath: path to set values to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func map<T : OutMappableWithContext>(_ value: T, to indexPath: IndexPath...) throws where T.MappingContext == Context {
-        let new: Destination = try value.map(withContext: self.context)
+    public mutating func map<T : OutMappableWithContext>(_ value: T?, to indexPath: IndexPath...) throws where T.MappingContext == Context {
+        guard let value = value else {
+            try set(nil, at: indexPath)
+            return
+        }
+        let new: Destination = try value.map(withContext: self.context, parent: destination)
         try set(new, at: indexPath)
     }
     
@@ -245,7 +285,7 @@ extension ContextualOutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : OutMappableWithContext>(_ array: [T], to indexPath: IndexPath...) throws where T.MappingContext == Context {
-        let maps: [Destination] = try array.map({ try $0.map(withContext: context) })
+        let maps: [Destination] = try array.map({ try $0.map(withContext: context, parent: destination) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }

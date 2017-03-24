@@ -36,8 +36,6 @@ extension OutMapperTests {
         ("testUsingContext", testUsingContext),
         ("testExternalMappable", testExternalMappable),
         ("testDateMapping", testDateMapping),
-        ("testWithOptions", testWithOptions),
-        ("testWithOptionsNest", testWithOptionsNest),
         ]
 }
 extension PerformanceTests {

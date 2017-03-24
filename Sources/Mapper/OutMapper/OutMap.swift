@@ -12,13 +12,6 @@ public protocol OutMap {
     /// - throws: throw if value cannot be set for some reason.
     mutating func set(_ map: Self?, at indexPath: IndexPathValue) throws
     
-    /// Usually used to pass the mapping context to nested maps.
-    ///
-    /// - Parameter child: instance of `Self` to which the context should be passed
-    /// 
-    /// - note: base implementation of `OutMap` doesn't do anything, but `OutMapWithOptions` uses this method to pass the options to childs.
-    func setup(_ child: inout Self)
-    
     /// Sets value to given index path.
     ///
     /// - parameter map:       value to be set.
@@ -67,40 +60,6 @@ public protocol OutMap {
     /// - returns: instance from the given `String`. `nil` if conversion cannot be done.
     static func fromString(_ string: String) -> Self?
 
-}
-
-public extension OutMap {
-    
-    func setup(_ child: inout Self) {
-        // do nothing
-    }
-    
-}
-
-public protocol OutMapWithOptions : OutMap {
-    
-    associatedtype Options
-    
-    var options: Options { get set }
-    
-    mutating func applyOptions(_ options: Options)
-    
-}
-
-extension OutMapWithOptions where Options : OptionSet {
-    
-    public mutating func applyOptions(_ options: Options) {
-        self.options = self.options.union(options)
-    }
-    
-}
-
-public extension OutMapWithOptions {
-    
-    public func adopt(_ child: inout Self) {
-        child.applyOptions(options)
-    }
-    
 }
 
 public enum OutMapError : Error {

@@ -124,7 +124,7 @@ extension OutMapperProtocol {
             try set(nil, at: indexPath)
             return
         }
-        let new: Destination = try value.map(parent: destination)
+        let new: Destination = try value.map()
         try set(new, at: indexPath)
     }
     
@@ -139,7 +139,7 @@ extension OutMapperProtocol {
             try set(nil, at: indexPath)
             return
         }
-        let new: Destination = try value.map(parent: destination)
+        let new: Destination = try value.map()
         try set(new, at: indexPath)
     }
     
@@ -170,7 +170,7 @@ extension OutMapperProtocol {
             try set(nil, at: indexPath)
             return
         }
-        let new = try value.map(withContext: context, parent: destination) as Destination
+        let new = try value.map(withContext: context) as Destination
         try set(new, at: indexPath)
     }
     
@@ -217,7 +217,7 @@ extension OutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : OutMappable>(_ array: [T], to indexPath: IndexPath...) throws {
-        let maps: [Destination] = try array.map({ try $0.map(parent: destination) })
+        let maps: [Destination] = try array.map({ try $0.map() })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -229,7 +229,7 @@ extension OutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : BasicOutMappable>(_ array: [T], to indexPath: IndexPath...) throws {
-        let maps: [Destination] = try array.map({ try $0.map(parent: destination) })
+        let maps: [Destination] = try array.map({ try $0.map() })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -254,7 +254,7 @@ extension OutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : OutMappableWithContext>(_ array: [T], to indexPath: IndexPath..., withContext context: T.MappingContext) throws {
-        let maps: [Destination] = try array.map({ try $0.map(withContext: context, parent: destination) })
+        let maps: [Destination] = try array.map({ try $0.map(withContext: context) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }
@@ -274,7 +274,7 @@ extension ContextualOutMapperProtocol {
             try set(nil, at: indexPath)
             return
         }
-        let new: Destination = try value.map(withContext: self.context, parent: destination)
+        let new: Destination = try value.map(withContext: self.context)
         try set(new, at: indexPath)
     }
     
@@ -285,7 +285,7 @@ extension ContextualOutMapperProtocol {
     ///
     /// - throws: `OutMapperError`.
     public mutating func map<T : OutMappableWithContext>(_ array: [T], to indexPath: IndexPath...) throws where T.MappingContext == Context {
-        let maps: [Destination] = try array.map({ try $0.map(withContext: context, parent: destination) })
+        let maps: [Destination] = try array.map({ try $0.map(withContext: context) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)
     }

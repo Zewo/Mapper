@@ -51,5 +51,5 @@ extension PerformanceTests {
 XCTMain([
     testCase(InMapperTests.allTests),
     testCase(OutMapperTests.allTests),
-    testCase(PerformanceTests.allTests),
+//    testCase(PerformanceTests.allTests),
 ])

@@ -260,27 +260,6 @@ class OutMapperTests: XCTestCase {
         XCTAssertEqual(date2001Map.double!, 5.0)
     }
     
-    func testWithOptions() throws {
-        let nilTest = NilTest1(int: nil, string: nil)
-        let nilDict: MapperMapWithOptions = try nilTest.map(withOptions: [.nilAsEmptyString])
-        print(nilDict)
-        for val in ([nilDict.mapperMap.get(at: .key("int"))!, nilDict.mapperMap.get(at: .key("string"))!]) {
-            switch val {
-            case .string(let string):
-                XCTAssertEqual(string, "")
-            default:
-                XCTFail()
-            }
-        }
-    }
-    
-    func testWithOptionsNest() throws {
-        let nilNest = NilTest1(int: nil, string: nil)
-        let nilTest = NilTest2(int: nil, nest: nilNest)
-        let nilDict: MapperMapWithOptions = try nilTest.map(withOptions: [.nilAsEmptyString])
-        print(nilDict)
-    }
-    
 //    func testStringAnyExhaustive() throws {
 //        // expected
 //        let nestDict: [String: Any] = ["int": 3]

@@ -45,22 +45,8 @@ extension OutMappable {
     /// - throws: `OutMapperError`.
     ///
     /// - returns: structured data instance created from `self`.
-    internal func map<Destination : OutMap>(to destination: Destination = .blank, parent: Destination) throws -> Destination {
-        var child = destination
-        parent.setup(&child)
-        var mapper = OutMapper<Destination, MappingKeys>(of: child)
-        try outMap(mapper: &mapper)
-        return mapper.destination
-    }
-    
     public func map<Destination : OutMap>(to destination: Destination = .blank) throws -> Destination {
-        return try map(to: destination, parent: .blank)
-    }
-    
-    public func map<Destination : OutMapWithOptions>(to destination: Destination = .blank, withOptions options: Destination.Options) throws -> Destination {
-        var destinationWithModifiedOptions = destination
-        destinationWithModifiedOptions.applyOptions(options)
-        var mapper = OutMapper<Destination, MappingKeys>(of: destinationWithModifiedOptions)
+        var mapper = OutMapper<Destination, MappingKeys>(of: destination)
         try outMap(mapper: &mapper)
         return mapper.destination
     }
@@ -76,22 +62,8 @@ extension BasicOutMappable {
     /// - throws: `OutMapperError`.
     ///
     /// - returns: structured data instance created from `self`.
-    internal func map<Destination : OutMap>(to destination: Destination = .blank, parent: Destination) throws -> Destination {
-        var child = destination
-        parent.setup(&child)
-        var mapper = BasicOutMapper<Destination>(of: child)
-        try outMap(mapper: &mapper)
-        return mapper.destination
-    }
-    
     public func map<Destination : OutMap>(to destination: Destination = .blank) throws -> Destination {
-        return try map(to: destination, parent: .blank)
-    }
-    
-    public func map<Destination : OutMapWithOptions>(to destination: Destination = .blank, withOptions options: Destination.Options) throws -> Destination {
-        var destinationWithModifiedOptions = destination
-        destinationWithModifiedOptions.applyOptions(options)
-        var mapper = BasicOutMapper<Destination>(of: destinationWithModifiedOptions)
+        var mapper = BasicOutMapper<Destination>(of: destination)
         try outMap(mapper: &mapper)
         return mapper.destination
     }
@@ -108,22 +80,8 @@ extension OutMappableWithContext {
     /// - throws: `OutMapperError`.
     ///
     /// - returns: structured data instance created from `self`.
-    internal func map<Destination : OutMap>(to destination: Destination = .blank, withContext context: MappingContext, parent: Destination) throws -> Destination {
-        var child = destination
-        parent.setup(&child)
-        var mapper = ContextualOutMapper<Destination, MappingKeys, MappingContext>(of: child, context: context)
-        try outMap(mapper: &mapper)
-        return mapper.destination
-    }
-    
     public func map<Destination : OutMap>(to destination: Destination = .blank, withContext context: MappingContext) throws -> Destination {
-        return try map(to: destination, withContext: context, parent: .blank)
-    }
-    
-    public func map<Destination : OutMapWithOptions>(to destination: Destination = .blank, withContext context: MappingContext, withOptions options: Destination.Options) throws -> Destination {
-        var destinationWithModifiedOptions = destination
-        destinationWithModifiedOptions.applyOptions(options)
-        var mapper = ContextualOutMapper<Destination, MappingKeys, MappingContext>(of: destinationWithModifiedOptions, context: context)
+        var mapper = ContextualOutMapper<Destination, MappingKeys, MappingContext>(of: destination, context: context)
         try outMap(mapper: &mapper)
         return mapper.destination
     }

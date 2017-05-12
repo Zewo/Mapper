@@ -461,9 +461,9 @@ extension Date : OutMappableWithContext {
 }
 ```
 
-#### "Ungaranteed" mapping
+#### "Unguaranteed" mapping
 
-**Mapper** can work only with four basic "primitive" types: `Int`, `Double`, `Bool`, `String` (these four are expected to work with any **Mapper**-conforming type). But, of course, you can map other, more specific primitive types that your format supports. In order to do that, you should use `.ungaranteedMap` and `.ungaranteedMapArray` methods:
+**Mapper** can work only with four basic "primitive" types: `Int`, `Double`, `Bool`, `String` (these four are expected to work with any **Mapper**-conforming type). But, of course, you can map other, more specific primitive types that your format supports. In order to do that, you should use `.unguaranteedMap` and `.unguaranteedMapArray` methods:
 
 ```swift
 struct TeamStat : Mappable {
@@ -476,13 +476,13 @@ struct TeamStat : Mappable {
     }
     
     init<Source : InMap>(mapper: InMapper<Source, MappingKeys>) throws {
-        self.rate = try mapper.ungaranteedMap(from: .rate)
-        self.goals = try mapper.ungaranteedMapArray(from: .goals)
+        self.rate = try mapper.unguaranteedMap(from: .rate)
+        self.goals = try mapper.unguaranteedMapArray(from: .goals)
     }
     
     func outMap<Destination : OutMap>(mapper: inout OutMapper<Destination, TeamStat.MappingKeys>) throws {
-        try mapper.ungaranteedMap(self.rate, to: .rate)
-        try mapper.ungaranteedMapArray(self.goals, to: .goals)
+        try mapper.unguaranteedMap(self.rate, to: .rate)
+        try mapper.unguaranteedMapArray(self.goals, to: .goals)
     }
 
 }

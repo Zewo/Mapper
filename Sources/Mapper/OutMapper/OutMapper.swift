@@ -68,7 +68,7 @@ extension OutMapperProtocol {
     /// - parameter indexPath: path to set value to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func ungaranteedMap<T>(_ value: T?, to indexPath: IndexPath...) throws {
+    public mutating func unguaranteedMap<T>(_ value: T?, to indexPath: IndexPath...) throws {
         guard let value = value else {
             try set(nil, at: indexPath)
             return
@@ -180,7 +180,7 @@ extension OutMapperProtocol {
     /// - parameter indexPath: path to set values to.
     ///
     /// - throws: `OutMapperError`.
-    public mutating func ungaranteedMapArray<T>(_ array: [T], to indexPath: IndexPath...) throws {
+    public mutating func unguaranteedMapArray<T>(_ array: [T], to indexPath: IndexPath...) throws {
         let maps = try array.map({ try self.getMap(from: $0) })
         let map = try arrayMap(of: maps)
         try set(map, at: indexPath)

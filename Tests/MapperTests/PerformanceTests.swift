@@ -48,10 +48,10 @@ struct UnsafePrimitive : InMappable {
     typealias MappingKeys = Primitive.MappingKeys
     
     init<Source : InMap>(mapper: InMapper<Source, MappingKeys>) throws {
-        self.int = try mapper.unsafe_map(from: .int)
-        self.string = try mapper.unsafe_map(from: .string)
-        self.bool = try mapper.unsafe_map(from: .bool)
-        self.double = try mapper.unsafe_map(from: .double)
+        self.int = try mapper.ungaranteedMap(from: .int)
+        self.string = try mapper.ungaranteedMap(from: .string)
+        self.bool = try mapper.ungaranteedMap(from: .bool)
+        self.double = try mapper.ungaranteedMap(from: .double)
     }
 }
 

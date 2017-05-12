@@ -841,12 +841,7 @@ extension Map: OutMap {
         guard let map = map else { return }
         try self.set(map, for: [indexPath])
     }
-    
-    mutating public func set(_ map: Map?, at indexPath: [IndexPathValue]) throws {
-        guard let map = map else { return }
-        try self.set(map, for: indexPath)
-    }
-    
+        
     public static var blank: Map {
         return .dictionary([:])
     }

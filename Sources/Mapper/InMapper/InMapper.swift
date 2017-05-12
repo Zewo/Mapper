@@ -83,7 +83,7 @@ extension InMapperProtocol {
     /// - throws: `InMapperError`.
     ///
     /// - returns: value at `indexPath` represented as `T`.
-    public func unsafe_map<T>(from indexPath: IndexPath...) throws -> T {
+    public func ungaranteedMap<T>(from indexPath: IndexPath...) throws -> T {
         let leveled = try dive(to: indexPath)
         return try get(from: leveled)
     }
@@ -192,7 +192,7 @@ extension InMapperProtocol {
     /// - throws: `InMapperError`.
     ///
     /// - returns: array of values at `indexPath` represented as `T`.
-    public func unsafe_mapArray<T>(from indexPath: IndexPath...) throws -> [T] {
+    public func ungaranteedMapArray<T>(from indexPath: IndexPath...) throws -> [T] {
         let leveled = try dive(to: indexPath)
         let array = try self.array(from: leveled)
         return try array.map({ try get(from: $0) })

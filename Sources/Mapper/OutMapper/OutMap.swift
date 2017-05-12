@@ -72,7 +72,7 @@ extension OutMap {
         let count = indexPath.count
         switch count {
         case 0:
-            self = .blank
+            self = map ?? .blank
         case 1:
             try set(map, at: indexPath[0])
         default:

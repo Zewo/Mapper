@@ -169,7 +169,22 @@ public enum MapperNeomap {
     case dictionary([String: MapperNeomap])
 }
 
-extension MapperNeomap {
+extension MapperNeomap : InMap {
+    
+    public func get(at indexPath: IndexPathValue) -> MapperNeomap? {
+        switch (indexPath, self) {
+        case (.key(let key), .dictionary(let dict)):
+            return dict[key]
+        case (.index(let index), .array(let array)):
+            if array.indices.contains(index) {
+                return array[index]
+            }
+            return nil
+        default:
+            return nil
+        }
+    }
+    
     public func get<T>() -> T? {
         switch self {
         case .bool(let value as T):         return value
@@ -215,6 +230,14 @@ extension MapperNeomap {
         }
         return nil
     }
+    
+    public func asArray() -> [MapperNeomap]? {
+        if case .array(let array) = self {
+            return array
+        }
+        return nil
+    }
+    
 }
 
 enum MapperMapOutMapError : Error {
@@ -223,14 +246,12 @@ enum MapperMapOutMapError : Error {
 
 extension MapperMap : OutMap {
     
-    public typealias Output = MapperMap
-    
-    public func finalize() throws -> MapperMap {
-        return self
-    }
-    
     public static var blank: MapperMap {
         return .dictionary([:])
+    }
+    
+    public enum OutMappingError : Error {
+        case incompatibleType
     }
     
     public mutating func set(_ map: MapperMap?, at indexPath: IndexPathValue) throws {
@@ -243,7 +264,7 @@ extension MapperMap : OutMap {
             array[index] = map
             self = .array(array)
         default:
-            throw MapperMapOutMapError.incompatibleType
+            throw OutMappingError.incompatibleType
         }
     }
     
@@ -291,7 +312,29 @@ extension MapperMap : OutMap {
     
 }
 
-extension MapperNeomap {
+extension MapperNeomap : OutMap {
+    
+    public static var blank: MapperNeomap {
+        return .dictionary([:])
+    }
+    
+    public enum OutMappingError : Error {
+        case incompatibleType
+    }
+    
+    public mutating func set(_ map: MapperNeomap?, at indexPath: IndexPathValue) throws {
+        guard let map = map else { return }
+        switch (indexPath, self) {
+        case (.key(let key), .dictionary(var dict)):
+            dict[key] = map
+            self = .dictionary(dict)
+        case (.index(let index), .array(var array)):
+            array[index] = map
+            self = .array(array)
+        default:
+            throw OutMappingError.incompatibleType
+        }
+    }
     
     public static func from<T>(_ value: T) -> MapperNeomap? {
         if let string = value as? String {
@@ -321,20 +364,24 @@ extension MapperNeomap {
         return nil
     }
     
-    public static func from(_ int: Int) -> MapperNeomap? {
+    public static func fromInt(_ int: Int) -> MapperNeomap? {
         return .int32(Int32(int))
     }
     
-    public static func from(_ double: Double) -> MapperNeomap? {
+    public static func fromDouble(_ double: Double) -> MapperNeomap? {
         return .float(Float(double))
     }
     
-    public static func from(_ bool: Bool) -> MapperNeomap? {
+    public static func fromBool(_ bool: Bool) -> MapperNeomap? {
         return .bool(bool)
     }
     
-    public static func from(_ string: String) -> MapperNeomap? {
+    public static func fromString(_ string: String) -> MapperNeomap? {
         return .string(string)
+    }
+    
+    public static func fromArray(_ array: [MapperNeomap]) -> MapperNeomap? {
+        return .array(array)
     }
     
 }

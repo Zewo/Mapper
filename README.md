@@ -461,9 +461,9 @@ extension Date : OutMappableWithContext {
 }
 ```
 
-#### "Unsafe" mapping
+#### "Ungaranteed" mapping
 
-**Mapper** can work only with four basic "primitive" types: `Int`, `Double`, `Bool`, `String` (these four are expected to work with any **Mapper**-conforming type). But, of course, you can map other, more specific primitive types that your format supports. In order to do that, you should use `.unsafe_map` and `.unsafe_mapArray` methods:
+**Mapper** can work only with four basic "primitive" types: `Int`, `Double`, `Bool`, `String` (these four are expected to work with any **Mapper**-conforming type). But, of course, you can map other, more specific primitive types that your format supports. In order to do that, you should use `.ungaranteedMap` and `.ungaranteedMapArray` methods:
 
 ```swift
 struct TeamStat : Mappable {
@@ -476,13 +476,13 @@ struct TeamStat : Mappable {
     }
     
     init<Source : InMap>(mapper: InMapper<Source, MappingKeys>) throws {
-        self.rate = try mapper.unsafe_map(from: .rate)
-        self.goals = try mapper.unsafe_mapArray(from: .goals)
+        self.rate = try mapper.ungaranteedMap(from: .rate)
+        self.goals = try mapper.ungaranteedMapArray(from: .goals)
     }
     
     func outMap<Destination : OutMap>(mapper: inout OutMapper<Destination, TeamStat.MappingKeys>) throws {
-        try mapper.unsafe_map(self.rate, to: .rate)
-        try mapper.unsafe_mapArray(self.goals, to: .goals)
+        try mapper.ungaranteedMap(self.rate, to: .rate)
+        try mapper.ungaranteedMapArray(self.goals, to: .goals)
     }
 
 }
@@ -682,6 +682,7 @@ As you see, our `MapperNeomap` doesn't support `Int` and `Double`. So we should 
 
 ```swift
 extension MapperNeomap : InMap {
+
     public func get<T>() -> T? {
         switch self {
         case .bool(let value as T):         return value
@@ -737,14 +738,14 @@ Now let's look at `OutMap`:
 ```swift
 public protocol OutMap {
     static var blank: Self { get }
-    mutating func set(_ map: Self, at indexPath: IndexPathValue) throws
-    mutating func set(_ map: Self, at indexPath: [IndexPathValue]) throws
+    mutating func set(_ map: Self?, at indexPath: IndexPathValue) throws
+    mutating func set(_ map: Self?, at indexPath: [IndexPathValue]) throws
     static func fromArray(_ array: [Self]) -> Self?
     static func from<T>(_ value: T) -> Self?
-    static func from(_ int: Int) -> Self?
-    static func from(_ double: Double) -> Self?
-    static func from(_ bool: Bool) -> Self?
-    static func from(_ string: String) -> Self?
+    static func fromInt(_ int: Int) -> Self?
+    static func fromDouble(_ double: Double) -> Self?
+    static func fromBool(_ bool: Bool) -> Self?
+    static func fromString(_ string: String) -> Self?
 }
 ```
 
@@ -759,7 +760,12 @@ extension MapperMap : OutMap {
         return .dictionary([:])
     }
     
-    public mutating func set(_ map: MapperMap, at indexPath: IndexPathValue) throws {
+    public enum OutMappingError : Error {
+        case incompatibleType
+    }
+    
+    public mutating func set(_ map: MapperMap?, at indexPath: IndexPathValue) throws {
+        guard let map = map else { return }
         switch (indexPath, self) {
         case (.key(let key), .dictionary(var dict)):
             dict[key] = map
@@ -768,7 +774,7 @@ extension MapperMap : OutMap {
             array[index] = map
             self = .array(array)
         default:
-            throw MapperMapOutMapError.incompatibleType
+            throw OutMappingError.incompatibleType
         }
     }
     
@@ -798,22 +804,22 @@ extension MapperMap : OutMap {
         return nil
     }
     
-    public static func from(_ int: Int) -> MapperMap? {
+    public static func fromInt(_ int: Int) -> MapperMap? {
         return MapperMap.int(int)
     }
     
-    public static func from(_ double: Double) -> MapperMap? {
+    public static func fromDouble(_ double: Double) -> MapperMap? {
         return MapperMap.double(double)
     }
-
-    public static func from(_ bool: Bool) -> MapperMap? {
+    
+    public static func fromBool(_ bool: Bool) -> MapperMap? {
         return MapperMap.bool(bool)
     }
-
-    public static func from(_ string: String) -> MapperMap? {
+    
+    public static func fromString(_ string: String) -> MapperMap? {
         return MapperMap.string(string)
     }
-
+    
 }
 ```
 
@@ -821,6 +827,28 @@ And our neomap counterpart:
 
 ```swift
 extension MapperNeomap : OutMap {
+    
+    public static var blank: MapperNeomap {
+        return .dictionary([:])
+    }
+    
+    public enum OutMappingError : Error {
+        case incompatibleType
+    }
+    
+    public mutating func set(_ map: MapperNeomap?, at indexPath: IndexPathValue) throws {
+        guard let map = map else { return }
+        switch (indexPath, self) {
+        case (.key(let key), .dictionary(var dict)):
+            dict[key] = map
+            self = .dictionary(dict)
+        case (.index(let index), .array(var array)):
+            array[index] = map
+            self = .array(array)
+        default:
+            throw OutMappingError.incompatibleType
+        }
+    }
     
     public static func from<T>(_ value: T) -> MapperNeomap? {
         if let string = value as? String {
@@ -850,22 +878,26 @@ extension MapperNeomap : OutMap {
         return nil
     }
     
-    public static func from(_ int: Int) -> MapperNeomap? {
+    public static func fromInt(_ int: Int) -> MapperNeomap? {
         return .int32(Int32(int))
     }
     
-    public static func from(_ double: Double) -> MapperNeomap? {
+    public static func fromDouble(_ double: Double) -> MapperNeomap? {
         return .float(Float(double))
     }
     
-    public static func from(_ bool: Bool) -> MapperNeomap? {
+    public static func fromBool(_ bool: Bool) -> MapperNeomap? {
         return .bool(bool)
     }
     
-    public static func from(_ string: String) -> MapperNeomap? {
+    public static func fromString(_ string: String) -> MapperNeomap? {
         return .string(string)
     }
-
+    
+    public static func fromArray(_ array: [MapperNeomap]) -> MapperNeomap? {
+        return .array(array)
+    }
+    
 }
 ```
 

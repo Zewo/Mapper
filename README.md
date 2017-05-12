@@ -528,8 +528,7 @@ Or type `context mappable` and you see this:
 
 ## Mapper-compatible libraries
 
-- Zewo/Map
-- Zewo/JSON
+*Soon*
 
 ## Adopting Mapper
 
